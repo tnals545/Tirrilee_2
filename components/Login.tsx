@@ -1,17 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import styled from "styled-components";
+import NavBar from "./Nav_Bar";
 
 //styled-components
 export default function Login() {
   return (
     <div>
-      <div>
-        <Image src="/tirrilee-logo.png" alt="logo" width={180} height={50} />
-        <span>추가하기</span>
-        <span>마이페이지</span>
-      </div>
-
+      <NavBar />
       <header>
         <Image src="/tirrilee-logo.png" alt="logo" width={180} height={50} />
       </header>

@@ -19,7 +19,7 @@ export default function NavBar() {
         />
         <div className="nav-bar--menu">
           <div className="nav-bar--menu">
-            <FontAwesomeIcon icon={faCirclePlus} />
+            <FontAwesomeIcon icon={faCirclePlus} className="add" />
             <span className="nav-bar--menu__add">추가하기</span>
           </div>
           <div>
