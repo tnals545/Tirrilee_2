@@ -1,4 +1,5 @@
 import NavBar from "../../components/Nav_Bar";
+import store from "../../redux/store";
 
 export default function Home() {
   return (
