@@ -4,8 +4,8 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 import { useRef, useState } from "react";
-import { userEmail, userPassword } from "../redux/reducers";
-import { dispatch } from "../redux/store";
+import { userEmail, userPassword } from "redux/reducers";
+import { dispatch } from "redux/store";
 
 interface Password {
   type: string;

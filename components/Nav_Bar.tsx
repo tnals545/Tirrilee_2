@@ -19,20 +19,20 @@ export default function NavBar() {
           height={50}
         />
         <div className="nav-bar--menu">
-          <div
+          <span
             onClick={() => router.push("/prod-upload")}
             className="nav-bar--menu__add"
           >
             <FontAwesomeIcon icon={faCirclePlus} className="add" />
             <span>추가하기</span>
-          </div>
-          <div
+          </span>
+          <span
             onClick={() => router.push("/mypage")}
             className="nav-bar--menu__mypage"
           >
             <FontAwesomeIcon icon={faUser} />
             <span>마이페이지</span>
-          </div>
+          </span>
         </div>
       </div>
     </>

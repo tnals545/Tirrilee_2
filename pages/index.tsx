@@ -1,5 +1,5 @@
-import Login from "../components/Login";
-import Title from "../components/Title";
+import Login from "components/Login";
+import Title from "components/Title";
 
 export default function Main() {
   return (

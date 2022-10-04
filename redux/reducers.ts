@@ -6,11 +6,29 @@ interface UserState {
   password: string | undefined;
 }
 
-const initialState = { email: "", password: "" } as UserState;
+interface ProdState {
+  seller: string;
+  src: string;
+  category: string;
+  name: string;
+  price: string;
+  description: string;
+}
+
+const userInitState = { email: "", password: "" } as UserState;
+
+const prodInitState = {
+  seller: "",
+  src: "",
+  category: "",
+  name: "",
+  price: "",
+  description: "",
+} as ProdState;
 
 const userSlice = createSlice({
   name: "user",
-  initialState,
+  initialState: userInitState,
   reducers: {
     userEmail(state, action: PayloadAction<string | undefined>) {
       state.email = action.payload;
@@ -18,6 +36,19 @@ const userSlice = createSlice({
     userPassword(state, action: PayloadAction<string | undefined>) {
       state.password = action.payload;
     },
+  },
+});
+
+const prodSlice = createSlice({
+  name: "prod info",
+  initialState: prodInitState,
+  reducers: {
+    prodSeller() {},
+    prodSrc() {},
+    prodCategory() {},
+    prodName() {},
+    prodPrice() {},
+    prodDescription() {},
   },
 });
 
