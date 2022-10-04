@@ -26,7 +26,10 @@ export default function Home() {
       </header>
 
       <main className="product-main">
-        {/* div box 특성 제거해야함 */}
+        {/* 
+        - div box 특성 제거해야함 
+        - 상품 추가될 때마다 state, props 받아서 생성해주는 컴포넌트 만들기
+        */}
         <div className="product-info">
           <Image
             src="/ecobag/ecobag_0.png"
