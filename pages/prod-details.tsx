@@ -6,7 +6,7 @@ import { useState } from "react";
 import ProdUploadOrEdit from "components/ProdUploadOrEdit";
 export default function ProdDetails() {
   // 내가 등록한 상품 삭제/수정 시 확인팝업 뜨기
-  const [edit, setEdit] = useState(true);
+  // const [edit, setEdit] = useState(true);
   return (
     <>
       <NavBar />
@@ -35,7 +35,7 @@ export default function ProdDetails() {
         {/* 판매자 프로필 */}
       </div>
       {/* 내가 등록한 상품 ? 삭제/수정 버튼 : null */}
-      <ProdUploadOrEdit edit={edit} />
+      {/* <ProdUploadOrEdit edit={edit} /> */}
     </>
   );
 }
