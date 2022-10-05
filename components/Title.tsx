@@ -5,7 +5,7 @@ interface Title {
 }
 
 // page title setting
-export default function Title({ title }: Title) {
+const Title = ({ title }: Title) => {
   return (
     <>
       <Head>
@@ -13,4 +13,6 @@ export default function Title({ title }: Title) {
       </Head>
     </>
   );
-}
+};
+
+export default Title;

@@ -1,8 +1,10 @@
 import NavBar from "components/Nav_Bar";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState(true);
   return (
     <>
       <NavBar />
