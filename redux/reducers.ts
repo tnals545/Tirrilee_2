@@ -5,7 +5,7 @@ interface UserState {
   email: string | undefined;
   password: string | undefined;
   nickname: string | undefined;
-  uploadlist: any[] | undefined;
+  uploadlist: object[] | undefined;
 }
 
 interface ProdState {
@@ -15,7 +15,7 @@ interface ProdState {
 const userInitState: UserState = {
   email: "",
   password: "",
-  nickname: "",
+  nickname: "프로필",
   uploadlist: [],
 };
 
@@ -33,7 +33,7 @@ const userSlice = createSlice({
     userPassword(state, action: PayloadAction<string | undefined>) {
       state.password = action.payload;
     },
-    userNickname(state, action: PayloadAction<string | undefined>) {
+    userNickName(state, action: PayloadAction<string | undefined>) {
       state.nickname = action.payload;
     },
     userUploadList(state, action: PayloadAction<object>) {
@@ -52,7 +52,7 @@ const prodInfoSlice = createSlice({
   },
 });
 
-export const { userEmail, userPassword, userNickname, userUploadList } =
+export const { userEmail, userPassword, userNickName, userUploadList } =
   userSlice.actions;
 export const { prodInfo } = prodInfoSlice.actions;
 export const userReducer = userSlice.reducer;

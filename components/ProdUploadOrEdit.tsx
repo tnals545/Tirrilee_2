@@ -8,7 +8,7 @@ interface Props {
 }
 
 interface ProdInfo {
-  user: string;
+  seller: string;
   key: number;
   src: string;
   category: string;
@@ -19,7 +19,7 @@ interface ProdInfo {
 
 const ProdUploadOrEdit = () => {
   const prodInfoObj: ProdInfo = {
-    user: "",
+    seller: "",
     key: 0,
     src: "",
     category: "",
@@ -95,7 +95,7 @@ const ProdUploadOrEdit = () => {
           <button>기타상품</button>
         </div>
         {/* edit ? 수정하기 : 완료 */}
-        {/* {edit ? <button>수정하기</button> : <button>완료</button>} */}
+        <button>완료</button>
       </div>
     </>
   );
