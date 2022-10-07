@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import { prodInfo } from "redux/reducers";
 import store from "redux/store";
 import NavBar from "./Nav_Bar";
 

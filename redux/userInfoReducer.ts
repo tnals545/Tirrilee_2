@@ -1,37 +1,34 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-interface UserState {
+interface UserInfoState {
   email: string | undefined;
   password: string | undefined;
+  isLogin: boolean;
   nickname: string | undefined;
   uploadlist: object[] | undefined;
 }
 
-interface ProdState {
-  info: object;
-}
-
-const userInitState: UserState = {
+const userInfoInitState: UserInfoState = {
   email: "",
   password: "",
+  isLogin: false,
   nickname: "프로필",
   uploadlist: [],
 };
 
-const prodInitState: ProdState = {
-  info: {},
-};
-
-const userSlice = createSlice({
-  name: "user",
-  initialState: userInitState,
+const userInfoSlice = createSlice({
+  name: "userInfo",
+  initialState: userInfoInitState,
   reducers: {
     userEmail(state, action: PayloadAction<string | undefined>) {
       state.email = action.payload;
     },
     userPassword(state, action: PayloadAction<string | undefined>) {
       state.password = action.payload;
+    },
+    userIsLogin(state, action: PayloadAction<boolean>) {
+      state.isLogin = action.payload;
     },
     userNickName(state, action: PayloadAction<string | undefined>) {
       state.nickname = action.payload;
@@ -42,18 +39,11 @@ const userSlice = createSlice({
   },
 });
 
-const prodInfoSlice = createSlice({
-  name: "prod info",
-  initialState: prodInitState,
-  reducers: {
-    prodInfo(state, action: PayloadAction<object>) {
-      state.info = action.payload;
-    },
-  },
-});
-
-export const { userEmail, userPassword, userNickName, userUploadList } =
-  userSlice.actions;
-export const { prodInfo } = prodInfoSlice.actions;
-export const userReducer = userSlice.reducer;
-export const prodReducer = prodInfoSlice.reducer;
+export const {
+  userEmail,
+  userPassword,
+  userIsLogin,
+  userNickName,
+  userUploadList,
+} = userInfoSlice.actions;
+export const userInfoReducer = userInfoSlice.reducer;

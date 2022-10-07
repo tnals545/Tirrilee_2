@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 import { useRef, useState } from "react";
-import { userEmail, userPassword } from "redux/reducers";
+import { userEmail, userIsLogin, userPassword } from "redux/userInfoReducer";
 import { dispatch } from "redux/store";
 
 interface Password {
@@ -26,6 +26,7 @@ export default function Login() {
     const pwValue = pwRef.current?.value;
     dispatch(userEmail(emailValue));
     dispatch(userPassword(pwValue));
+    dispatch(userIsLogin(true));
   };
 
   // 비밀번호 보기/숨기기
