@@ -55,15 +55,11 @@ const ProdUploadOrEdit = () => {
     prodInfoObj.key = theFile.lastModified;
   };
 
-  const onCompleteClick = () => {
-    prodInfoObj.seller = store.getState().userInfo.nickname;
-    dispatch(prodInfo(prodInfoObj));
-  };
-
   const onCategoryClick = (e: any) => {
     const {
       target: { textContent },
     } = e;
+    prodInfoObj.category = textContent;
     if (textContent === "에코백") {
       // 버튼 활성화(파란색)
     } else if (textContent === "티셔츠") {
@@ -71,6 +67,11 @@ const ProdUploadOrEdit = () => {
     } else if (textContent === "기타상품") {
       // 버튼 활성화(파란색)
     }
+  };
+
+  const onCompleteClick = () => {
+    prodInfoObj.seller = store.getState().userInfo.nickname;
+    dispatch(prodInfo(prodInfoObj));
   };
   return (
     <>
