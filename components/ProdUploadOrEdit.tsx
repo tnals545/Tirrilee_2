@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
 import store from "redux/store";
 import NavBar from "./Nav_Bar";
+import { dispatch } from "redux/store";
+import { prodInfo } from "redux/prodReducer";
 
 interface Props {
   edit: boolean;
@@ -28,17 +30,15 @@ const ProdUploadOrEdit = () => {
   };
 
   const handleInputChange = (e: any) => {
-    const type = e.target.className;
-    const value = e.target.value;
-
-    if (type === "name") {
+    const {
+      target: { className, value },
+    } = e;
+    if (className === "name") {
       prodInfoObj.name = value;
-    } else if (type === "price") {
+    } else if (className === "price") {
       prodInfoObj.price = value;
-    } else if (type === "detail") {
+    } else if (className === "detail") {
       prodInfoObj.description = value;
-    } else {
-      return;
     }
   };
 
@@ -53,6 +53,24 @@ const ProdUploadOrEdit = () => {
     };
     reader.readAsDataURL(theFile);
     prodInfoObj.key = theFile.lastModified;
+  };
+
+  const onCompleteClick = () => {
+    prodInfoObj.seller = store.getState().userInfo.nickname;
+    dispatch(prodInfo(prodInfoObj));
+  };
+
+  const onCategoryClick = (e: any) => {
+    const {
+      target: { textContent },
+    } = e;
+    if (textContent === "에코백") {
+      // 버튼 활성화(파란색)
+    } else if (textContent === "티셔츠") {
+      // 버튼 활성화(파란색)
+    } else if (textContent === "기타상품") {
+      // 버튼 활성화(파란색)
+    }
   };
   return (
     <>
@@ -89,12 +107,12 @@ const ProdUploadOrEdit = () => {
           />
         </div>
         <div className="prod-upload__info--category">
-          <button>에코백</button>
-          <button>티셔츠</button>
-          <button>기타상품</button>
+          <button onClick={onCategoryClick}>에코백</button>
+          <button onClick={onCategoryClick}>티셔츠</button>
+          <button onClick={onCategoryClick}>기타상품</button>
         </div>
         {/* edit ? 수정하기 : 완료 */}
-        <button>완료</button>
+        <button onClick={onCompleteClick}>완료</button>
       </div>
     </>
   );

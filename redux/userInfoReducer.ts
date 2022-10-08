@@ -5,7 +5,7 @@ interface UserInfoState {
   email: string | undefined;
   password: string | undefined;
   isLogin: boolean;
-  nickname: string | undefined;
+  nickname: string;
   uploadlist: object[] | undefined;
 }
 
@@ -13,7 +13,7 @@ const userInfoInitState: UserInfoState = {
   email: "",
   password: "",
   isLogin: false,
-  nickname: "프로필",
+  nickname: "티릴리",
   uploadlist: [],
 };
 
@@ -30,7 +30,7 @@ const userInfoSlice = createSlice({
     userIsLogin(state, action: PayloadAction<boolean>) {
       state.isLogin = action.payload;
     },
-    userNickName(state, action: PayloadAction<string | undefined>) {
+    userNickName(state, action: PayloadAction<string>) {
       state.nickname = action.payload;
     },
     userUploadList(state, action: PayloadAction<object>) {
