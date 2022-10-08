@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import store from "redux/store";
 import NavBar from "./Nav_Bar";
 import { dispatch } from "redux/store";
@@ -19,6 +19,20 @@ interface ProdInfo {
 }
 
 const ProdUploadOrEdit = () => {
+  const categories: string[] = ["에코백", "티셔츠", "기타물품"];
+  const contents = [
+    {
+      head: "제품명",
+      className: "name",
+      placeholder: "제품명을 입력해주세요.",
+    },
+    { head: "가격", className: "price", placeholder: "0 원" },
+    {
+      head: "상세 설명",
+      className: "detail",
+      placeholder: "상세한 상품 설명을 입력해주세요.",
+    },
+  ];
   const prodInfoObj: ProdInfo = {
     seller: "",
     key: 0,
@@ -28,6 +42,7 @@ const ProdUploadOrEdit = () => {
     price: "",
     description: "",
   };
+  const [btnActive, setBtnActive] = useState();
 
   const handleInputChange = (e: any) => {
     const {
@@ -57,16 +72,10 @@ const ProdUploadOrEdit = () => {
 
   const onCategoryClick = (e: any) => {
     const {
-      target: { textContent },
+      target: { textContent, value },
     } = e;
     prodInfoObj.category = textContent;
-    if (textContent === "에코백") {
-      // 버튼 활성화(파란색)
-    } else if (textContent === "티셔츠") {
-      // 버튼 활성화(파란색)
-    } else if (textContent === "기타상품") {
-      // 버튼 활성화(파란색)
-    }
+    setBtnActive(value); // 버튼 활성화 추가해야됨(파란색)
   };
 
   const onCompleteClick = () => {
@@ -85,32 +94,34 @@ const ProdUploadOrEdit = () => {
       </div>
       <div className="prod-upload__info">
         <div className="prod-upload__info--text">
-          <h4>제품명</h4>
-          <input
-            onChange={handleInputChange}
-            className="name"
-            type="text"
-            placeholder="제품명을 입력해주세요."
-          />
-          <h4>가격</h4>
-          <input
-            onChange={handleInputChange}
-            className="price"
-            type="text"
-            placeholder="0 원"
-          />
-          <h4>상세 설명</h4>
-          <input
-            onChange={handleInputChange}
-            className="detail"
-            type="text"
-            placeholder="상세한 상품 설명을 입력해주세요."
-          />
+          {contents.map((content, idx) => {
+            return (
+              <>
+                <h4>{content.head}</h4>
+                <input
+                  onChange={handleInputChange}
+                  className={content.className}
+                  type="text"
+                  placeholder={content.placeholder}
+                />
+              </>
+            );
+          })}
         </div>
         <div className="prod-upload__info--category">
-          <button onClick={onCategoryClick}>에코백</button>
-          <button onClick={onCategoryClick}>티셔츠</button>
-          <button onClick={onCategoryClick}>기타상품</button>
+          {categories.map((category, idx) => {
+            return (
+              <>
+                <button
+                  value={idx}
+                  className={`btn ${idx == btnActive ? "active" : ""}`}
+                  onClick={onCategoryClick}
+                >
+                  {category}
+                </button>
+              </>
+            );
+          })}
         </div>
         {/* edit ? 수정하기 : 완료 */}
         <button onClick={onCompleteClick}>완료</button>
