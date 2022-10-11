@@ -1,8 +1,14 @@
 import { useEffect, useRef, useState } from "react";
+import router from "next/router";
+import Image from "next/image";
+
 import store from "redux/store";
 import NavBar from "./Nav_Bar";
 import { dispatch } from "redux/store";
 import { prodInfo } from "redux/prodReducer";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 
 interface Props {
   edit: boolean;
@@ -43,6 +49,7 @@ const ProdUploadOrEdit = () => {
     description: "",
   };
   const [btnActive, setBtnActive] = useState();
+  const [imageSrc, setImageSrc] = useState<any>();
 
   const handleInputChange = (e: any) => {
     const {
@@ -63,11 +70,14 @@ const ProdUploadOrEdit = () => {
     } = e;
     const theFile = files[0];
     const reader = new FileReader();
-    reader.onloadend = (readerEvent) => {
-      prodInfoObj.src = JSON.stringify(readerEvent.target?.result);
-    };
-    reader.readAsDataURL(theFile);
     prodInfoObj.key = theFile.lastModified;
+    reader.readAsDataURL(theFile);
+    return new Promise((resolve) => {
+      reader.onloadend = () => {
+        setImageSrc(reader.result);
+        // prodInfoObj.src = JSON.stringify(readerEvent.target?.result);
+      };
+    });
   };
 
   const onCategoryClick = (e: any) => {
@@ -85,12 +95,12 @@ const ProdUploadOrEdit = () => {
   return (
     <>
       <NavBar />
-      {/* 뒤로가기 버튼 */}
+      <FontAwesomeIcon onClick={() => router.back()} icon={faArrowLeftLong} />
       {/* (수정하기 true/false props로 받아서 판단) */}
       {/* {edit ? <h1>수정하기</h1> : null} */}
       <div className="prod-upload__img">
-        {/* 등록할 상품 이미지 preview */}
         <input onChange={onFileChange} type="file" accept="image/*" />
+        {prodInfoObj.src && <Image src={imageSrc} alt="preview-img" />}
       </div>
       <div className="prod-upload__info">
         <div className="prod-upload__info--text">
