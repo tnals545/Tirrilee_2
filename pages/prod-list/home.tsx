@@ -1,10 +1,13 @@
 import NavBar from "components/Nav_Bar";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { ProdListState } from "redux/prodReducer";
+import store from "redux/store";
 
-export default function Home() {
+const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const products: ProdListState = store.getState().userInfo.uploadlist;
   return (
     <>
       <NavBar />
@@ -32,35 +35,25 @@ export default function Home() {
         - div box 특성 제거해야함 
         - 상품 추가될 때마다 state, props 받아서 생성해주는 컴포넌트 만들기
         */}
-        <div className="product-info">
-          <Image
-            src="/ecobag/ecobag_0.png"
-            alt="ecobag"
-            width={274}
-            height={274}
-          />
-          <span>에코백</span>
-          <span>깔끔하고 이쁜 화이트 컬러 에코백</span>
-          <span>10,000원</span>
-        </div>
-        <div className="product-info">
-          <Image
-            src="/t_shirts/t_shirts_0.jpg"
-            alt="t-shirts"
-            width={274}
-            height={274}
-          />
-          <span>티셔츠</span>
-          <span>네이비 컬러 티셔츠</span>
-          <span>20,000원</span>
-        </div>
-        <div className="product-info">
-          <Image src="/etc/etc_0.jpg" alt="ecobag" width={274} height={274} />
-          <span>기타물품</span>
-          <span>깔끔한 손목시계</span>
-          <span>30,000원</span>
-        </div>
+        {products &&
+          products.map((prod) => {
+            return (
+              <div key={prod.key} className="product-info">
+                <Image
+                  src={prod.src}
+                  alt={prod.name}
+                  width={274}
+                  height={274}
+                />
+                <span>{prod.category}</span>
+                <span>{prod.name}</span>
+                <span>{prod.price}</span>
+              </div>
+            );
+          })}
       </main>
     </>
   );
-}
+};
+
+export default Home;

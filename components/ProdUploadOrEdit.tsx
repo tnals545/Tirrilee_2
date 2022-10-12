@@ -26,6 +26,7 @@ interface Props {
 const ProdUploadOrEdit = () => {
   const categories: string[] = ["에코백", "티셔츠", "기타물품"];
   const [btnActive, setBtnActive] = useState();
+  const [imageSrc, setImageSrc] = useState<any>("");
   const [isRender, setIsRender] = useState(false);
 
   const handleInputChange = (e: any) => {
@@ -48,6 +49,7 @@ const ProdUploadOrEdit = () => {
     return new Promise<void>((resolve) => {
       reader.onload = () => {
         dispatch(prodSrc(reader.result));
+        setImageSrc(reader.result);
         setIsRender((prev) => !prev);
         resolve();
       };
@@ -79,13 +81,8 @@ const ProdUploadOrEdit = () => {
         }}
       />
       <div className="preview">
-        {store.getState().prods.src && (
-          <Image
-            src={store.getState().prods.src}
-            alt="preview-img"
-            width={500}
-            height={500}
-          />
+        {imageSrc && (
+          <Image src={imageSrc} alt="preview-img" width={500} height={500} />
         )}
       </div>
       <div className="prod-upload__info">

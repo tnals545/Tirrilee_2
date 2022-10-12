@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-interface ProdState {
+export interface ProdState {
   seller: string;
   key: number;
   src: string;
@@ -10,6 +10,9 @@ interface ProdState {
   price: string;
   description: string;
 }
+
+export interface ProdListState extends Array<ProdState> {}
+
 const prodInitState: ProdState = {
   seller: "",
   key: 0,
