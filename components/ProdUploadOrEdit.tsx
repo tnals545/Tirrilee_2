@@ -2,80 +2,54 @@ import { useEffect, useRef, useState } from "react";
 import router from "next/router";
 import Image from "next/image";
 
-import store from "redux/store";
 import NavBar from "./Nav_Bar";
-import { dispatch } from "redux/store";
-import { prodInfo } from "redux/prodReducer";
+import store, { dispatch } from "redux/store";
+import {
+  prodSeller,
+  prodKey,
+  prodSrc,
+  prodCategory,
+  prodName,
+  prodPrice,
+  prodDescription,
+} from "redux/prodReducer";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
+import { userUploadList } from "redux/userInfoReducer";
+import Link from "next/link";
 
 interface Props {
   edit: boolean;
 }
 
-interface ProdInfo {
-  seller: string;
-  key: number;
-  src: string;
-  category: string;
-  name: string;
-  price: string;
-  description: string;
-}
-
 const ProdUploadOrEdit = () => {
   const categories: string[] = ["에코백", "티셔츠", "기타물품"];
-  const contents = [
-    {
-      head: "제품명",
-      className: "name",
-      placeholder: "제품명을 입력해주세요.",
-    },
-    { head: "가격", className: "price", placeholder: "0 원" },
-    {
-      head: "상세 설명",
-      className: "detail",
-      placeholder: "상세한 상품 설명을 입력해주세요.",
-    },
-  ];
-  const prodInfoObj: ProdInfo = {
-    seller: "",
-    key: 0,
-    src: "",
-    category: "",
-    name: "",
-    price: "",
-    description: "",
-  };
   const [btnActive, setBtnActive] = useState();
-  const [imageSrc, setImageSrc] = useState<any>();
+  const [isRender, setIsRender] = useState(false);
 
   const handleInputChange = (e: any) => {
     const {
       target: { className, value },
     } = e;
     if (className === "name") {
-      prodInfoObj.name = value;
+      dispatch(prodName(value));
     } else if (className === "price") {
-      prodInfoObj.price = value;
+      dispatch(prodPrice(value));
     } else if (className === "detail") {
-      prodInfoObj.description = value;
+      dispatch(prodDescription(value));
     }
   };
 
-  const onFileChange = (e: any) => {
-    const {
-      target: { files },
-    } = e;
-    const theFile = files[0];
+  const encodeFileToBase64 = (fileBlob: any) => {
     const reader = new FileReader();
-    prodInfoObj.key = theFile.lastModified;
-    reader.readAsDataURL(theFile);
-    return new Promise((resolve) => {
-      reader.onloadend = () => {
-        setImageSrc(reader.result);
-        // prodInfoObj.src = JSON.stringify(readerEvent.target?.result);
+    dispatch(prodKey(fileBlob.lastModified));
+    reader.readAsDataURL(fileBlob);
+    return new Promise<void>((resolve) => {
+      reader.onload = () => {
+        dispatch(prodSrc(reader.result));
+        setIsRender((prev) => !prev);
+        resolve();
       };
     });
   };
@@ -84,13 +58,13 @@ const ProdUploadOrEdit = () => {
     const {
       target: { textContent, value },
     } = e;
-    prodInfoObj.category = textContent;
+    dispatch(prodCategory(textContent));
     setBtnActive(value); // 버튼 활성화 추가해야됨(파란색)
   };
 
   const onCompleteClick = () => {
-    prodInfoObj.seller = store.getState().userInfo.nickname;
-    dispatch(prodInfo(prodInfoObj));
+    dispatch(prodSeller(store.getState().userInfo.nickname));
+    dispatch(userUploadList(store.getState().prods));
   };
   return (
     <>
@@ -98,43 +72,64 @@ const ProdUploadOrEdit = () => {
       <FontAwesomeIcon onClick={() => router.back()} icon={faArrowLeftLong} />
       {/* (수정하기 true/false props로 받아서 판단) */}
       {/* {edit ? <h1>수정하기</h1> : null} */}
-      <div className="prod-upload__img">
-        <input onChange={onFileChange} type="file" accept="image/*" />
-        {prodInfoObj.src && <Image src={imageSrc} alt="preview-img" />}
+      <input
+        type="file"
+        onChange={(e: any) => {
+          encodeFileToBase64(e.target.files[0]);
+        }}
+      />
+      <div className="preview">
+        {store.getState().prods.src && (
+          <Image
+            src={store.getState().prods.src}
+            alt="preview-img"
+            width={500}
+            height={500}
+          />
+        )}
       </div>
       <div className="prod-upload__info">
         <div className="prod-upload__info--text">
-          {contents.map((content, idx) => {
-            return (
-              <>
-                <h4>{content.head}</h4>
-                <input
-                  onChange={handleInputChange}
-                  className={content.className}
-                  type="text"
-                  placeholder={content.placeholder}
-                />
-              </>
-            );
-          })}
+          <h4>제품명</h4>
+          <input
+            onChange={handleInputChange}
+            className="name"
+            type="text"
+            placeholder="제품명을 입력해주세요."
+          />
+          <h4>가격</h4>
+          <input
+            onChange={handleInputChange}
+            className="price"
+            type="text"
+            placeholder="0 원"
+          />
+          <h4>상세 설명</h4>
+          <input
+            onChange={handleInputChange}
+            className="detail"
+            type="text"
+            placeholder="상세한 상품 설명을 입력해주세요."
+          />
         </div>
         <div className="prod-upload__info--category">
           {categories.map((category, idx) => {
             return (
-              <>
-                <button
-                  value={idx}
-                  className={`btn ${idx == btnActive ? "active" : ""}`}
-                  onClick={onCategoryClick}
-                >
-                  {category}
-                </button>
-              </>
+              <button
+                key={category}
+                value={idx}
+                className={`btn ${idx == btnActive ? "active" : ""}`}
+                onClick={onCategoryClick}
+              >
+                {category}
+              </button>
             );
           })}
         </div>
         {/* edit ? 수정하기 : 완료 */}
-        <button onClick={onCompleteClick}>완료</button>
+        <Link href={"/prod-list/home"}>
+          <button onClick={onCompleteClick}>완료</button>
+        </Link>
       </div>
     </>
   );
