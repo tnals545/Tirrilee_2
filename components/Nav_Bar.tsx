@@ -4,6 +4,7 @@ import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import styled from "styled-components";
 import router from "next/router";
+import store from "redux/store";
 
 //styled-components
 
@@ -12,6 +13,13 @@ export default function NavBar() {
     <>
       <div className="nav-bar">
         <Image
+          onClick={() => {
+            if (store.getState().userInfo.isLogin) {
+              router.push("/prod-list/home");
+            } else {
+              router.push("/");
+            }
+          }}
           className="nav-bar__logo"
           src="/tirrilee-logo.png"
           alt="logo"

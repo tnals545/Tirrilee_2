@@ -29,6 +29,10 @@ const ProdUploadOrEdit = () => {
   const [imageSrc, setImageSrc] = useState<any>("");
   const [isRender, setIsRender] = useState(false);
 
+  const changePrice = (price: number) => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
   const handleInputChange = (e: any) => {
     const {
       target: { className, value },
@@ -36,7 +40,7 @@ const ProdUploadOrEdit = () => {
     if (className === "name") {
       dispatch(prodName(value));
     } else if (className === "price") {
-      dispatch(prodPrice(value));
+      dispatch(prodPrice(changePrice(value)));
     } else if (className === "detail") {
       dispatch(prodDescription(value));
     }
@@ -67,6 +71,7 @@ const ProdUploadOrEdit = () => {
   const onCompleteClick = () => {
     dispatch(prodSeller(store.getState().userInfo.nickname));
     dispatch(userUploadList(store.getState().prods));
+    console.log(store.getState().userInfo);
   };
   return (
     <>
@@ -98,8 +103,8 @@ const ProdUploadOrEdit = () => {
           <input
             onChange={handleInputChange}
             className="price"
-            type="text"
-            placeholder="0 원"
+            type="number"
+            placeholder="숫자만 입력해주세요."
           />
           <h4>상세 설명</h4>
           <input

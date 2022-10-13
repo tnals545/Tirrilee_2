@@ -1,13 +1,16 @@
 import NavBar from "components/Nav_Bar";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
-import { ProdListState } from "redux/prodReducer";
+import { useState, useRef, useEffect } from "react";
+import { ProdListState, ProdState } from "redux/prodReducer";
 import store from "redux/store";
+import router from "next/router";
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [prodInfo, setProdInfo] = useState<any>();
   const products: ProdListState = store.getState().userInfo.uploadlist;
+
   return (
     <>
       <NavBar />
@@ -38,16 +41,25 @@ const Home = () => {
         {products &&
           products.map((prod) => {
             return (
-              <div key={prod.key} className="product-info">
-                <Image
-                  src={prod.src}
-                  alt={prod.name}
-                  width={274}
-                  height={274}
-                />
+              <div key={prod.key} className={"product-info"}>
+                <Link
+                  href={{
+                    pathname: `/prod-details/[key]`,
+                    query: { prodInfo: JSON.stringify(prod) },
+                  }}
+                  as={`/prod-details/${prod.key}`}
+                >
+                  <Image
+                    id={`${prod.key}`}
+                    src={prod.src}
+                    alt={prod.name}
+                    width={274}
+                    height={274}
+                  />
+                </Link>
                 <span>{prod.category}</span>
                 <span>{prod.name}</span>
-                <span>{prod.price}</span>
+                <span>{prod.price}원</span>
               </div>
             );
           })}
