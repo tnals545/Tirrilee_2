@@ -5,7 +5,6 @@ import Image from "next/image";
 import NavBar from "./Nav_Bar";
 import store, { dispatch } from "redux/store";
 import {
-  prodSeller,
   prodKey,
   prodSrc,
   prodCategory,
@@ -18,6 +17,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import { userUploadList } from "redux/userInfoReducer";
 import Link from "next/link";
+import { userAdd } from "redux/userReducer";
 
 interface Props {
   edit: boolean;
@@ -69,9 +69,7 @@ const ProdUploadOrEdit = () => {
   };
 
   const onCompleteClick = () => {
-    dispatch(prodSeller(store.getState().userInfo.nickname));
     dispatch(userUploadList(store.getState().prods));
-    console.log(store.getState().userInfo);
   };
   return (
     <>

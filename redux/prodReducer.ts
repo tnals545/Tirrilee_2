@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface ProdState {
-  seller: string;
   key: number;
   src: string;
   category: string;
@@ -13,8 +12,7 @@ export interface ProdState {
 
 export interface ProdListState extends Array<ProdState> {}
 
-const prodInitState: ProdState = {
-  seller: "",
+const userProdInitialState: ProdState = {
   key: 0,
   src: "",
   category: "",
@@ -25,11 +23,8 @@ const prodInitState: ProdState = {
 
 const prodInfoSlice = createSlice({
   name: "prod_info",
-  initialState: prodInitState,
+  initialState: userProdInitialState,
   reducers: {
-    prodSeller(state, action: PayloadAction<string>) {
-      state.seller = action.payload;
-    },
     prodKey(state, action: PayloadAction<number>) {
       state.key = action.payload;
     },
@@ -52,7 +47,6 @@ const prodInfoSlice = createSlice({
 });
 
 export const {
-  prodSeller,
   prodKey,
   prodSrc,
   prodCategory,
@@ -60,4 +54,5 @@ export const {
   prodPrice,
   prodDescription,
 } = prodInfoSlice.actions;
+
 export const prodReducer = prodInfoSlice.reducer;

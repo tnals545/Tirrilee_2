@@ -1,29 +1,37 @@
 import React, { useRef, useState, useEffect } from "react";
-import { userIsLogin, userNickName } from "redux/userInfoReducer";
+import { reset, userIsLogin, userNickName } from "redux/userInfoReducer";
 import store, { dispatch } from "redux/store";
 import router from "next/router";
+import NavBar from "components/Nav_Bar";
+import { userDataSave } from "redux/userReducer";
 
 const Profile = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const userNick = store.getState().userInfo.nickname;
   const [newNickName, setNewNickName] = useState(userNick);
   const [isEdit, setIsEdit] = useState(false);
+
   const onLogOutClick = () => {
     dispatch(userIsLogin(false));
+    dispatch(userDataSave({ users: store.getState().userInfo }));
+    dispatch(reset());
     router.push("/");
   };
+
   const onChange = (e: any) => {
     const {
       target: { value },
     } = e;
     setNewNickName(value);
   };
+
   const onSubmit = (e: any) => {
     e.preventDefault();
     if (userNick !== newNickName) {
       dispatch(userNickName(newNickName));
     }
   };
+
   const onClick = (e: any) => {
     const {
       target: { value },
@@ -48,6 +56,7 @@ const Profile = () => {
   }, [isEdit]);
   return (
     <>
+      <NavBar />
       <form onSubmit={onSubmit}>
         {isEdit ? null : <h1>{newNickName}</h1>}
         <input

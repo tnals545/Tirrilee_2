@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { ProdListState, ProdState } from "./prodReducer";
 
-interface UserInfoState<T> {
+export interface UserInfoState<T> {
   email: string | undefined;
   password: string | undefined;
   isLogin: boolean;
@@ -10,7 +10,7 @@ interface UserInfoState<T> {
   uploadlist: T;
 }
 
-const userInfoInitState: UserInfoState<ProdListState> = {
+const userInfoInitialState: UserInfoState<ProdListState> = {
   email: "",
   password: "",
   isLogin: false,
@@ -20,7 +20,7 @@ const userInfoInitState: UserInfoState<ProdListState> = {
 
 const userInfoSlice = createSlice({
   name: "userInfo",
-  initialState: userInfoInitState,
+  initialState: userInfoInitialState,
   reducers: {
     userEmail(state, action: PayloadAction<string | undefined>) {
       state.email = action.payload;
@@ -37,6 +37,9 @@ const userInfoSlice = createSlice({
     userUploadList(state, action: PayloadAction<ProdState>) {
       state.uploadlist?.push(action.payload);
     },
+    reset(state) {
+      Object.assign(state, userInfoInitialState);
+    },
   },
 });
 
@@ -46,5 +49,7 @@ export const {
   userIsLogin,
   userNickName,
   userUploadList,
+  reset,
 } = userInfoSlice.actions;
+
 export const userInfoReducer = userInfoSlice.reducer;

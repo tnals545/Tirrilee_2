@@ -1,23 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import { UserInfoState } from "./userInfoReducer";
+import { ProdListState } from "./prodReducer";
 
-interface User {
-  users: object[];
+export interface User<T> {
+  [user: string]: T;
 }
 
-const userInitState: User = {
-  users: [],
-};
+export interface UserListState<T> extends Array<User<T>> {}
+
+const userInitialState: UserListState<UserInfoState<ProdListState>> = [];
 
 const userSlice = createSlice({
-  name: "userList",
-  initialState: userInitState,
+  name: "users",
+  initialState: userInitialState,
   reducers: {
-    userList(state, action: PayloadAction<object>) {
-      state.users?.push(action.payload);
+    userAdd(state, action: PayloadAction<User<UserInfoState<ProdListState>>>) {
+      state.push(action.payload);
     },
   },
 });
 
-export const { userList } = userSlice.actions;
+export const { userAdd } = userSlice.actions;
 export const userReducer = userSlice.reducer;
