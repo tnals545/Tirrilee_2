@@ -1,14 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import { userInfoReducer } from "redux/userInfoReducer";
-import { prodReducer } from "redux/prodReducer";
 import { userReducer } from "redux/userReducer";
+import { prodReducer } from "redux/prodReducer";
+import { dataReducer } from "redux/dataReducer";
 
 const store = configureStore({
   reducer: {
-    users: userReducer,
-    userInfo: userInfoReducer,
-    prods: prodReducer,
+    data: dataReducer,
+    userInfo: userReducer,
+    prodInfo: prodReducer,
   },
 });
 

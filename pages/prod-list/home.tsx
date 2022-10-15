@@ -2,30 +2,19 @@ import NavBar from "components/Nav_Bar";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
-import { ProdListState, ProdState } from "redux/prodReducer";
 import store from "redux/store";
 import router from "next/router";
-import { UserInfoState } from "redux/userInfoReducer";
 import { useSelector } from "react-redux";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
-import { userDataAssign } from "redux/userReducer";
 import Title from "components/Title";
-
-const ProdImage = () => {
-  const image = useSelector((state) => state);
-  console.log(image);
-  useEffect(() => {}, []);
-};
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const userData = useAppSelector((state) => state);
+  const globalData = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
-  console.log(userData);
+  console.log(globalData);
 
-  useEffect(() => {
-    dispatch(userDataAssign({ user: userData.userInfo }));
-  }, [dispatch]);
+  useEffect(() => {}, []);
 
   return (
     <>

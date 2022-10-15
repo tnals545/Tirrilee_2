@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface ProdState {
+  seller: string;
   key: number;
   src: string;
   category: string;
@@ -10,9 +11,8 @@ export interface ProdState {
   description: string;
 }
 
-export interface ProdListState extends Array<ProdState> {}
-
 const initialState: ProdState = {
+  seller: "",
   key: 0,
   src: "",
   category: "",
@@ -22,37 +22,45 @@ const initialState: ProdState = {
 };
 
 const prodInfoSlice = createSlice({
-  name: "prod_info",
+  name: "prodInfo",
   initialState,
   reducers: {
-    prodKey(state, action: PayloadAction<number>) {
+    addSeller(state, action: PayloadAction<string>) {
+      state.seller = action.payload;
+    },
+    addKey(state, action: PayloadAction<number>) {
       state.key = action.payload;
     },
-    prodSrc(state, action: PayloadAction<any>) {
+    addSrc(state, action: PayloadAction<any>) {
       state.src = action.payload;
     },
-    prodCategory(state, action: PayloadAction<string>) {
+    addCategory(state, action: PayloadAction<string>) {
       state.category = action.payload;
     },
-    prodName(state, action: PayloadAction<string>) {
+    addName(state, action: PayloadAction<string>) {
       state.name = action.payload;
     },
-    prodPrice(state, action: PayloadAction<string>) {
+    addPrice(state, action: PayloadAction<string>) {
       state.price = action.payload;
     },
-    prodDescription(state, action: PayloadAction<string>) {
+    addDescription(state, action: PayloadAction<string>) {
       state.description = action.payload;
+    },
+    prodInfoReset(state) {
+      Object.assign(state, initialState);
     },
   },
 });
 
 export const {
-  prodKey,
-  prodSrc,
-  prodCategory,
-  prodName,
-  prodPrice,
-  prodDescription,
+  addSeller,
+  addKey,
+  addSrc,
+  addCategory,
+  addName,
+  addPrice,
+  addDescription,
+  prodInfoReset,
 } = prodInfoSlice.actions;
 
 export const prodReducer = prodInfoSlice.reducer;

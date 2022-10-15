@@ -4,16 +4,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import { withRouter } from "next/router";
-import { ProdListState, ProdState } from "redux/prodReducer";
-import store from "redux/store";
+import { ProdState } from "redux/prodReducer";
+import { useAppSelector } from "redux/hooks";
+import FindIdx from "components/FindIdx";
 
 const ProdDetails = ({ router: { query } }: any) => {
   const prodInfo: ProdState = JSON.parse(query.prodInfo);
-  const prodList: ProdListState = store.getState().userInfo.uploadlist;
   const [userNick, setUserNick] = useState<string>();
+
+  const dataState = useAppSelector((state) => state.data);
+
   useEffect(() => {
-    setUserNick(store.getState().userInfo.nickname);
-    console.log(store.getState().users);
+    const isLoginIdx = FindIdx();
+    setUserNick(dataState.users[isLoginIdx].nickname);
   }, []);
   // 내가 등록한 상품 삭제/수정 시 확인팝업 뜨기
   // const [edit, setEdit] = useState(true);
@@ -37,7 +40,7 @@ const ProdDetails = ({ router: { query } }: any) => {
         <span>{prodInfo.description}</span>
       </div>
       <div className="prod-details__seller">
-        {prodList.map(
+        {dataState.products.map(
           (prod) =>
             prod.key === prodInfo.key && <h4 key={prod.key}>{userNick}</h4>
         )}

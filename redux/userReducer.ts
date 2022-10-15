@@ -1,49 +1,52 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { UserInfoState } from "./userInfoReducer";
-import { ProdListState } from "./prodReducer";
 
-export interface User<T> {
-  user: T;
+export interface UserInfoState {
+  email: string;
+  password: string;
+  isLogin: boolean;
+  nickname: string;
 }
 
-export interface UserState extends User<UserInfoState<ProdListState>> {}
-export interface UserListState
-  extends Array<User<UserInfoState<ProdListState>>> {}
+const initialState: UserInfoState = {
+  email: "",
+  password: "",
+  isLogin: false,
+  nickname: "",
+};
 
-const initialState: UserListState = [
-  {
-    user: {
-      email: "",
-      password: "",
-      isLogin: false,
-      nickname: "티릴리",
-      uploadlist: [
-        {
-          key: 0,
-          src: "",
-          category: "",
-          name: "",
-          price: "",
-          description: "",
-        },
-      ],
-    },
-  },
-];
-
-const userSlice = createSlice({
-  name: "users",
+const userInfoSlice = createSlice({
+  name: "userInfo",
   initialState,
   reducers: {
-    userAdd(state) {
-      state.push(initialState[0]);
+    addEmail(state, action: PayloadAction<string>) {
+      state.email = action.payload;
     },
-    userDataAssign(state, action: PayloadAction<UserState>) {
-      state[state.length - 1] = action.payload;
+    addPassword(state, action: PayloadAction<string>) {
+      state.password = action.payload;
+    },
+    isLogin(state, action: PayloadAction<boolean>) {
+      state.isLogin = action.payload;
+    },
+    addNickName(state, action: PayloadAction<string>) {
+      state.nickname = action.payload;
+    },
+    userAlreadyId(state, action: PayloadAction<UserInfoState>) {
+      state = action.payload;
+    },
+    userInfoReset(state) {
+      Object.assign(state, initialState);
     },
   },
 });
 
-export const { userAdd, userDataAssign } = userSlice.actions;
-export const userReducer = userSlice.reducer;
+export const {
+  addEmail,
+  addPassword,
+  isLogin,
+  addNickName,
+  userAlreadyId,
+  userInfoReset,
+} = userInfoSlice.actions;
+
+export const userReducer = userInfoSlice.reducer;
