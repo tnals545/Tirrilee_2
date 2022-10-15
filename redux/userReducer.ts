@@ -4,22 +4,46 @@ import { UserInfoState } from "./userInfoReducer";
 import { ProdListState } from "./prodReducer";
 
 export interface User<T> {
-  [user: string]: T;
+  user: T;
 }
 
-export interface UserListState<T> extends Array<User<T>> {}
+export interface UserState extends User<UserInfoState<ProdListState>> {}
+export interface UserListState
+  extends Array<User<UserInfoState<ProdListState>>> {}
 
-const userInitialState: UserListState<UserInfoState<ProdListState>> = [];
+const initialState: UserListState = [
+  {
+    user: {
+      email: "",
+      password: "",
+      isLogin: false,
+      nickname: "티릴리",
+      uploadlist: [
+        {
+          key: 0,
+          src: "",
+          category: "",
+          name: "",
+          price: "",
+          description: "",
+        },
+      ],
+    },
+  },
+];
 
 const userSlice = createSlice({
   name: "users",
-  initialState: userInitialState,
+  initialState,
   reducers: {
-    userAdd(state, action: PayloadAction<User<UserInfoState<ProdListState>>>) {
-      state.push(action.payload);
+    userAdd(state) {
+      state.push(initialState[0]);
+    },
+    userDataAssign(state, action: PayloadAction<UserState>) {
+      state[state.length - 1] = action.payload;
     },
   },
 });
 
-export const { userAdd } = userSlice.actions;
+export const { userAdd, userDataAssign } = userSlice.actions;
 export const userReducer = userSlice.reducer;

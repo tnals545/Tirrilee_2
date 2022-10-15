@@ -1,19 +1,23 @@
 import React, { useRef, useState, useEffect } from "react";
 import { reset, userIsLogin, userNickName } from "redux/userInfoReducer";
-import store, { dispatch } from "redux/store";
+import store from "redux/store";
 import router from "next/router";
 import NavBar from "components/Nav_Bar";
-import { userDataSave } from "redux/userReducer";
+import { useAppDispatch, useAppSelector } from "redux/hooks";
+import { userDataAssign } from "redux/userReducer";
 
 const Profile = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const userNick = store.getState().userInfo.nickname;
+  const userData = useAppSelector((state) => state);
+  const dispatch = useAppDispatch();
+
   const [newNickName, setNewNickName] = useState(userNick);
   const [isEdit, setIsEdit] = useState(false);
 
   const onLogOutClick = () => {
     dispatch(userIsLogin(false));
-    dispatch(userDataSave({ users: store.getState().userInfo }));
+    dispatch(userDataAssign({ user: userData.userInfo }));
     dispatch(reset());
     router.push("/");
   };

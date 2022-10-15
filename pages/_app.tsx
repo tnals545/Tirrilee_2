@@ -1,12 +1,16 @@
 import GlobalStyle from "components/GlobalStyle";
 import "styles/fonts/font.css";
 import React from "react";
+import store from "redux/store";
+import { Provider } from "react-redux";
 
 export default function App({ Component, pageProps }: any) {
   return (
     <>
-      <GlobalStyle />
-      <Component {...pageProps} />
+      <Provider store={store}>
+        <GlobalStyle />
+        <Component {...pageProps} />
+      </Provider>
     </>
   );
 }

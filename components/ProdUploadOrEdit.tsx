@@ -3,7 +3,7 @@ import router from "next/router";
 import Image from "next/image";
 
 import NavBar from "./Nav_Bar";
-import store, { dispatch } from "redux/store";
+import store from "redux/store";
 import {
   prodKey,
   prodSrc,
@@ -18,6 +18,7 @@ import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import { userUploadList } from "redux/userInfoReducer";
 import Link from "next/link";
 import { userAdd } from "redux/userReducer";
+import { useAppDispatch } from "redux/hooks";
 
 interface Props {
   edit: boolean;
@@ -28,6 +29,7 @@ const ProdUploadOrEdit = () => {
   const [btnActive, setBtnActive] = useState();
   const [imageSrc, setImageSrc] = useState<any>("");
   const [isRender, setIsRender] = useState(false);
+  const dispatch = useAppDispatch();
 
   const changePrice = (price: number) => {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");

@@ -1,21 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { ProdListState, ProdState } from "./prodReducer";
 
-export interface UserInfoState<T> {
+export interface UserInfoState {
   email: string | undefined;
   password: string | undefined;
   isLogin: boolean;
   nickname: string;
-  uploadlist: T;
 }
 
-const initialState: UserInfoState<ProdListState> = {
+const initialState: UserInfoState = {
   email: "",
   password: "",
   isLogin: false,
-  nickname: "티릴리",
-  uploadlist: [],
+  nickname: "",
 };
 
 const userInfoSlice = createSlice({
@@ -34,26 +31,11 @@ const userInfoSlice = createSlice({
     userNickName(state, action: PayloadAction<string>) {
       state.nickname = action.payload;
     },
-    userUploadList(state, action: PayloadAction<ProdState>) {
-      state.uploadlist?.push(action.payload);
-    },
-    userAlreadyId(state, action: PayloadAction<UserInfoState<ProdListState>>) {
+    userAlreadyId(state, action: PayloadAction<UserInfoState>) {
       state = action.payload;
     },
-    reset(state) {
+    userInfoReset(state) {
       Object.assign(state, initialState);
     },
   },
 });
-
-export const {
-  userEmail,
-  userPassword,
-  userIsLogin,
-  userNickName,
-  userUploadList,
-  userAlreadyId,
-  reset,
-} = userInfoSlice.actions;
-
-export const userInfoReducer = userInfoSlice.reducer;

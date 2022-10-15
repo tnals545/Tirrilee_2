@@ -5,12 +5,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 import { useRef, useState } from "react";
 import {
+  userAlreadyId,
   userEmail,
-  UserInfoState,
   userIsLogin,
   userPassword,
 } from "redux/userInfoReducer";
-import store, { dispatch } from "redux/store";
+import store from "redux/store";
+import { useAppDispatch, useAppSelector } from "redux/hooks";
+import { userAdd } from "redux/userReducer";
+import FindUserIdx from "components/FindUserIdx";
 
 interface Password {
   type: string;
@@ -22,16 +25,47 @@ interface Password {
 export default function Login() {
   const emailRef = useRef<HTMLInputElement>(null);
   const pwRef = useRef<HTMLInputElement>(null);
+
+  const userData = useAppSelector((state) => state.users);
+  const dispatch = useAppDispatch();
+
   const [pwType, setPwType] = useState<Password>({
     type: "password",
     visible: false,
   });
-  const onClick = () => {
-    const emailValue = emailRef.current?.value;
-    const pwValue = pwRef.current?.value;
-    dispatch(userEmail(emailValue));
-    dispatch(userPassword(pwValue));
-    dispatch(userIsLogin(true));
+  const [idx, setIdx] = useState<number | boolean>();
+
+  const onLoginClick = () => {
+    const email = emailRef.current?.value;
+    const pw = pwRef.current?.value;
+
+    // const emailList: any[] = [];
+
+    // userData.forEach((user) => {
+    //   emailList.push(user.user.email);
+    //   console.log(emailList);
+    // });
+
+    // if (emailList.includes(email)) {
+    //   setIdx(emailList.indexOf(email));
+    // } else {
+    //   setIdx(false);
+    // }
+
+    // console.log(idx);
+
+    // userData.forEach((_, index) => {
+    //   if (idx === index) {
+    //     dispatch(userAlreadyId(userData[idx].user));
+    //   } else if (idx === false) {
+    //     dispatch(userAdd());
+    //     dispatch(userEmail(email));
+    //     dispatch(userPassword(pw));
+    //     dispatch(userIsLogin(true));
+    //   } else {
+    //     console.log("error");
+    //   }
+    // });
   };
 
   // 비밀번호 보기/숨기기
@@ -75,7 +109,7 @@ export default function Login() {
           </span>
         </div>
         <Link href={"/prod-list/home"}>
-          <button onClick={onClick}>로그인</button>
+          <button onClick={onLoginClick}>로그인</button>
         </Link>
       </form>
     </>

@@ -6,17 +6,30 @@ import { ProdListState, ProdState } from "redux/prodReducer";
 import store from "redux/store";
 import router from "next/router";
 import { UserInfoState } from "redux/userInfoReducer";
+import { useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "redux/hooks";
+import { userDataAssign } from "redux/userReducer";
+import Title from "components/Title";
+
+const ProdImage = () => {
+  const image = useSelector((state) => state);
+  console.log(image);
+  useEffect(() => {}, []);
+};
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [userList, setUserList] = useState<any>();
+  const userData = useAppSelector((state) => state);
+  const dispatch = useAppDispatch();
+  console.log(userData);
 
   useEffect(() => {
-    setUserList(store.getState().users);
-  }, []);
+    dispatch(userDataAssign({ user: userData.userInfo }));
+  }, [dispatch]);
 
   return (
     <>
+      <Title title="Home" />
       <NavBar />
       <header className="product-header">
         <h1>상품 목록</h1>
@@ -42,8 +55,8 @@ const Home = () => {
         - div box 특성 제거해야함 
         - 상품 추가될 때마다 state, props 받아서 생성해주는 컴포넌트 만들기
         */}
-        {userList &&
-          userList.map((user: UserInfoState<ProdListState>) => {
+        {/* {userData &&
+          userData.users.map((user: UserInfoState<ProdListState>) => {
             user.uploadlist?.map((prod) => {
               return (
                 <div key={prod.key} className={"product-info"}>
@@ -68,7 +81,7 @@ const Home = () => {
                 </div>
               );
             });
-          })}
+          })} */}
       </main>
     </>
   );
