@@ -25,9 +25,6 @@ const prodInfoSlice = createSlice({
   name: "prodInfo",
   initialState,
   reducers: {
-    addSeller(state, action: PayloadAction<string>) {
-      state.seller = action.payload;
-    },
     addKey(state, action: PayloadAction<number>) {
       state.key = action.payload;
     },
@@ -43,6 +40,9 @@ const prodInfoSlice = createSlice({
     addPrice(state, action: PayloadAction<string>) {
       state.price = action.payload;
     },
+    addSeller(state, action: PayloadAction<string>) {
+      state.seller = action.payload;
+    },
     addDescription(state, action: PayloadAction<string>) {
       state.description = action.payload;
     },
@@ -53,12 +53,12 @@ const prodInfoSlice = createSlice({
 });
 
 export const {
-  addSeller,
   addKey,
   addSrc,
   addCategory,
   addName,
   addPrice,
+  addSeller,
   addDescription,
   prodInfoReset,
 } = prodInfoSlice.actions;

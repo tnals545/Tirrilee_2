@@ -7,6 +7,7 @@ import router from "next/router";
 import { useSelector } from "react-redux";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
 import Title from "components/Title";
+import { addNowProdInfo } from "redux/dataReducer";
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -44,17 +45,12 @@ const Home = () => {
         {globalData.data.products.map((prod) => {
           return (
             <div key={prod.key} className={"product-info"}>
-              <Link
-                href={{
-                  pathname: `/prod-details/[key]`,
-                  query: { prodInfo: JSON.stringify(prod) },
-                }}
-                as={`/prod-details/${prod.key}`}
-              >
+              <Link href="/prod-details/[key]" as={`/prod-details/${prod.key}`}>
                 <Image
                   id={`${prod.key}`}
                   src={prod.src}
                   alt={prod.name}
+                  onClick={() => dispatch(addNowProdInfo(prod))}
                   width={274}
                   height={274}
                 />

@@ -74,10 +74,10 @@ const ProdUploadOrEdit = () => {
     setBtnActive(value); // 버튼 활성화 추가해야됨(파란색)
   };
 
+  dispatch(addSeller(dataState.userInfo.nickname));
+
   const onCompleteClick = () => {
-    dispatch(addSeller(dataState.userInfo.nickname));
     dispatch(addProd(dataState.prodInfo));
-    console.log(store.getState().data);
   };
   return (
     <>
