@@ -1,10 +1,9 @@
 import React, { useRef, useState, useEffect } from "react";
-import { reset, userIsLogin, userNickName } from "redux/userInfoReducer";
+import { userInfoReset, isLogin, addNickName } from "redux/userReducer";
 import store from "redux/store";
 import router from "next/router";
 import NavBar from "components/Nav_Bar";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
-import { userDataAssign } from "redux/userReducer";
 
 const Profile = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -16,9 +15,8 @@ const Profile = () => {
   const [isEdit, setIsEdit] = useState(false);
 
   const onLogOutClick = () => {
-    dispatch(userIsLogin(false));
-    dispatch(userDataAssign({ user: userData.userInfo }));
-    dispatch(reset());
+    dispatch(isLogin(false));
+    dispatch(userInfoReset());
     router.push("/");
   };
 
@@ -32,7 +30,7 @@ const Profile = () => {
   const onSubmit = (e: any) => {
     e.preventDefault();
     if (userNick !== newNickName) {
-      dispatch(userNickName(newNickName));
+      dispatch(addNickName(newNickName));
     }
   };
 
@@ -41,7 +39,7 @@ const Profile = () => {
       target: { value },
     } = e;
     if (value === "Execution") {
-      dispatch(userNickName(newNickName));
+      dispatch(addNickName(newNickName));
       setIsEdit(false);
     } else if (value === "Cancel") {
       setNewNickName(userNick);

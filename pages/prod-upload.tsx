@@ -75,9 +75,9 @@ const ProdUploadOrEdit = () => {
   };
 
   const onCompleteClick = () => {
-    const isLoginIdx = FindIdx();
-    dispatch(addSeller(dataState.data.users[isLoginIdx].email));
+    dispatch(addSeller(dataState.userInfo.nickname));
     dispatch(addProd(dataState.prodInfo));
+    console.log(store.getState().data);
   };
   return (
     <>

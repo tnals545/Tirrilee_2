@@ -14,9 +14,7 @@ import {
 } from "redux/userReducer";
 import store from "redux/store";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
-import FindUserIdx from "components/FindIdx";
 import Title from "components/Title";
-import FindIdx from "components/FindIdx";
 import { addUser } from "redux/dataReducer";
 
 interface Password {
@@ -66,6 +64,7 @@ const Login = () => {
       dispatch(addNickName(email));
     }
     dispatch(addUser(store.getState().userInfo));
+    console.log(store.getState().data);
   };
 
   // 비밀번호 보기/숨기기
