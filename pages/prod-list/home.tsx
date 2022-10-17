@@ -18,6 +18,7 @@ const Home = () => {
     <>
       <Title title="Home" />
       <NavBar />
+
       <header className="product-header">
         <h1>상품 목록</h1>
         <div className="product-list text-bold">

@@ -4,11 +4,11 @@ import store from "redux/store";
 import router from "next/router";
 import NavBar from "components/Nav_Bar";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
+import { editUser } from "redux/dataReducer";
 
 const Profile = () => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const userNick = store.getState().userInfo.nickname;
-  const userData = useAppSelector((state) => state);
+  const userNick = useAppSelector((state) => state.userInfo.nickname);
   const dispatch = useAppDispatch();
 
   const [newNickName, setNewNickName] = useState(userNick);
@@ -29,9 +29,6 @@ const Profile = () => {
 
   const onSubmit = (e: any) => {
     e.preventDefault();
-    if (userNick !== newNickName) {
-      dispatch(addNickName(newNickName));
-    }
   };
 
   const onClick = (e: any) => {
@@ -40,6 +37,7 @@ const Profile = () => {
     } = e;
     if (value === "Execution") {
       dispatch(addNickName(newNickName));
+      dispatch(editUser(store.getState().userInfo));
       setIsEdit(false);
     } else if (value === "Cancel") {
       setNewNickName(userNick);

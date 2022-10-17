@@ -9,6 +9,7 @@ export interface ProdState {
   name: string;
   price: string;
   description: string;
+  isSame: boolean;
 }
 
 const initialState: ProdState = {
@@ -19,6 +20,7 @@ const initialState: ProdState = {
   name: "",
   price: "",
   description: "",
+  isSame: false,
 };
 
 const prodInfoSlice = createSlice({
@@ -46,6 +48,9 @@ const prodInfoSlice = createSlice({
     addDescription(state, action: PayloadAction<string>) {
       state.description = action.payload;
     },
+    isSameSeller(state, action: PayloadAction<boolean>) {
+      state.isSame = action.payload;
+    },
     prodInfoReset(state) {
       Object.assign(state, initialState);
     },
@@ -60,6 +65,7 @@ export const {
   addPrice,
   addSeller,
   addDescription,
+  isSameSeller,
   prodInfoReset,
 } = prodInfoSlice.actions;
 

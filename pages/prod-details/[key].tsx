@@ -3,37 +3,71 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
-import { useAppSelector } from "redux/hooks";
+import { useAppDispatch, useAppSelector } from "redux/hooks";
+import store from "redux/store";
+import router from "next/router";
+import { isSameSeller } from "redux/prodReducer";
+import { addNowProdInfo } from "redux/dataReducer";
 
 const ProdDetails = () => {
-  const prodDatail = useAppSelector((state) => state.data.nowProdInfo);
+  const prodDetail = useAppSelector((state) => state.data.nowProdInfo);
+  const dispatch = useAppDispatch();
+
+  const [prodSeller, setProdSeller] = useState<string>();
+
+  useEffect(() => {
+    dispatch(isSameSeller(false));
+    store.getState().data.users.map((user) => {
+      if (user.email === prodDetail.seller) {
+        setProdSeller(user.nickname);
+      }
+    });
+    if (store.getState().userInfo.email === prodDetail.seller) {
+      dispatch(isSameSeller(true));
+      dispatch(addNowProdInfo(store.getState().prodInfo));
+    }
+  }, []);
   // 내가 등록한 상품 삭제/수정 시 확인팝업 뜨기
   // const [edit, setEdit] = useState(true);
   return (
     <>
       <NavBar />
-      <FontAwesomeIcon icon={faArrowLeftLong} />
+      <FontAwesomeIcon onClick={() => router.back()} icon={faArrowLeftLong} />
       <Image
-        src={prodDatail.src}
-        alt={prodDatail.category}
+        src={prodDetail.src}
+        alt={prodDetail.category}
         width={763}
         height={763}
       />
       <div className="prod-details__short-info">
-        <span>{prodDatail.category}</span>
-        <span>{prodDatail.name}</span>
-        <span>{prodDatail.price}원</span>
+        <span>{prodDetail.category}</span>
+        <span>{prodDetail.name}</span>
+        <span>{prodDetail.price}원</span>
       </div>
       <div className="prod-details__detail-info">
         <h4>상품 설명</h4>
-        <span>{prodDatail.description}</span>
+        <span>{prodDetail.description}</span>
       </div>
-      <div className="prod-details__seller">
-        {prodDatail.seller}
-        {/* 판매자 프로필 */}
-      </div>
-      {/* 내가 등록한 상품 ? 삭제/수정 버튼 : null */}
-      {/* <ProdUploadOrEdit edit={edit} /> */}
+      {prodDetail.isSame ? (
+        <>
+          <div key={prodDetail.key} className="prod-details__seller">
+            {prodSeller}
+            {/* 판매자 프로필 */}
+          </div>
+          <div className="prod-details__button--edit">
+            <button>수정하기</button>
+            <button>삭제하기</button>
+            {/* <ProdUploadOrEdit edit={edit} /> */}
+          </div>
+        </>
+      ) : (
+        <>
+          <div key={prodDetail.key} className="prod-details__seller">
+            {prodSeller}
+            {/* 판매자 프로필 */}
+          </div>
+        </>
+      )}
     </>
   );
 };

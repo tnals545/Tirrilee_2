@@ -20,7 +20,6 @@ import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
 import { addProd } from "redux/dataReducer";
-import FindIdx from "components/FindIdx";
 
 interface Props {
   edit: boolean;
@@ -29,8 +28,7 @@ interface Props {
 const ProdUploadOrEdit = () => {
   const categories: string[] = ["에코백", "티셔츠", "기타물품"];
   const [btnActive, setBtnActive] = useState();
-  const [imageSrc, setImageSrc] = useState<any>(""); // *****이거 수정******
-  const [isRender, setIsRender] = useState(false);
+  const [imageSrc, setImageSrc] = useState<any>("");
 
   const dataState = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
@@ -60,7 +58,7 @@ const ProdUploadOrEdit = () => {
       reader.onload = () => {
         dispatch(addSrc(reader.result));
         setImageSrc(reader.result);
-        setIsRender((prev) => !prev);
+        dispatch(addSeller(dataState.userInfo.email));
         resolve();
       };
     });
@@ -74,11 +72,10 @@ const ProdUploadOrEdit = () => {
     setBtnActive(value); // 버튼 활성화 추가해야됨(파란색)
   };
 
-  dispatch(addSeller(dataState.userInfo.nickname));
-
   const onCompleteClick = () => {
     dispatch(addProd(dataState.prodInfo));
   };
+
   return (
     <>
       <NavBar />

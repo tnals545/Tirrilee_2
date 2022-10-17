@@ -23,6 +23,7 @@ const initialState: DataState<UserArray, ProdArray, ProdState> = {
     name: "",
     price: "",
     description: "",
+    isSame: false,
   },
 };
 
@@ -36,11 +37,18 @@ const dataSlice = createSlice({
     addProd(state, action: PayloadAction<ProdState>) {
       state.products.push(action.payload);
     },
+    editUser(state, action: PayloadAction<UserInfoState>) {
+      state.users.forEach((user, index) => {
+        if (user.email === action.payload.email) {
+          state.users[index] = action.payload;
+        }
+      });
+    },
     addNowProdInfo(state, action: PayloadAction<ProdState>) {
       state.nowProdInfo = action.payload;
     },
   },
 });
 
-export const { addUser, addProd, addNowProdInfo } = dataSlice.actions;
+export const { addUser, addProd, editUser, addNowProdInfo } = dataSlice.actions;
 export const dataReducer = dataSlice.reducer;
