@@ -12,28 +12,24 @@ import {
   addName,
   addPrice,
   addDescription,
+  isSameSeller,
   prodInfoReset,
+  editAllProdState,
 } from "redux/prodReducer";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
-import { addProd } from "redux/dataReducer";
-
-interface Props {
-  edit: boolean;
-}
+import { addRecentProdInfo, addProd, editProduct } from "redux/dataReducer";
 
 const ProdUploadOrEdit = () => {
   const categories: string[] = ["에코백", "티셔츠", "기타물품"];
   const [btnActive, setBtnActive] = useState();
-  const [imageSrc, setImageSrc] = useState<any>("");
 
-  const dataState = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
 
-  const changePrice = (price: number) => {
+  const priceToString = (price: number) => {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
@@ -44,7 +40,7 @@ const ProdUploadOrEdit = () => {
     if (className === "name") {
       dispatch(addName(value));
     } else if (className === "price") {
-      dispatch(addPrice(changePrice(value)));
+      dispatch(addPrice(priceToString(value)));
     } else if (className === "detail") {
       dispatch(addDescription(value));
     }
@@ -57,8 +53,7 @@ const ProdUploadOrEdit = () => {
     return new Promise<void>((resolve) => {
       reader.onload = () => {
         dispatch(addSrc(reader.result));
-        setImageSrc(reader.result);
-        dispatch(addSeller(dataState.userInfo.email));
+        dispatch(addSeller(store.getState().userInfo.email));
         resolve();
       };
     });
@@ -72,16 +67,26 @@ const ProdUploadOrEdit = () => {
     setBtnActive(value); // 버튼 활성화 추가해야됨(파란색)
   };
 
-  const onCompleteClick = () => {
-    dispatch(addProd(dataState.prodInfo));
+  const onCompleteClick = (e: any) => {
+    const {
+      target: { textContent },
+    } = e;
+    if (textContent === "수정하기") {
+      dispatch(editProduct(store.getState().prodInfo));
+      dispatch(addRecentProdInfo(store.getState().prodInfo));
+      dispatch(isSameSeller(false));
+    } else if (textContent === "완료") {
+      dispatch(addProd(store.getState().prodInfo));
+      dispatch(prodInfoReset());
+      console.log(store.getState());
+    }
   };
 
   return (
     <>
       <NavBar />
       <FontAwesomeIcon onClick={() => router.back()} icon={faArrowLeftLong} />
-      {/* (수정하기 true/false props로 받아서 판단) */}
-      {/* {edit ? <h1>수정하기</h1> : null} */}
+      {store.getState().data.recentProdInfo.isSame ? <h1>수정하기</h1> : null}
       <input
         type="file"
         onChange={(e: any) => {
@@ -89,8 +94,22 @@ const ProdUploadOrEdit = () => {
         }}
       />
       <div className="preview">
-        {imageSrc && (
-          <Image src={imageSrc} alt="preview-img" width={500} height={500} />
+        {store.getState().prodInfo.src &&
+          store.getState().data.recentProdInfo.isSame === false && (
+            <Image
+              src={store.getState().prodInfo.src}
+              alt="preview-img"
+              width={500}
+              height={500}
+            />
+          )}
+        {store.getState().data.recentProdInfo.isSame && (
+          <Image
+            src={store.getState().data.recentProdInfo.src}
+            alt="preview-img"
+            width={500}
+            height={500}
+          />
         )}
       </div>
       <div className="prod-upload__info">
@@ -101,13 +120,15 @@ const ProdUploadOrEdit = () => {
             className="name"
             type="text"
             placeholder="제품명을 입력해주세요."
+            value={store.getState().prodInfo.name}
           />
           <h4>가격</h4>
           <input
             onChange={handleInputChange}
             className="price"
-            type="number"
+            type="text"
             placeholder="숫자만 입력해주세요."
+            value={store.getState().prodInfo.price.replace(/,/g, "")}
           />
           <h4>상세 설명</h4>
           <input
@@ -115,6 +136,7 @@ const ProdUploadOrEdit = () => {
             className="detail"
             type="text"
             placeholder="상세한 상품 설명을 입력해주세요."
+            value={store.getState().prodInfo.description}
           />
         </div>
         <div className="prod-upload__info--category">
@@ -131,9 +153,12 @@ const ProdUploadOrEdit = () => {
             );
           })}
         </div>
-        {/* edit ? 수정하기 : 완료 */}
         <Link href={"/prod-list/home"}>
-          <button onClick={onCompleteClick}>완료</button>
+          {store.getState().data.recentProdInfo.isSame ? (
+            <button onClick={onCompleteClick}>수정하기</button>
+          ) : (
+            <button onClick={onCompleteClick}>완료</button>
+          )}
         </Link>
       </div>
     </>

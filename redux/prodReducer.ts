@@ -4,7 +4,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 export interface ProdState {
   seller: string;
   key: number;
-  src: string;
+  src: any;
   category: string;
   name: string;
   price: string;
@@ -54,6 +54,9 @@ const prodInfoSlice = createSlice({
     prodInfoReset(state) {
       Object.assign(state, initialState);
     },
+    editAllProdState(state, action: PayloadAction<ProdState>) {
+      Object.assign(state, action.payload);
+    },
   },
 });
 
@@ -67,6 +70,7 @@ export const {
   addDescription,
   isSameSeller,
   prodInfoReset,
+  editAllProdState,
 } = prodInfoSlice.actions;
 
 export const prodReducer = prodInfoSlice.reducer;

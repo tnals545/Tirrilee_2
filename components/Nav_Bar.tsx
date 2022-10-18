@@ -5,10 +5,15 @@ import { faUser } from "@fortawesome/free-regular-svg-icons";
 import styled from "styled-components";
 import router from "next/router";
 import store from "redux/store";
+import { useAppDispatch } from "redux/hooks";
+import { editRecentIsSame } from "redux/dataReducer";
+import { prodInfoReset } from "redux/prodReducer";
 
 //styled-components
 
 export default function NavBar() {
+  const dispatch = useAppDispatch();
+
   return (
     <>
       <div className="nav-bar">
@@ -28,7 +33,11 @@ export default function NavBar() {
         />
         <div className="nav-bar--menu">
           <span
-            onClick={() => router.push("/prod-upload")}
+            onClick={() => {
+              router.push("/prod-upload");
+              dispatch(editRecentIsSame(false));
+              dispatch(prodInfoReset());
+            }}
             className="nav-bar--menu__add"
           >
             <FontAwesomeIcon icon={faCirclePlus} className="add" />

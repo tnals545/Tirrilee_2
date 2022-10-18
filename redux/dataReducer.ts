@@ -6,7 +6,7 @@ import { ProdState } from "./prodReducer";
 export interface DataState<T, F, J> {
   users: T;
   products: F;
-  nowProdInfo: J;
+  recentProdInfo: J;
 }
 
 export interface UserArray extends Array<UserInfoState> {}
@@ -15,7 +15,7 @@ export interface ProdArray extends Array<ProdState> {}
 const initialState: DataState<UserArray, ProdArray, ProdState> = {
   users: [],
   products: [],
-  nowProdInfo: {
+  recentProdInfo: {
     seller: "",
     key: 0,
     src: "",
@@ -44,11 +44,28 @@ const dataSlice = createSlice({
         }
       });
     },
-    addNowProdInfo(state, action: PayloadAction<ProdState>) {
-      state.nowProdInfo = action.payload;
+    editRecentIsSame(state, action: PayloadAction<boolean>) {
+      state.recentProdInfo.isSame = action.payload;
+    },
+    editProduct(state, action: PayloadAction<ProdState>) {
+      state.products.forEach((prod, index) => {
+        if (prod.key === action.payload.key) {
+          state.products[index] = action.payload;
+        }
+      });
+    },
+    addRecentProdInfo(state, action: PayloadAction<ProdState>) {
+      state.recentProdInfo = action.payload;
     },
   },
 });
 
-export const { addUser, addProd, editUser, addNowProdInfo } = dataSlice.actions;
+export const {
+  addUser,
+  addProd,
+  editUser,
+  editProduct,
+  editRecentIsSame,
+  addRecentProdInfo,
+} = dataSlice.actions;
 export const dataReducer = dataSlice.reducer;
