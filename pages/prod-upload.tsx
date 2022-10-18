@@ -27,16 +27,17 @@ const ProdUploadOrEdit = () => {
   const categories: string[] = ["에코백", "티셔츠", "기타물품"];
   const [btnActive, setBtnActive] = useState();
 
+  const [rendering, setRendering] = useState(false);
   const dispatch = useAppDispatch();
 
   const priceToString = (price: number) => {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
-  const handleInputChange = (e: any) => {
+  const handleInputChange = async (e: any) => {
     const {
       target: { className, value },
-    } = e;
+    } = await e;
     if (className === "name") {
       dispatch(addName(value));
     } else if (className === "price") {
@@ -46,31 +47,32 @@ const ProdUploadOrEdit = () => {
     }
   };
 
-  const encodeFileToBase64 = (fileBlob: any) => {
+  const encodeFileToBase64 = async (fileBlob: any) => {
     const reader = new FileReader();
     dispatch(addKey(fileBlob.lastModified));
     reader.readAsDataURL(fileBlob);
-    return new Promise<void>((resolve) => {
+    return await new Promise<void>((resolve) => {
       reader.onload = () => {
         dispatch(addSrc(reader.result));
         dispatch(addSeller(store.getState().userInfo.email));
+        setRendering((prev) => !prev);
         resolve();
       };
     });
   };
 
-  const onCategoryClick = (e: any) => {
+  const onCategoryClick = async (e: any) => {
     const {
       target: { textContent, value },
-    } = e;
+    } = await e;
     dispatch(addCategory(textContent));
     setBtnActive(value); // 버튼 활성화 추가해야됨(파란색)
   };
 
-  const onCompleteClick = (e: any) => {
+  const onCompleteClick = async (e: any) => {
     const {
       target: { textContent },
-    } = e;
+    } = await e;
     if (textContent === "수정하기") {
       dispatch(editProduct(store.getState().prodInfo));
       dispatch(addRecentProdInfo(store.getState().prodInfo));
@@ -81,6 +83,11 @@ const ProdUploadOrEdit = () => {
       console.log(store.getState());
     }
   };
+
+  useEffect(() => {
+    if (store.getState().data.recentProdInfo.isSame) {
+    }
+  }, []);
 
   return (
     <>
@@ -126,9 +133,8 @@ const ProdUploadOrEdit = () => {
           <input
             onChange={handleInputChange}
             className="price"
-            type="text"
+            type="number"
             placeholder="숫자만 입력해주세요."
-            value={store.getState().prodInfo.price.replace(/,/g, "")}
           />
           <h4>상세 설명</h4>
           <input
@@ -136,7 +142,6 @@ const ProdUploadOrEdit = () => {
             className="detail"
             type="text"
             placeholder="상세한 상품 설명을 입력해주세요."
-            value={store.getState().prodInfo.description}
           />
         </div>
         <div className="prod-upload__info--category">
