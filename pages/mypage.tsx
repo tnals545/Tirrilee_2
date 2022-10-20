@@ -4,7 +4,7 @@ import store from "redux/store";
 import router from "next/router";
 import NavBar from "components/Nav_Bar";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
-import { editUser } from "redux/dataReducer";
+import { allIsSameFalse, editUser } from "redux/dataReducer";
 
 const Profile = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -17,6 +17,7 @@ const Profile = () => {
   const onLogOutClick = () => {
     dispatch(isLogin(false));
     dispatch(userInfoReset());
+    dispatch(allIsSameFalse());
     router.push("/");
   };
 
@@ -25,10 +26,6 @@ const Profile = () => {
       target: { value },
     } = e;
     setNewNickName(value);
-  };
-
-  const onSubmit = (e: any) => {
-    e.preventDefault();
   };
 
   const onClick = (e: any) => {
@@ -57,7 +54,7 @@ const Profile = () => {
   return (
     <>
       <NavBar />
-      <form onSubmit={onSubmit}>
+      <form onSubmit={(e) => e.preventDefault()}>
         {isEdit ? null : <h1>{newNickName}</h1>}
         <input
           ref={inputRef}

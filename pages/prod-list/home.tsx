@@ -7,7 +7,7 @@ import router from "next/router";
 import { useSelector } from "react-redux";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
 import Title from "components/Title";
-import { addRecentProdInfo } from "redux/dataReducer";
+import { editAllProdState } from "redux/prodReducer";
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -51,7 +51,7 @@ const Home = () => {
                   id={`${prod.key}`}
                   src={prod.src}
                   alt={prod.name}
-                  onClick={() => dispatch(addRecentProdInfo(prod))}
+                  onClick={() => dispatch(editAllProdState(prod))}
                   width={274}
                   height={274}
                 />

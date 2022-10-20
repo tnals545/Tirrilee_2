@@ -20,7 +20,7 @@ const initialState: ProdState = {
   name: "",
   price: "",
   description: "",
-  isSame: false,
+  isSame: true,
 };
 
 const prodInfoSlice = createSlice({

@@ -3,28 +3,17 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { UserInfoState } from "./userReducer";
 import { ProdState } from "./prodReducer";
 
-export interface DataState<T, F, J> {
+export interface DataState<T, F> {
   users: T;
   products: F;
-  recentProdInfo: J;
 }
 
 export interface UserArray extends Array<UserInfoState> {}
 export interface ProdArray extends Array<ProdState> {}
 
-const initialState: DataState<UserArray, ProdArray, ProdState> = {
+const initialState: DataState<UserArray, ProdArray> = {
   users: [],
   products: [],
-  recentProdInfo: {
-    seller: "",
-    key: 0,
-    src: "",
-    category: "",
-    name: "",
-    price: "",
-    description: "",
-    isSame: false,
-  },
 };
 
 const dataSlice = createSlice({
@@ -44,9 +33,6 @@ const dataSlice = createSlice({
         }
       });
     },
-    editRecentIsSame(state, action: PayloadAction<boolean>) {
-      state.recentProdInfo.isSame = action.payload;
-    },
     editProduct(state, action: PayloadAction<ProdState>) {
       state.products.forEach((prod, index) => {
         if (prod.key === action.payload.key) {
@@ -54,8 +40,17 @@ const dataSlice = createSlice({
         }
       });
     },
-    addRecentProdInfo(state, action: PayloadAction<ProdState>) {
-      state.recentProdInfo = action.payload;
+    allIsSameFalse(state) {
+      state.products.forEach((prod) => {
+        prod.isSame = false;
+      });
+    },
+    findIsSameTrue(state, action: PayloadAction<string>) {
+      state.products.forEach((prod, index) => {
+        if (prod.seller === action.payload) {
+          state.products[index].isSame = true;
+        }
+      });
     },
   },
 });
@@ -65,7 +60,7 @@ export const {
   addProd,
   editUser,
   editProduct,
-  editRecentIsSame,
-  addRecentProdInfo,
+  allIsSameFalse,
+  findIsSameTrue,
 } = dataSlice.actions;
 export const dataReducer = dataSlice.reducer;

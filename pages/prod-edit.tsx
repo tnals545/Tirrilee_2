@@ -2,14 +2,14 @@ import NavBar from "components/Nav_Bar";
 import ProdUploadOrEdit from "components/ProdUploadOrEdit";
 import Title from "components/Title";
 
-const ProdUpload = () => {
+const ProdEdit = () => {
   return (
     <>
-      <Title title="Upload" />
+      <Title title="Edit" />
       <NavBar />
-      <ProdUploadOrEdit work="upload" />
+      <ProdUploadOrEdit work="edit" />
     </>
   );
 };
 
-export default ProdUpload;
+export default ProdEdit;

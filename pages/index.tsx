@@ -15,7 +15,7 @@ import {
 import store from "redux/store";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
 import Title from "components/Title";
-import { addUser } from "redux/dataReducer";
+import { addUser, findIsSameTrue } from "redux/dataReducer";
 
 interface Password {
   type: string;
@@ -64,6 +64,7 @@ const Login = () => {
       dispatch(addNickName(email));
     }
     dispatch(addUser(store.getState().userInfo));
+    dispatch(findIsSameTrue(store.getState().userInfo.email));
     console.log(store.getState().data);
   };
 

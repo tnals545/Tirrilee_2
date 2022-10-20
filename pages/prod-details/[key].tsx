@@ -6,11 +6,9 @@ import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
 import store from "redux/store";
 import router from "next/router";
-import { editAllProdState, isSameSeller } from "redux/prodReducer";
-import { addRecentProdInfo, editRecentIsSame } from "redux/dataReducer";
 
 const ProdDetails = () => {
-  const prodDetail = useAppSelector((state) => state.data.recentProdInfo);
+  const prodDetail = useAppSelector((state) => state.prodInfo);
   const dispatch = useAppDispatch();
 
   const [prodSeller, setProdSeller] = useState<string>();
@@ -21,12 +19,7 @@ const ProdDetails = () => {
         setProdSeller(user.nickname);
       }
     });
-    if (store.getState().userInfo.email === prodDetail.seller) {
-      dispatch(editRecentIsSame(true));
-    } else {
-      dispatch(editRecentIsSame(false));
-    }
-  }, []);
+  }, [prodDetail.seller]);
   // 내가 등록한 상품 삭제/수정 시 확인팝업 뜨기
   // const [edit, setEdit] = useState(true);
   return (
@@ -57,10 +50,7 @@ const ProdDetails = () => {
           <div className="prod-details__button--edit">
             <button
               onClick={() => {
-                router.push("/prod-upload");
-                dispatch(
-                  editAllProdState(store.getState().data.recentProdInfo)
-                );
+                router.push("/prod-edit");
               }}
             >
               수정하기

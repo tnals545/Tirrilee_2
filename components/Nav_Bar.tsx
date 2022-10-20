@@ -6,7 +6,6 @@ import styled from "styled-components";
 import router from "next/router";
 import store from "redux/store";
 import { useAppDispatch } from "redux/hooks";
-import { editRecentIsSame } from "redux/dataReducer";
 import { prodInfoReset } from "redux/prodReducer";
 
 //styled-components
@@ -35,7 +34,6 @@ export default function NavBar() {
           <span
             onClick={() => {
               router.push("/prod-upload");
-              dispatch(editRecentIsSame(false));
               dispatch(prodInfoReset());
             }}
             className="nav-bar--menu__add"
