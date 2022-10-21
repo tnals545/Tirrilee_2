@@ -4,21 +4,23 @@ import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import store from "redux/store";
 import router from "next/router";
-import { useSelector } from "react-redux";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
 import Title from "components/Title";
 import { editAllProdState } from "redux/prodReducer";
+import Skeleton from "components/Skeleton";
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const globalData = useAppSelector((state) => state);
+  const prodData = useAppSelector((state) => state.data.products);
   const dispatch = useAppDispatch();
 
+  setTimeout(() => {
+    setIsLoading(false);
+  }, 2000);
   return (
     <>
       <Title title="Home" />
       <NavBar />
-
       <header className="product-header">
         <h1>상품 목록</h1>
         <div className="product-list text-bold">
@@ -39,29 +41,38 @@ const Home = () => {
       </header>
 
       <main className="product-main">
-        {/* 
-        - div box 특성 제거해야함 
-        - 상품 추가될 때마다 state, props 받아서 생성해주는 컴포넌트 만들기
-        */}
-        {globalData.data.products.map((prod) => {
-          return (
-            <div key={prod.key} className={"product-info"}>
-              <Link href="/prod-details/[key]" as={`/prod-details/${prod.key}`}>
-                <Image
-                  id={`${prod.key}`}
-                  src={prod.src}
-                  alt={prod.name}
-                  onClick={() => dispatch(editAllProdState(prod))}
-                  width={274}
-                  height={274}
-                />
-              </Link>
-              <span>{prod.category}</span>
-              <span>{prod.name}</span>
-              <span>{prod.price}원</span>
-            </div>
-          );
-        })}
+        <ul className="contentWrapper">
+          {prodData.length > 0 &&
+            prodData.map((prod) => {
+              return isLoading ? (
+                <Skeleton key={prod.key} />
+              ) : (
+                <li key={prod.key} className="item">
+                  <div>
+                    <Link
+                      href="/prod-details/[key]"
+                      as={`/prod-details/${prod.key}`}
+                    >
+                      <Image
+                        src={prod.src}
+                        alt={prod.name}
+                        onClick={() => dispatch(editAllProdState(prod))}
+                        width={274}
+                        height={274}
+                      />
+                    </Link>
+                  </div>
+                  <div className="info">
+                    <p>{prod.category}</p>
+                    <p>{prod.name}</p>
+                    <strong>
+                      <p>{prod.price}원</p>
+                    </strong>
+                  </div>
+                </li>
+              );
+            })}
+        </ul>
       </main>
     </>
   );
