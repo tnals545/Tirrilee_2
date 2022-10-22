@@ -9,44 +9,69 @@ import Title from "components/Title";
 import { editAllProdState } from "redux/prodReducer";
 import Skeleton from "components/Skeleton";
 
-const Home = () => {
+const ProdList = (cateType: any) => {
   const [isLoading, setIsLoading] = useState(true);
+  const [category, setCategory] = useState<string>();
+
   const prodData = useAppSelector((state) => state.data.products);
+  const categories = useAppSelector((state) => state.data.categories);
   const dispatch = useAppDispatch();
+
+  const onCategoryClick = async (e: any) => {
+    const {
+      target: { textContent },
+    } = await e;
+    if (textContent === "에코백") {
+      setCategory("eco");
+    } else if (textContent === "티셔츠") {
+      setCategory("tshirts");
+    } else {
+      setCategory("etc");
+    }
+  };
 
   setTimeout(() => {
     setIsLoading(false);
-  }, 2000);
+  }, 1500);
   return (
     <>
-      <Title title="Home" />
-      <NavBar />
       <header className="product-header">
         <h1>상품 목록</h1>
         <div className="product-list text-bold">
-          <span>전체</span>
-          <span className="product-list__bar"> </span>
-          <Link href={"/prod-list/eco"}>
-            <span>에코백</span>
-          </Link>
-          <span className="product-list__bar"> </span>
-          <Link href={"/prod-list/shirts"}>
-            <span>티셔츠</span>
-          </Link>
-          <span className="product-list__bar"> </span>
-          <Link href={"/prod-list/etc"}>
-            <span>기타물품</span>
-          </Link>
+          <div>
+            <Link href="/prod-list/[category]" as={`/prod-list/all`}>
+              <span className="all">전체</span>
+            </Link>
+          </div>
+          {categories.map((cate) => {
+            return (
+              <div key={cate}>
+                <span className="product-list__bar"> </span>
+                <Link
+                  href="/prod-list/[category]"
+                  as={`/prod-list/${category}`}
+                >
+                  <span
+                    className={`${category === cateType ? "active" : ""}`}
+                    onClick={onCategoryClick}
+                  >
+                    {cate}
+                  </span>
+                </Link>
+              </div>
+            );
+          })}
         </div>
       </header>
 
       <main className="product-main">
         <ul className="contentWrapper">
-          {prodData.length > 0 &&
+          {isLoading ? (
+            <Skeleton />
+          ) : (
+            prodData.length > 0 &&
             prodData.map((prod) => {
-              return isLoading ? (
-                <Skeleton key={prod.key} />
-              ) : (
+              return (
                 <li key={prod.key} className="item">
                   <div>
                     <Link
@@ -71,11 +96,12 @@ const Home = () => {
                   </div>
                 </li>
               );
-            })}
+            })
+          )}
         </ul>
       </main>
     </>
   );
 };
 
-export default Home;
+export default ProdList;

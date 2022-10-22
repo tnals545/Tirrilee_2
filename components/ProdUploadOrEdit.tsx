@@ -21,7 +21,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
-import { useAppDispatch } from "redux/hooks";
+import { useAppDispatch, useAppSelector } from "redux/hooks";
 import { addProd, editProduct } from "redux/dataReducer";
 
 interface propsType {
@@ -29,13 +29,13 @@ interface propsType {
 }
 
 const ProdUploadOrEdit = ({ work }: propsType) => {
-  const categories: string[] = ["에코백", "티셔츠", "기타물품"];
   const [btnActive, setBtnActive] = useState();
   const [render, setRender] = useState(false);
   const [name, setName] = useState<string>("");
   const [price, setPrice] = useState<number>(0);
   const [detail, setDetail] = useState<string>("");
 
+  const categories = useAppSelector((state) => state.data.categories);
   const dispatch = useAppDispatch();
 
   const priceToUnit = (price: number) => {
@@ -158,7 +158,7 @@ const ProdUploadOrEdit = ({ work }: propsType) => {
               <button
                 key={category}
                 value={idx}
-                className={`btn ${idx == btnActive ? "active" : ""}`}
+                className={`btn ${idx === btnActive ? "active" : ""}`}
                 onClick={onCategoryClick}
               >
                 {category}
