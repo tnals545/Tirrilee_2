@@ -37,7 +37,7 @@ const ProdUploadOrEdit = ({ work }: propsType) => {
 
   const categories = useAppSelector((state) => state.data.categories.slice(1));
   const dispatch = useAppDispatch();
-  console.log(btnActive);
+
   const priceToUnit = (price: number) => {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };

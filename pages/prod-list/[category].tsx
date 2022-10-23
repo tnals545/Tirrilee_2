@@ -8,13 +8,14 @@ import { useAppDispatch, useAppSelector } from "redux/hooks";
 import Title from "components/Title";
 import { editAllProdState } from "redux/prodReducer";
 import Skeleton from "components/Skeleton";
-import ProdList from "components/ProdList";
 
 const Category = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [category, setCategory] = useState<string>("전체");
 
+  const prodData = useAppSelector((state) => state.data.products);
   const categories = useAppSelector((state) => state.data.categories);
+  const dispatch = useAppDispatch();
 
   const onCategoryClick = (e: any) => {
     const {
@@ -23,9 +24,13 @@ const Category = () => {
     setCategory(textContent);
   };
 
-  setTimeout(() => {
-    setIsLoading(false);
-  }, 1500);
+  useEffect(() => {
+    setIsLoading(true);
+
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+  }, [category]);
   return (
     <>
       <Title title={category} />
@@ -53,7 +58,64 @@ const Category = () => {
 
       <main className="product-main">
         <ul className="contentWrapper">
-          {isLoading ? <Skeleton /> : <ProdList category={category} />}
+          {isLoading && <Skeleton />}
+          {prodData.map((prod) => {
+            if (category === "전체") {
+              return (
+                <li key={prod.key} className="item">
+                  <div>
+                    <Link
+                      href="/prod-details/[key]"
+                      as={`/prod-details/${prod.key}`}
+                    >
+                      <Image
+                        src={prod.src}
+                        alt={prod.name}
+                        onClick={() => dispatch(editAllProdState(prod))}
+                        width={274}
+                        height={274}
+                      />
+                    </Link>
+                  </div>
+                  <div className="info">
+                    <p>{prod.category}</p>
+                    <p>{prod.name}</p>
+                    <strong>
+                      <p>{prod.price}원</p>
+                    </strong>
+                  </div>
+                </li>
+              );
+            } else {
+              if (prod.category === category) {
+                return (
+                  <li key={prod.key} className="item">
+                    <div>
+                      <Link
+                        href="/prod-details/[key]"
+                        as={`/prod-details/${prod.key}`}
+                      >
+                        <Image
+                          src={prod.src}
+                          alt={prod.name}
+                          onClick={() => dispatch(editAllProdState(prod))}
+                          width={274}
+                          height={274}
+                        />
+                      </Link>
+                    </div>
+                    <div className="info">
+                      <p>{prod.category}</p>
+                      <p>{prod.name}</p>
+                      <strong>
+                        <p>{prod.price}원</p>
+                      </strong>
+                    </div>
+                  </li>
+                );
+              }
+            }
+          })}
         </ul>
       </main>
     </>
