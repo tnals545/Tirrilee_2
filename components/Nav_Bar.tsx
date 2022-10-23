@@ -19,7 +19,7 @@ export default function NavBar() {
         <Image
           onClick={() => {
             if (store.getState().userInfo.isLogin) {
-              router.push("/prod-list/home");
+              router.push("/prod-list/전체");
             } else {
               router.push("/");
             }

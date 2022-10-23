@@ -15,7 +15,7 @@ export interface ProdArray extends Array<ProdState> {}
 const initialState: DataState<UserArray, ProdArray> = {
   users: [],
   products: [],
-  categories: ["에코백", "티셔츠", "기타물품"],
+  categories: ["전체", "에코백", "티셔츠", "기타물품"],
 };
 
 const dataSlice = createSlice({

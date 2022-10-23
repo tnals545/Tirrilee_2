@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
 import store from "redux/store";
 import router from "next/router";
+import Title from "components/Title";
 
 const ProdDetails = () => {
   const prodDetail = useAppSelector((state) => state.prodInfo);
@@ -24,6 +25,7 @@ const ProdDetails = () => {
   // const [edit, setEdit] = useState(true);
   return (
     <>
+      <Title title="Product Detail" />
       <NavBar />
       <FontAwesomeIcon onClick={() => router.back()} icon={faArrowLeftLong} />
       <Image
@@ -56,7 +58,6 @@ const ProdDetails = () => {
               수정하기
             </button>
             <button>삭제하기</button>
-            {/* <ProdUploadOrEdit edit={edit} /> */}
           </div>
         </>
       ) : (

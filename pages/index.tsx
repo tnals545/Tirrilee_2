@@ -109,7 +109,7 @@ const Login = () => {
             )}
           </span>
         </div>
-        <Link href={"/prod-list/home"}>
+        <Link href={"/prod-list/[category]"} as="/prod-list/전체">
           <button onClick={onLoginClick}>로그인</button>
         </Link>
       </form>

@@ -38,6 +38,7 @@ const GlobalStyle = createGlobalStyle`
     font-weight: 700;
   }
   .active {
+    color: blue;
     background-color: blue;
   }
 `;

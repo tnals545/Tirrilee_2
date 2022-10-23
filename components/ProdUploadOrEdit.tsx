@@ -35,9 +35,9 @@ const ProdUploadOrEdit = ({ work }: propsType) => {
   const [price, setPrice] = useState<number>(0);
   const [detail, setDetail] = useState<string>("");
 
-  const categories = useAppSelector((state) => state.data.categories);
+  const categories = useAppSelector((state) => state.data.categories.slice(1));
   const dispatch = useAppDispatch();
-
+  console.log(btnActive);
   const priceToUnit = (price: number) => {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
@@ -153,12 +153,12 @@ const ProdUploadOrEdit = ({ work }: propsType) => {
           />
         </div>
         <div className="prod-upload__info--category">
-          {categories.map((category, idx) => {
+          {categories.map((category) => {
             return (
               <button
                 key={category}
-                value={idx}
-                className={`btn ${idx === btnActive ? "active" : ""}`}
+                value={category}
+                className={`btn ${category === btnActive ? "active" : ""}`}
                 onClick={onCategoryClick}
               >
                 {category}
@@ -166,7 +166,7 @@ const ProdUploadOrEdit = ({ work }: propsType) => {
             );
           })}
         </div>
-        <Link href={"/prod-list/home"}>
+        <Link href={"/prod-list/전체"}>
           {work === "edit" ? (
             <button onClick={onCompleteClick}>수정하기</button>
           ) : (
