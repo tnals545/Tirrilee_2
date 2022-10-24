@@ -11,13 +11,14 @@ import Skeleton from "components/Skeleton";
 
 const Category = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [category, setCategory] = useState<string>("전체");
+  const [category, setCategory] = useState<string>("");
+  const refList = useRef<HTMLUListElement>(null);
 
   const prodData = useAppSelector((state) => state.data.products);
   const categories = useAppSelector((state) => state.data.categories);
   const dispatch = useAppDispatch();
 
-  const onCategoryClick = (e: any) => {
+  const handleClickCategory = (e: any) => {
     const {
       target: { textContent },
     } = e;
@@ -25,12 +26,26 @@ const Category = () => {
   };
 
   useEffect(() => {
+    const handleRouteChange = () => {
+      if (router.router?.query.category === "전체") {
+        setCategory("전체");
+      }
+    };
+    router.events.on("routeChangeComplete", handleRouteChange);
+
     setIsLoading(true);
+    refList.current?.classList.add("hidden");
 
     setTimeout(() => {
       setIsLoading(false);
+      refList.current?.classList.remove("hidden");
     }, 1500);
+
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+    };
   }, [category]);
+
   return (
     <>
       <Title title={category} />
@@ -45,7 +60,7 @@ const Category = () => {
                 <Link href="/prod-list/[category]" as={`/prod-list/${cate}`}>
                   <span
                     className={`${category === cate ? "strong" : ""}`}
-                    onClick={onCategoryClick}
+                    onClick={handleClickCategory}
                   >
                     {cate}
                   </span>
@@ -56,13 +71,13 @@ const Category = () => {
         </div>
       </header>
 
-      <main className="product-main">
-        <ul className="contentWrapper">
-          {isLoading && <Skeleton />}
+      <main className="product-list">
+        <ul className="product-list__skeleton">{isLoading && <Skeleton />}</ul>
+        <ul ref={refList} className="product-list__wrapper">
           {prodData.map((prod) => {
             if (category === "전체") {
               return (
-                <li key={prod.key} className="item">
+                <li key={prod.key} className="product-list__item">
                   <div>
                     <Link
                       href="/prod-details/[key]"
@@ -77,7 +92,7 @@ const Category = () => {
                       />
                     </Link>
                   </div>
-                  <div className="info">
+                  <div className="product-list__item--info">
                     <p>{prod.category}</p>
                     <p>{prod.name}</p>
                     <strong>
@@ -89,7 +104,7 @@ const Category = () => {
             } else {
               if (prod.category === category) {
                 return (
-                  <li key={prod.key} className="item">
+                  <li key={prod.key} className="product-list__item">
                     <div>
                       <Link
                         href="/prod-details/[key]"
@@ -104,7 +119,7 @@ const Category = () => {
                         />
                       </Link>
                     </div>
-                    <div className="info">
+                    <div className="product-list__item--info">
                       <p>{prod.category}</p>
                       <p>{prod.name}</p>
                       <strong>
