@@ -91,6 +91,7 @@ const Login = () => {
             id="id"
             type="email"
             placeholder="이메일을 입력하세요."
+            required
           />
         </div>
         <div className="login__password">
@@ -100,6 +101,7 @@ const Login = () => {
             id="pw"
             type={pwType.type}
             placeholder="비밀번호를 입력하세요."
+            required
           />
           <span onClick={handlePwType} className="login__password-visible">
             {pwType.visible ? (

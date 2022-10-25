@@ -28,6 +28,13 @@ const dataSlice = createSlice({
     addProd(state, action: PayloadAction<ProdState>) {
       state.products.push(action.payload);
     },
+    delProd(state, action: PayloadAction<number>) {
+      state.products.forEach((prod, index) => {
+        if (prod.key === action.payload) {
+          state.products.splice(index);
+        }
+      });
+    },
     editUser(state, action: PayloadAction<UserInfoState>) {
       state.users.forEach((user, index) => {
         if (user.email === action.payload.email) {

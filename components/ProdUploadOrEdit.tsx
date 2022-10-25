@@ -106,6 +106,8 @@ const ProdUploadOrEdit = ({ work }: propsType) => {
         onChange={(e: any) => {
           encodeFileToBase64(e.target.files[0]);
         }}
+        accept="image/*"
+        required
       />
       <div className="preview">
         {store.getState().prodInfo.src && work === "upload" && (
@@ -134,6 +136,7 @@ const ProdUploadOrEdit = ({ work }: propsType) => {
             type="text"
             placeholder="제품명을 입력해주세요."
             value={name}
+            required
           />
           <h4>가격</h4>
           <input
@@ -142,6 +145,7 @@ const ProdUploadOrEdit = ({ work }: propsType) => {
             type="number"
             placeholder="숫자만 입력해주세요."
             value={price}
+            required
           />
           <h4>상세 설명</h4>
           <input
@@ -150,6 +154,7 @@ const ProdUploadOrEdit = ({ work }: propsType) => {
             type="text"
             placeholder="상세한 상품 설명을 입력해주세요."
             value={detail}
+            required
           />
         </div>
         <div className="prod-upload__info--category">

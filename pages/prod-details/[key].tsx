@@ -12,12 +12,14 @@ const ProdDetails = () => {
   const prodDetail = useAppSelector((state) => state.prodInfo);
   const dispatch = useAppDispatch();
 
+  const [userIdx, setUserIdx] = useState<number>(0);
   const [prodSeller, setProdSeller] = useState<string>();
 
   useEffect(() => {
-    store.getState().data.users.map((user) => {
+    store.getState().data.users.map((user, index) => {
       if (user.email === prodDetail.seller) {
         setProdSeller(user.nickname);
+        setUserIdx(index);
       }
     });
   }, [prodDetail.seller]);
@@ -46,8 +48,14 @@ const ProdDetails = () => {
       {prodDetail.isSame ? (
         <>
           <div key={prodDetail.key} className="prod-details__seller">
+            <Image
+              className="profile-img__preview"
+              src={store.getState().data.users[userIdx].profileImg}
+              alt="preview-img"
+              width={100}
+              height={100}
+            />
             {prodSeller}
-            {/* 판매자 프로필 */}
           </div>
           <div className="prod-details__button--edit">
             <button
@@ -63,8 +71,14 @@ const ProdDetails = () => {
       ) : (
         <>
           <div key={prodDetail.key} className="prod-details__seller">
+            <Image
+              className="profile-img__preview"
+              src={store.getState().data.users[userIdx].profileImg}
+              alt="preview-img"
+              width={100}
+              height={100}
+            />
             {prodSeller}
-            {/* 판매자 프로필 */}
           </div>
         </>
       )}

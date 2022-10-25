@@ -6,6 +6,7 @@ export interface UserInfoState {
   password: string;
   isLogin: boolean;
   nickname: string;
+  profileImg: any;
 }
 
 const initialState: UserInfoState = {
@@ -13,6 +14,7 @@ const initialState: UserInfoState = {
   password: "",
   isLogin: false,
   nickname: "",
+  profileImg: "/profile.png",
 };
 
 const userInfoSlice = createSlice({
@@ -31,6 +33,9 @@ const userInfoSlice = createSlice({
     addNickName(state, action: PayloadAction<string>) {
       state.nickname = action.payload;
     },
+    editProfileImg(state, action: PayloadAction<any>) {
+      state.profileImg = action.payload;
+    },
     userAlreadyId(state, action: PayloadAction<UserInfoState>) {
       state = action.payload;
     },
@@ -45,6 +50,7 @@ export const {
   addPassword,
   isLogin,
   addNickName,
+  editProfileImg,
   userAlreadyId,
   userInfoReset,
 } = userInfoSlice.actions;
