@@ -67,6 +67,7 @@ const dataSlice = createSlice({
 export const {
   addUser,
   addProd,
+  delProd,
   editUser,
   editProduct,
   allIsSameFalse,

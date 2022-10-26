@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "redux/hooks";
 import store from "redux/store";
 import router from "next/router";
 import Title from "components/Title";
+import { delProd } from "redux/dataReducer";
 
 const ProdDetails = () => {
   const prodDetail = useAppSelector((state) => state.prodInfo);
@@ -14,6 +15,16 @@ const ProdDetails = () => {
 
   const [userIdx, setUserIdx] = useState<number>(0);
   const [prodSeller, setProdSeller] = useState<string>();
+
+  const handleDelClick = () => {
+    const del = confirm("정말 삭제하시겠습니까?");
+    if (del) {
+      dispatch(delProd(prodDetail.key));
+      router.back();
+    } else {
+      return;
+    }
+  };
 
   useEffect(() => {
     store.getState().data.users.map((user, index) => {
@@ -65,7 +76,7 @@ const ProdDetails = () => {
             >
               수정하기
             </button>
-            <button>삭제하기</button>
+            <button onClick={handleDelClick}>삭제하기</button>
           </div>
         </>
       ) : (

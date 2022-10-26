@@ -3,7 +3,7 @@ import Image from "next/image";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import {
   addEmail,
   addPassword,
@@ -28,43 +28,38 @@ const Login = () => {
   const emailRef = useRef<HTMLInputElement>(null);
   const pwRef = useRef<HTMLInputElement>(null);
 
-  const dataState = useAppSelector((state) => state.data);
   const dispatch = useAppDispatch();
 
   const [pwType, setPwType] = useState<Password>({
     type: "password",
     visible: false,
   });
-  const [emailList, setEmailList] = useState<Array<string>>([]);
+  const emailList: string[] = [];
 
-  const handleEmailList = () => {
-    dataState.users.forEach((user) => {
-      setEmailList((prev) => [...prev, user.email]);
-    });
-  };
-
-  const onLoginClick = () => {
+  const onLoginClick = (e: any) => {
     const email = emailRef.current?.value;
     const pw = pwRef.current?.value;
 
-    handleEmailList();
-
-    if (email && emailList.includes(email)) {
-      const exitUserIdx = emailList.indexOf(email);
-      dataState.users.forEach((user, index) => {
-        if (exitUserIdx === index) {
-          dispatch(userAlreadyId(user));
-          dispatch(isLogin(true));
-        }
-      });
-    } else if (email && pw) {
+    store.getState().data.users.forEach((user) => {
+      emailList.push(user.email);
+      if (user.email === email && user.password === pw) {
+        dispatch(userAlreadyId(user));
+        dispatch(isLogin(true));
+        dispatch(findIsSameTrue(store.getState().userInfo.email));
+      } else if (user.email === email && user.password !== pw) {
+        alert("비밀번호를 확인해주세요 :)");
+        e.preventDefault();
+      }
+    });
+    console.log(emailList);
+    if (email && pw && emailList.includes(email) === false) {
       dispatch(addEmail(email));
       dispatch(addPassword(pw));
       dispatch(isLogin(true));
       dispatch(addNickName(email));
+      dispatch(addUser(store.getState().userInfo));
+      dispatch(findIsSameTrue(store.getState().userInfo.email));
     }
-    dispatch(addUser(store.getState().userInfo));
-    dispatch(findIsSameTrue(store.getState().userInfo.email));
     console.log(store.getState().data);
   };
 

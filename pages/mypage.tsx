@@ -25,6 +25,7 @@ const Profile = () => {
 
   const onLogOutClick = () => {
     dispatch(isLogin(false));
+    dispatch(editUser(store.getState().userInfo));
     dispatch(userInfoReset());
     dispatch(allIsSameFalse());
     router.push("/");

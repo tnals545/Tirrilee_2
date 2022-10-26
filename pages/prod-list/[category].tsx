@@ -1,18 +1,27 @@
 import NavBar from "components/Nav_Bar";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useRef, useEffect } from "react";
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  forwardRef,
+  createRef,
+} from "react";
 import store from "redux/store";
 import router from "next/router";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
 import Title from "components/Title";
 import { editAllProdState } from "redux/prodReducer";
 import Skeleton from "components/Skeleton";
+import { CustomProdList } from "components/CustomProdList";
 
 const Category = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [category, setCategory] = useState<string>("");
-  const refList = useRef<HTMLUListElement>(null);
+
+  // Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?
+  const ref = useRef<HTMLUListElement>(null);
 
   const prodData = useAppSelector((state) => state.data.products);
   const categories = useAppSelector((state) => state.data.categories);
@@ -34,11 +43,11 @@ const Category = () => {
     router.events.on("routeChangeComplete", handleRouteChange);
 
     setIsLoading(true);
-    refList.current?.classList.add("hidden");
+    ref.current?.classList.add("hidden");
 
     setTimeout(() => {
       setIsLoading(false);
-      refList.current?.classList.remove("hidden");
+      ref.current?.classList.remove("hidden");
     }, 1500);
 
     return () => {
@@ -73,7 +82,7 @@ const Category = () => {
 
       <main className="product-list">
         <ul className="product-list__skeleton">{isLoading && <Skeleton />}</ul>
-        <ul ref={refList} className="product-list__wrapper">
+        {/* <ul ref={ref} className="product-list__wrapper">
           {prodData.map((prod) => {
             if (category === "전체") {
               return (
@@ -131,7 +140,8 @@ const Category = () => {
               }
             }
           })}
-        </ul>
+        </ul> */}
+        <CustomProdList ref={ref} category={category} prodData={prodData} />
       </main>
     </>
   );
