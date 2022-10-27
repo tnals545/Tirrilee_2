@@ -31,35 +31,18 @@ interface propsType {
 const ProdUploadOrEdit = ({ work }: propsType) => {
   const [btnActive, setBtnActive] = useState<string>();
   const [render, setRender] = useState(false);
-  const keyList: number[] = [];
-
-  const categories = useAppSelector((state) => state.data.categories.slice(1));
-  const dispatch = useAppDispatch();
-
-  store.getState().data.products.forEach((prod) => {
-    keyList.push(prod.key);
-  });
-
-  const priceToUnit = (price: string) => {
-    return price.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  };
-
-  // const handleInputChange = (e: any) => {
-  //   const {
-  //     target: { className, value },
-  //   } = e;
-  //   if (className === "name") {
-  //     setName(value);
-  //   } else if (className === "price") {
-  //     setPrice(value);
-  //   } else if (className === "detail") {
-  //     setDetail(value);
-  //   }
-  // };
+  const [keyList, setKeyList] = useState<number[]>([]);
 
   const nameInput = useRef<HTMLInputElement>(null);
   const priceInput = useRef<HTMLInputElement>(null);
   const detailInput = useRef<HTMLInputElement>(null);
+
+  const categories = useAppSelector((state) => state.etc.categories.slice(1));
+  const dispatch = useAppDispatch();
+
+  const priceToUnit = (price: string) => {
+    return price.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
 
   const handleInputChange = (e: any) => {
     const {
@@ -130,6 +113,10 @@ const ProdUploadOrEdit = ({ work }: propsType) => {
   };
 
   useEffect(() => {
+    store.getState().data.products.forEach((prod) => {
+      setKeyList([...keyList, prod.key]);
+    });
+
     if (work === "edit") {
       if (nameInput.current) {
         nameInput.current.value = store.getState().prodInfo.name;
@@ -144,7 +131,7 @@ const ProdUploadOrEdit = ({ work }: propsType) => {
       }
       setBtnActive(store.getState().prodInfo.category);
     }
-  }, [work]);
+  }, []);
 
   return (
     <>

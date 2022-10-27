@@ -6,7 +6,6 @@ import { ProdState } from "./prodReducer";
 export interface DataState<T, F> {
   users: T;
   products: F;
-  categories: string[];
 }
 
 export interface UserArray extends Array<UserInfoState> {}
@@ -15,7 +14,6 @@ export interface ProdArray extends Array<ProdState> {}
 const initialState: DataState<UserArray, ProdArray> = {
   users: [],
   products: [],
-  categories: ["전체", "에코백", "티셔츠", "기타물품"],
 };
 
 const dataSlice = createSlice({

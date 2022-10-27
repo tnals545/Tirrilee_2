@@ -26,7 +26,7 @@ const MyProductsList = () => {
     setIsLoading(true);
     ref.current?.classList.add("hidden");
 
-    setTimeout(() => {
+    let timer = setTimeout(() => {
       setIsLoading(false);
       prodData.forEach((prod) => {
         if (prod.seller === userData.email) {
@@ -35,6 +35,10 @@ const MyProductsList = () => {
       });
       ref.current?.classList.remove("hidden");
     }, 1500);
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, []);
   return (
     <>

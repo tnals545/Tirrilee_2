@@ -17,7 +17,7 @@ const Category = () => {
   const ref = useRef<HTMLUListElement>(null);
 
   const prodData = useAppSelector((state) => state.data.products);
-  const categories = useAppSelector((state) => state.data.categories);
+  const categories = useAppSelector((state) => state.etc.categories);
 
   const handleClickCategory = (e: any) => {
     const {
@@ -37,13 +37,14 @@ const Category = () => {
     setIsLoading(true);
     ref.current?.classList.add("hidden");
 
-    setTimeout(() => {
+    let timer = setTimeout(() => {
       setIsLoading(false);
       ref.current?.classList.remove("hidden");
     }, 1500);
 
     return () => {
       router.events.off("routeChangeComplete", handleRouteChange);
+      clearTimeout(timer);
     };
   }, [category]);
 
