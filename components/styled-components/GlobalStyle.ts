@@ -2,7 +2,7 @@ import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 
 const GlobalStyle = createGlobalStyle`
-  @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400&display=swap");
+  /* @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400&display=swap"); */
   
   ${reset}
 
@@ -12,7 +12,7 @@ const GlobalStyle = createGlobalStyle`
   }
   * {
     box-sizing: border-box;
-    font-family: "Noto Sans KR", sans-serif;
+    /* font-family: "Noto Sans KR", sans-serif; */
   }
   input, textarea { 
     -moz-user-select: auto;
@@ -40,6 +40,9 @@ const GlobalStyle = createGlobalStyle`
   .active {
     color: blue;
     background-color: blue;
+  }
+  .opacity {
+    opacity: 0.3;
   }
 `;
 

@@ -15,7 +15,7 @@ import {
 import store from "redux/store";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
 import Title from "components/Title";
-import { addUser, findIsSameTrue } from "redux/dataReducer";
+import { addUser, editUser, findIsSameTrue } from "redux/dataReducer";
 
 interface Password {
   type: string;
@@ -34,33 +34,39 @@ const Login = () => {
     type: "password",
     visible: false,
   });
-  const emailList: string[] = [];
+  const [emailList, setEmailList] = useState<string[]>([]);
 
   const onLoginClick = (e: any) => {
     const email = emailRef.current?.value;
     const pw = pwRef.current?.value;
 
-    store.getState().data.users.forEach((user) => {
-      emailList.push(user.email);
-      if (user.email === email && user.password === pw) {
-        dispatch(userAlreadyId(user));
+    if (email && pw) {
+      if (emailList.includes(email) === true) {
+        store.getState().data.users.forEach((user) => {
+          if (user.email === email && user.password === pw) {
+            dispatch(userAlreadyId(user));
+            dispatch(isLogin(true));
+            dispatch(editUser(store.getState().userInfo));
+            dispatch(findIsSameTrue(store.getState().userInfo.email));
+          } else if (user.email === email && user.password !== pw) {
+            alert("이미 가입된 아이디입니다. \n비밀번호를 확인해 주세요 :)");
+            e.preventDefault();
+          }
+        });
+      } else if (emailList.includes(email) === false) {
+        dispatch(addEmail(email));
+        dispatch(addPassword(pw));
         dispatch(isLogin(true));
+        dispatch(addNickName(email));
+        dispatch(addUser(store.getState().userInfo));
         dispatch(findIsSameTrue(store.getState().userInfo.email));
-      } else if (user.email === email && user.password !== pw) {
-        alert("비밀번호를 확인해주세요 :)");
-        e.preventDefault();
       }
-    });
-    console.log(emailList);
-    if (email && pw && emailList.includes(email) === false) {
-      dispatch(addEmail(email));
-      dispatch(addPassword(pw));
-      dispatch(isLogin(true));
-      dispatch(addNickName(email));
-      dispatch(addUser(store.getState().userInfo));
-      dispatch(findIsSameTrue(store.getState().userInfo.email));
+    } else {
+      alert("아이디 또는 비밀번호를 입력해주세요 :)");
+      e.preventDefault();
     }
-    console.log(store.getState().data);
+    console.log(emailList);
+    console.log(store.getState());
   };
 
   // 비밀번호 보기/숨기기
@@ -71,6 +77,13 @@ const Login = () => {
       setPwType({ type: "password", visible: false });
     }
   };
+
+  useEffect(() => {
+    setEmailList([]);
+    store.getState().data.users.forEach((user) => {
+      setEmailList([...emailList, user.email]);
+    });
+  }, []);
 
   return (
     <>

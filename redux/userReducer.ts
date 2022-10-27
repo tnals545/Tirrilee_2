@@ -37,7 +37,7 @@ const userInfoSlice = createSlice({
       state.profileImg = action.payload;
     },
     userAlreadyId(state, action: PayloadAction<UserInfoState>) {
-      state = action.payload;
+      Object.assign(state, action.payload);
     },
     userInfoReset(state) {
       Object.assign(state, initialState);

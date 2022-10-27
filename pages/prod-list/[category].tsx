@@ -1,18 +1,10 @@
 import NavBar from "components/Nav_Bar";
-import Image from "next/image";
 import Link from "next/link";
-import React, {
-  useState,
-  useRef,
-  useEffect,
-  forwardRef,
-  createRef,
-} from "react";
+import React, { useState, useRef, useEffect } from "react";
 import store from "redux/store";
 import router from "next/router";
-import { useAppDispatch, useAppSelector } from "redux/hooks";
+import { useAppSelector } from "redux/hooks";
 import Title from "components/Title";
-import { editAllProdState } from "redux/prodReducer";
 import Skeleton from "components/Skeleton";
 import { CustomProdList } from "components/CustomProdList";
 
@@ -21,11 +13,11 @@ const Category = () => {
   const [category, setCategory] = useState<string>("");
 
   // Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?
+  // 해결못함
   const ref = useRef<HTMLUListElement>(null);
 
   const prodData = useAppSelector((state) => state.data.products);
   const categories = useAppSelector((state) => state.data.categories);
-  const dispatch = useAppDispatch();
 
   const handleClickCategory = (e: any) => {
     const {
@@ -68,7 +60,7 @@ const Category = () => {
                 <span className="product-list__bar"> </span>
                 <Link href="/prod-list/[category]" as={`/prod-list/${cate}`}>
                   <span
-                    className={`${category === cate ? "strong" : ""}`}
+                    className={`${category !== cate ? "opacity" : ""}`}
                     onClick={handleClickCategory}
                   >
                     {cate}
@@ -82,65 +74,6 @@ const Category = () => {
 
       <main className="product-list">
         <ul className="product-list__skeleton">{isLoading && <Skeleton />}</ul>
-        {/* <ul ref={ref} className="product-list__wrapper">
-          {prodData.map((prod) => {
-            if (category === "전체") {
-              return (
-                <li key={prod.key} className="product-list__item">
-                  <div>
-                    <Link
-                      href="/prod-details/[key]"
-                      as={`/prod-details/${prod.key}`}
-                    >
-                      <Image
-                        src={prod.src}
-                        alt={prod.name}
-                        onClick={() => dispatch(editAllProdState(prod))}
-                        width={274}
-                        height={274}
-                      />
-                    </Link>
-                  </div>
-                  <div className="product-list__item--info">
-                    <p>{prod.category}</p>
-                    <p>{prod.name}</p>
-                    <strong>
-                      <p>{prod.price}원</p>
-                    </strong>
-                  </div>
-                </li>
-              );
-            } else {
-              if (prod.category === category) {
-                return (
-                  <li key={prod.key} className="product-list__item">
-                    <div>
-                      <Link
-                        href="/prod-details/[key]"
-                        as={`/prod-details/${prod.key}`}
-                      >
-                        <Image
-                          src={prod.src}
-                          alt={prod.name}
-                          onClick={() => dispatch(editAllProdState(prod))}
-                          width={274}
-                          height={274}
-                        />
-                      </Link>
-                    </div>
-                    <div className="product-list__item--info">
-                      <p>{prod.category}</p>
-                      <p>{prod.name}</p>
-                      <strong>
-                        <p>{prod.price}원</p>
-                      </strong>
-                    </div>
-                  </li>
-                );
-              }
-            }
-          })}
-        </ul> */}
         <CustomProdList ref={ref} category={category} prodData={prodData} />
       </main>
     </>

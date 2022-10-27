@@ -102,7 +102,10 @@ const ProdUploadOrEdit = ({ work }: propsType) => {
   };
 
   const onCompleteClick = (e: any) => {
-    if (keyList.includes(store.getState().prodInfo.key) === true) {
+    if (
+      keyList.includes(store.getState().prodInfo.key) === true &&
+      work === "upload"
+    ) {
       alert("이미 등록된 상품입니다.");
       e.preventDefault();
     } else {
@@ -132,7 +135,9 @@ const ProdUploadOrEdit = ({ work }: propsType) => {
         nameInput.current.value = store.getState().prodInfo.name;
       }
       if (priceInput.current) {
-        priceInput.current.value = store.getState().prodInfo.price;
+        priceInput.current.value = store
+          .getState()
+          .prodInfo.price.replace(/,/g, "");
       }
       if (detailInput.current) {
         detailInput.current.value = store.getState().prodInfo.description;
@@ -215,7 +220,7 @@ const ProdUploadOrEdit = ({ work }: propsType) => {
             );
           })}
         </div>
-        <Link href={"/prod-list/전체"}>
+        <Link href="/prod-list/전체">
           {work === "edit" ? (
             <button onClick={onCompleteClick}>수정하기</button>
           ) : (

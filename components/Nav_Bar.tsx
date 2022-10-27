@@ -42,7 +42,7 @@ export default function NavBar() {
             <span>추가하기</span>
           </span>
           <span
-            onClick={() => router.push("/mypage")}
+            onClick={() => router.push("/mypage/main")}
             className="nav-bar--menu__mypage"
           >
             <FontAwesomeIcon icon={faUser} />
