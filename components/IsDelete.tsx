@@ -26,13 +26,15 @@ const IsDelete = () => {
 
   return (
     <StyledDiv className={store.getState().etc.alertClass}>
-      <p className="isDelete__text--bold">정말 삭제하시겠습니까?</p>
-      <p className="isDelete__text--gray">등록한 상품이 삭제됩니다.</p>
+      <StyledDiv className="delete-alert__text">
+        <p className="isDelete__text--bold">정말 삭제하시겠습니까?</p>
+        <p className="isDelete__text--gray">등록한 상품이 삭제됩니다.</p>
+      </StyledDiv>
       <StyledDiv className="delete-alert__button">
-        <button onClick={onClick} className="isDelete__cancel">
+        <button onClick={onClick} className="delete-alert__button-cancel">
           취소하기
         </button>
-        <button onClick={onClick} className="isDelete__delete">
+        <button onClick={onClick} className="delete-alert__button-delete">
           삭제하기
         </button>
       </StyledDiv>

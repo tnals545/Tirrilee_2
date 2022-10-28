@@ -35,7 +35,7 @@ const ProdDetails = () => {
   // 내가 등록한 상품 삭제/수정 시 확인팝업 뜨기
   // const [edit, setEdit] = useState(true);
   return (
-    <StyledDiv className="container">
+    <StyledDiv className="prod-details">
       <Title title="Product Detail" />
       <NavBar />
       <FontAwesomeIcon onClick={() => router.back()} icon={faArrowLeftLong} />

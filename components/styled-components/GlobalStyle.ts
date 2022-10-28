@@ -2,8 +2,6 @@ import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 
 const GlobalStyle = createGlobalStyle`
-  /* @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400&display=swap"); */
-  
   ${reset}
   a {
     text-decoration: none;
@@ -11,7 +9,9 @@ const GlobalStyle = createGlobalStyle`
   }
   * {
     box-sizing: border-box;
-    /* font-family: "Noto Sans KR", sans-serif; */
+  }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
   }
   input, textarea { 
     -moz-user-select: auto;
