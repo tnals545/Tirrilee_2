@@ -57,7 +57,7 @@ const ProdUploadOrEdit = ({ work }: propsType) => {
     }
   };
 
-  const encodeFileToBase64 = async (fileBlob: any) => {
+  const encodeFileToBase64 = (fileBlob: any) => {
     const reader = new FileReader();
     // Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'lastModified')
     // 이미지를 업로드한 상태에서 파일 업로드 버튼을 클릭했다가 취소를 눌렀을 때 발생하는 에러
@@ -65,7 +65,7 @@ const ProdUploadOrEdit = ({ work }: propsType) => {
     if (reader && fileBlob) {
       dispatch(addKey(fileBlob.lastModified));
       reader.readAsDataURL(fileBlob);
-      return await new Promise<void>((resolve) => {
+      return new Promise<void>((resolve) => {
         reader.onload = () => {
           dispatch(addSrc(reader.result));
           dispatch(addSeller(store.getState().userInfo.email));
@@ -76,15 +76,15 @@ const ProdUploadOrEdit = ({ work }: propsType) => {
     }
   };
 
-  const onCategoryClick = async (e: any) => {
+  const onClickCategory = (e: any) => {
     const {
       target: { textContent, value },
-    } = await e;
+    } = e;
     dispatch(addCategory(textContent));
     setBtnActive(value); // 버튼 활성화 추가해야됨(파란색)
   };
 
-  const onCompleteClick = (e: any) => {
+  const onClickComplete = (e: any) => {
     if (
       keyList.includes(store.getState().prodInfo.key) === true &&
       work === "upload"
@@ -200,7 +200,7 @@ const ProdUploadOrEdit = ({ work }: propsType) => {
                 key={category}
                 value={category}
                 className={`btn ${category === btnActive ? "active" : ""}`}
-                onClick={onCategoryClick}
+                onClick={onClickCategory}
               >
                 {category}
               </button>
@@ -209,9 +209,9 @@ const ProdUploadOrEdit = ({ work }: propsType) => {
         </div>
         <Link href="/prod-list/전체">
           {work === "edit" ? (
-            <button onClick={onCompleteClick}>수정하기</button>
+            <button onClick={onClickComplete}>수정하기</button>
           ) : (
-            <button onClick={onCompleteClick}>완료</button>
+            <button onClick={onClickComplete}>완료</button>
           )}
         </Link>
       </div>

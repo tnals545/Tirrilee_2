@@ -8,6 +8,9 @@ import store from "redux/store";
 import router from "next/router";
 import Title from "components/Title";
 import { delProd } from "redux/dataReducer";
+import IsDelete from "components/IsDelete";
+import { isDelete } from "redux/etcReducer";
+import { StyledDiv } from "components/styled-components/Styled";
 
 const ProdDetails = () => {
   const prodDetail = useAppSelector((state) => state.prodInfo);
@@ -15,16 +18,11 @@ const ProdDetails = () => {
 
   const [userIdx, setUserIdx] = useState<number>(0);
   const [prodSeller, setProdSeller] = useState<string>();
+  const [isDel, setIsDel] = useState<boolean>();
 
-  const handleDelClick = () => {
-    const del = confirm("정말 삭제하시겠습니까?");
-    if (del) {
-      dispatch(delProd(prodDetail.key));
-      router.back();
-    } else {
-      return;
-    }
-  };
+  store.subscribe(() => {
+    setIsDel(store.getState().etc.isDelete);
+  });
 
   useEffect(() => {
     store.getState().data.users.map((user, index) => {
@@ -37,7 +35,7 @@ const ProdDetails = () => {
   // 내가 등록한 상품 삭제/수정 시 확인팝업 뜨기
   // const [edit, setEdit] = useState(true);
   return (
-    <>
+    <StyledDiv className="container">
       <Title title="Product Detail" />
       <NavBar />
       <FontAwesomeIcon onClick={() => router.back()} icon={faArrowLeftLong} />
@@ -47,18 +45,18 @@ const ProdDetails = () => {
         width={763}
         height={763}
       />
-      <div className="prod-details__short-info">
+      <StyledDiv className="prod-details__short-info">
         <span>{prodDetail.category}</span>
         <span>{prodDetail.name}</span>
         <span>{prodDetail.price}원</span>
-      </div>
-      <div className="prod-details__detail-info">
+      </StyledDiv>
+      <StyledDiv className="prod-details__detail-info">
         <h4>상품 설명</h4>
         <span>{prodDetail.description}</span>
-      </div>
+      </StyledDiv>
       {prodDetail.isSame ? (
         <>
-          <div key={prodDetail.key} className="prod-details__seller">
+          <StyledDiv key={prodDetail.key} className="prod-details__seller">
             <Image
               className="profile-img__preview"
               src={store.getState().data.users[userIdx].profileImg}
@@ -67,8 +65,8 @@ const ProdDetails = () => {
               height={100}
             />
             {prodSeller}
-          </div>
-          <div className="prod-details__button--edit">
+          </StyledDiv>
+          <StyledDiv className="prod-details__button--edit">
             <button
               onClick={() => {
                 router.push("/prod-edit");
@@ -76,12 +74,12 @@ const ProdDetails = () => {
             >
               수정하기
             </button>
-            <button onClick={handleDelClick}>삭제하기</button>
-          </div>
+            <button onClick={() => dispatch(isDelete(true))}>삭제하기</button>
+          </StyledDiv>
         </>
       ) : (
         <>
-          <div key={prodDetail.key} className="prod-details__seller">
+          <StyledDiv key={prodDetail.key} className="prod-details__seller">
             <Image
               className="profile-img__preview"
               src={store.getState().data.users[userIdx].profileImg}
@@ -90,10 +88,13 @@ const ProdDetails = () => {
               height={100}
             />
             {prodSeller}
-          </div>
+          </StyledDiv>
         </>
       )}
-    </>
+      <StyledDiv className="prod-details__delete">
+        {isDel && <IsDelete />}
+      </StyledDiv>
+    </StyledDiv>
   );
 };
 
