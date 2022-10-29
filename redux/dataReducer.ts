@@ -42,7 +42,7 @@ const dataSlice = createSlice({
     },
     editProduct(state, action: PayloadAction<ProdState>) {
       state.products.forEach((prod, index) => {
-        if (prod.key === action.payload.key) {
+        if (prod.key === action.payload.beforeKey) {
           state.products[index] = action.payload;
         }
       });

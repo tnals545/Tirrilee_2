@@ -7,7 +7,7 @@ import router from "next/router";
 import store from "redux/store";
 import { useAppDispatch } from "redux/hooks";
 import { prodInfoReset } from "redux/prodReducer";
-import { StyledDiv } from "./styled-components/Styled";
+import { StyledDiv } from "styles/Styled";
 
 //styled-components
 

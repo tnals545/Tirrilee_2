@@ -16,6 +16,7 @@ import {
   prodInfoReset,
   editAllProdState,
   ProdState,
+  addBeforeKey,
 } from "redux/prodReducer";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -130,6 +131,7 @@ const ProdUploadOrEdit = ({ work }: propsType) => {
         detailInput.current.value = store.getState().prodInfo.description;
       }
       setBtnActive(store.getState().prodInfo.category);
+      dispatch(addBeforeKey(store.getState().prodInfo.key));
     }
   }, []);
 
@@ -146,15 +148,7 @@ const ProdUploadOrEdit = ({ work }: propsType) => {
         required
       />
       <div className="preview">
-        {store.getState().prodInfo.src && work === "upload" && (
-          <Image
-            src={store.getState().prodInfo.src}
-            alt="preview-img"
-            width={500}
-            height={500}
-          />
-        )}
-        {store.getState().prodInfo.src && work === "edit" && (
+        {store.getState().prodInfo.src && (
           <Image
             src={store.getState().prodInfo.src}
             alt="preview-img"

@@ -10,7 +10,7 @@ import Title from "components/Title";
 import { delProd } from "redux/dataReducer";
 import IsDelete from "components/IsDelete";
 import { isDelete } from "redux/etcReducer";
-import { StyledDiv } from "components/styled-components/Styled";
+import { StyledDiv } from "styles/styled-components/Styled";
 
 const ProdDetails = () => {
   const prodDetail = useAppSelector((state) => state.prodInfo);

@@ -10,6 +10,7 @@ export interface ProdState {
   price: string;
   description: string;
   isSame: boolean;
+  beforeKey?: number;
 }
 
 const initialState: ProdState = {
@@ -51,6 +52,9 @@ const prodInfoSlice = createSlice({
     isSameSeller(state, action: PayloadAction<boolean>) {
       state.isSame = action.payload;
     },
+    addBeforeKey(state, action: PayloadAction<number>) {
+      state.beforeKey = action.payload;
+    },
     prodInfoReset(state) {
       Object.assign(state, initialState);
     },
@@ -69,6 +73,7 @@ export const {
   addSeller,
   addDescription,
   isSameSeller,
+  addBeforeKey,
   prodInfoReset,
   editAllProdState,
 } = prodInfoSlice.actions;

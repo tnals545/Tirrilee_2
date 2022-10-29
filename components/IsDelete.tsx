@@ -5,7 +5,7 @@ import { delProd } from "redux/dataReducer";
 import { isDelete } from "redux/etcReducer";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
 import store from "redux/store";
-import { StyledDiv } from "./styled-components/Styled";
+import { StyledDiv } from "styles/Styled";
 
 const IsDelete = () => {
   const prodDetail = useAppSelector((state) => state.prodInfo);
