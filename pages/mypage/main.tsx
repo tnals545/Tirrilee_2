@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from "redux/hooks";
 import { allIsSameFalse, editUser } from "redux/dataReducer";
 import Image from "next/image";
 import Link from "next/link";
+import Button from "styles/Button";
 
 const Mypage = () => {
   const dispatch = useAppDispatch();
@@ -37,9 +38,13 @@ const Mypage = () => {
         />
         <span>{store.getState().userInfo.nickname}</span>
         <span>{store.getState().userInfo.email}</span>
-        <button onClick={() => router.push("/mypage/edit_profile")}>
+        <Button
+          onClick={() => router.push("/mypage/edit_profile")}
+          size={"mypage"}
+          variant={"bgBlue"}
+        >
           수정하기
-        </button>
+        </Button>
       </div>
       <div className="my-prod-list">
         <div>

@@ -1,5 +1,22 @@
 import { css } from "styled-components";
 
+const divStyle = {
+  deleteAlert: css`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    background-color: white;
+    border: none;
+    border-radius: 10px;
+    width: 372px;
+    height: 194px;
+    text-align: center;
+    color: black;
+  `,
+};
+
 export const theme = {
   black: "#000000",
   white: "#FFFFFF",
@@ -7,6 +24,9 @@ export const theme = {
 
   border: "solid 1px #e4e6ea",
   borderRadius: "8px",
+
+  widthLoginMypage: "372px",
+  widthLargeProd: "763px",
 
   fontLarge: "48px",
   fontMedium: "28px",
@@ -25,6 +45,7 @@ export const theme = {
     left: 50%;
     transform: translate(-50%, -50%);
   `,
+  divStyle,
 };
 
 export type Theme = typeof theme;

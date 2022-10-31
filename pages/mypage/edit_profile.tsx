@@ -4,6 +4,8 @@ import {
   isLogin,
   addNickName,
   editProfileImg,
+  UserInfoState,
+  editAllUserState,
 } from "redux/userReducer";
 import store from "redux/store";
 import router from "next/router";
@@ -14,6 +16,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
+import Button from "styles/Button";
 
 const EditProfile = () => {
   const nickInputRef = useRef<HTMLInputElement>(null);
@@ -23,6 +26,9 @@ const EditProfile = () => {
   const [newNickName, setNewNickName] = useState(userInfo.nickname);
   const [profileImg, setProfileImg] = useState<any>(
     store.getState().userInfo.profileImg
+  );
+  const [beforeUserInfo, setBeforeUserInfo] = useState<UserInfoState>(
+    store.getState().userInfo
   );
 
   const onChangeNickname = (e: any) => {
@@ -35,31 +41,49 @@ const EditProfile = () => {
   const onClickSave = () => {
     if (newNickName !== store.getState().userInfo.nickname) {
       dispatch(addNickName(newNickName));
+      dispatch(editProfileImg(profileImg));
       dispatch(editUser(store.getState().userInfo));
     }
   };
 
-  const encodeFileToBase64 = async (fileBlob: any) => {
+  const encodeFileToBase64 = (fileBlob: any) => {
     const reader = new FileReader();
-    reader.readAsDataURL(fileBlob);
-    return await new Promise<void>((resolve) => {
-      reader.onload = () => {
-        dispatch(editProfileImg(reader.result));
-        dispatch(editUser(store.getState().userInfo));
-        setProfileImg(reader.result);
-        resolve();
-      };
-    });
+    if (reader && fileBlob) {
+      reader.readAsDataURL(fileBlob);
+      return new Promise<void>((resolve) => {
+        reader.onload = () => {
+          setProfileImg(reader.result);
+          resolve();
+        };
+      });
+    }
   };
 
   useEffect(() => {
     setNewNickName(store.getState().userInfo.nickname);
+    setBeforeUserInfo(store.getState().userInfo);
+
+    // next의 routing이 아닌, 사용자가 히스토리를 직접 조작하는 행위 (뒤로가기, 앞으로가기 등)가 일어날 경우 해당 메소드가 호출된다.
+    // 만약 false를 리턴할 경우, Router는 popState를 처리하지 않는다.
+    router.beforePopState(() => {
+      dispatch(editAllUserState(beforeUserInfo));
+      return true;
+    });
+
+    return () => {
+      router.beforePopState(() => true);
+    };
   }, []);
 
   return (
     <>
       <NavBar />
-      <FontAwesomeIcon onClick={() => router.back()} icon={faArrowLeftLong} />
+      <FontAwesomeIcon
+        onClick={() => {
+          router.back();
+        }}
+        icon={faArrowLeftLong}
+      />
       <div className="profile-img">
         <Image
           className="profile-img__preview"
@@ -68,18 +92,19 @@ const EditProfile = () => {
           width={100}
           height={100}
         />
-        <label htmlFor="file">
-          <div className="profile-img__upload">사진 변경</div>
-        </label>
-        <div
-          className="profile-img__delete"
+        <Button size="mypage" variant="bgBlue">
+          <label htmlFor="file">사진 변경</label>
+        </Button>
+        <Button
           onClick={() => {
             dispatch(editProfileImg("/profile.png"));
             setProfileImg("/profile.png");
           }}
+          size="mypage"
+          variant="bgBlue"
         >
           사진 삭제
-        </div>
+        </Button>
         <input
           id="file"
           className="hidden"
@@ -103,7 +128,9 @@ const EditProfile = () => {
         <input type="text" value={userInfo.email} disabled />
       </form>
       <Link href="/mypage/main">
-        <button onClick={onClickSave}>저장</button>
+        <Button onClick={onClickSave} size="complete" variant="bgBlue">
+          저장
+        </Button>
       </Link>
     </>
   );

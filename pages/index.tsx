@@ -9,13 +9,15 @@ import {
   addPassword,
   isLogin,
   addNickName,
-  userAlreadyId,
+  editAllUserState,
   userInfoReset,
 } from "redux/userReducer";
 import store from "redux/store";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
 import Title from "components/Title";
 import { addUser, editUser, findIsSameTrue } from "redux/dataReducer";
+import { Container } from "styles/Container";
+import Button from "styles/Button";
 
 interface Password {
   type: string;
@@ -44,7 +46,7 @@ const Login = () => {
       if (emailList.includes(email) === true) {
         store.getState().data.users.forEach((user) => {
           if (user.email === email && user.password === pw) {
-            dispatch(userAlreadyId(user));
+            dispatch(editAllUserState(user));
             dispatch(isLogin(true));
             dispatch(editUser(store.getState().userInfo));
             dispatch(findIsSameTrue(store.getState().userInfo.email));
@@ -86,7 +88,7 @@ const Login = () => {
   }, []);
 
   return (
-    <>
+    <Container className="login">
       <Title title="Login" />
       <header>
         <Image src="/tirrilee-logo.png" alt="logo" width={180} height={50} />
@@ -120,10 +122,12 @@ const Login = () => {
           </span>
         </div>
         <Link href={"/prod-list/[category]"} as="/prod-list/전체">
-          <button onClick={onLoginClick}>로그인</button>
+          <Button onClick={onLoginClick} size={"complete"} variant={"bgBlue"}>
+            로그인
+          </Button>
         </Link>
       </form>
-    </>
+    </Container>
   );
 };
 

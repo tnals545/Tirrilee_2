@@ -1,4 +1,4 @@
-import { StyledLi } from "../styles/styled-components/Styled";
+import { StyledLi } from "styles/Styled";
 
 const CustomLi = () => {
   return (

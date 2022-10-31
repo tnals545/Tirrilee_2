@@ -24,6 +24,7 @@ import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
 import { addProd, editProduct } from "redux/dataReducer";
+import { Container } from "styles/Container";
 
 interface propsType {
   work: string;
@@ -33,6 +34,9 @@ const ProdUploadOrEdit = ({ work }: propsType) => {
   const [btnActive, setBtnActive] = useState<string>();
   const [render, setRender] = useState(false);
   const [keyList, setKeyList] = useState<number[]>([]);
+  const [beforeProdInfo, seBeforeProdInfo] = useState<ProdState>(
+    store.getState().prodInfo
+  );
 
   const nameInput = useRef<HTMLInputElement>(null);
   const priceInput = useRef<HTMLInputElement>(null);
@@ -131,12 +135,22 @@ const ProdUploadOrEdit = ({ work }: propsType) => {
         detailInput.current.value = store.getState().prodInfo.description;
       }
       setBtnActive(store.getState().prodInfo.category);
+      seBeforeProdInfo(store.getState().prodInfo);
       dispatch(addBeforeKey(store.getState().prodInfo.key));
     }
+
+    router.beforePopState(() => {
+      dispatch(editAllProdState(beforeProdInfo));
+      return true;
+    });
+
+    return () => {
+      router.beforePopState(() => true);
+    };
   }, []);
 
   return (
-    <>
+    <Container className="">
       <FontAwesomeIcon onClick={() => router.back()} icon={faArrowLeftLong} />
       {work === "edit" ? <h1>수정하기</h1> : null}
       <input
@@ -209,7 +223,7 @@ const ProdUploadOrEdit = ({ work }: propsType) => {
           )}
         </Link>
       </div>
-    </>
+    </Container>
   );
 };
 

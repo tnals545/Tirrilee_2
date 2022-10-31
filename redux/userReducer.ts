@@ -36,7 +36,7 @@ const userInfoSlice = createSlice({
     editProfileImg(state, action: PayloadAction<any>) {
       state.profileImg = action.payload;
     },
-    userAlreadyId(state, action: PayloadAction<UserInfoState>) {
+    editAllUserState(state, action: PayloadAction<UserInfoState>) {
       Object.assign(state, action.payload);
     },
     userInfoReset(state) {
@@ -51,7 +51,7 @@ export const {
   isLogin,
   addNickName,
   editProfileImg,
-  userAlreadyId,
+  editAllUserState,
   userInfoReset,
 } = userInfoSlice.actions;
 
