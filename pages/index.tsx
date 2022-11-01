@@ -16,8 +16,8 @@ import store from "redux/store";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
 import Title from "components/Title";
 import { addUser, editUser, findIsSameTrue } from "redux/dataReducer";
-import { Container } from "styles/Container";
-import Button from "styles/Button";
+import Container from "styles/styled-components/Container";
+import Button from "styles/styled-components/Button";
 
 interface Password {
   type: string;
@@ -86,46 +86,48 @@ const Login = () => {
   }, []);
 
   return (
-    <Container className="login">
+    <>
       <Title title="Login" />
-      <header>
-        <Image src="/tirrilee-logo.png" alt="logo" width={180} height={50} />
-      </header>
-      <form>
-        <div className="login__email">
-          <span>이메일</span>
-          <input
-            ref={emailRef}
-            id="id"
-            type="email"
-            placeholder="이메일을 입력하세요."
-            required
-          />
-        </div>
-        <div className="login__password">
-          <span>비밀번호</span>
-          <input
-            ref={pwRef}
-            id="pw"
-            type={pwType.type}
-            placeholder="비밀번호를 입력하세요."
-            required
-          />
-          <span onClick={handlePwType} className="login__password-visible">
-            {pwType.visible ? (
-              <FontAwesomeIcon icon={faEye} />
-            ) : (
-              <FontAwesomeIcon icon={faEyeSlash} />
-            )}
-          </span>
-        </div>
-        <Link href={"/prod-list/[category]"} as="/prod-list/전체">
-          <Button onClick={onLoginClick} size="complete" variant="bgBlue">
-            로그인
-          </Button>
-        </Link>
-      </form>
-    </Container>
+      <Container page="login">
+        <header>
+          <Image src="/tirrilee-logo.png" alt="logo" width={180} height={50} />
+        </header>
+        <form>
+          <div className="login__email">
+            <span>이메일</span>
+            <input
+              ref={emailRef}
+              id="id"
+              type="email"
+              placeholder="이메일을 입력하세요."
+              required
+            />
+          </div>
+          <div className="login__password">
+            <span>비밀번호</span>
+            <input
+              ref={pwRef}
+              id="pw"
+              type={pwType.type}
+              placeholder="비밀번호를 입력하세요."
+              required
+            />
+            <span onClick={handlePwType} className="login__password-visible">
+              {pwType.visible ? (
+                <FontAwesomeIcon icon={faEye} />
+              ) : (
+                <FontAwesomeIcon icon={faEyeSlash} />
+              )}
+            </span>
+          </div>
+          <Link href={"/prod-list/[category]"} as="/prod-list/전체">
+            <Button onClick={onLoginClick} size="complete" variant="bgBlue">
+              로그인
+            </Button>
+          </Link>
+        </form>
+      </Container>
+    </>
   );
 };
 

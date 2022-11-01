@@ -6,7 +6,7 @@ const ProdEdit = () => {
   return (
     <>
       <Title title="Edit" />
-      <NavBar />
+      <NavBar menu="regist" />
       <ProdUploadOrEdit work="edit" />
     </>
   );

@@ -15,7 +15,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
-import Button from "styles/Button";
+import Button from "styles/styled-components/Button";
 
 const EditProfile = () => {
   const nickInputRef = useRef<HTMLInputElement>(null);
@@ -63,7 +63,7 @@ const EditProfile = () => {
 
   return (
     <>
-      <NavBar />
+      <NavBar menu="mypage" />
       <FontAwesomeIcon
         onClick={() => {
           router.back();

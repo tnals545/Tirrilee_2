@@ -5,8 +5,8 @@ import { delProd } from "redux/dataReducer";
 import { isDelete } from "redux/etcReducer";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
 import store from "redux/store";
-import Button from "styles/Button";
-import { Container } from "styles/Container";
+import Button from "styles/styled-components/Button";
+import Container from "styles/styled-components/Container";
 import { StyledDiv } from "styles/Styled";
 
 const IsDelete = () => {
@@ -27,7 +27,7 @@ const IsDelete = () => {
   };
 
   return (
-    <Container className="delete-alert">
+    <Container page="delete-alert">
       <StyledDiv className="delete-alert__text">
         <p className="isDelete__text--bold">정말 삭제하시겠습니까?</p>
         <p className="isDelete__text--gray">등록한 상품이 삭제됩니다.</p>

@@ -12,7 +12,7 @@ import { useAppDispatch, useAppSelector } from "redux/hooks";
 import { allIsSameFalse, editUser } from "redux/dataReducer";
 import Image from "next/image";
 import Link from "next/link";
-import Button from "styles/Button";
+import Button from "styles/styled-components/Button";
 
 const Mypage = () => {
   const dispatch = useAppDispatch();
@@ -27,7 +27,7 @@ const Mypage = () => {
 
   return (
     <>
-      <NavBar />
+      <NavBar menu="mypage" />
       <div className="profile">
         <Image
           className="profile__img"

@@ -24,7 +24,7 @@ import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
 import { addProd, editProduct } from "redux/dataReducer";
-import { Container } from "styles/Container";
+import Container from "styles/styled-components/Container";
 
 interface propsType {
   work: string;
@@ -150,7 +150,7 @@ const ProdUploadOrEdit = ({ work }: propsType) => {
   }, []);
 
   return (
-    <Container className="">
+    <Container page="">
       <FontAwesomeIcon onClick={() => router.back()} icon={faArrowLeftLong} />
       {work === "edit" ? <h1>수정하기</h1> : null}
       <input

@@ -11,8 +11,8 @@ import { delProd } from "redux/dataReducer";
 import IsDelete from "components/IsDelete";
 import { isDelete } from "redux/etcReducer";
 import { StyledDiv } from "styles/Styled";
-import { Container } from "styles/Container";
-import Button from "styles/Button";
+import Container from "styles/styled-components/Container";
+import Button from "styles/styled-components/Button";
 
 const ProdDetails = () => {
   const prodDetail = useAppSelector((state) => state.prodInfo);
@@ -40,7 +40,7 @@ const ProdDetails = () => {
     <>
       <Title title="Product Detail" />
       <NavBar />
-      <Container className="prod-details width-large-prod">
+      <Container page="prod-details width-large-prod">
         <FontAwesomeIcon onClick={() => router.back()} icon={faArrowLeftLong} />
         <Image
           src={prodDetail.src}

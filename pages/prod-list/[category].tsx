@@ -7,7 +7,7 @@ import { useAppSelector } from "redux/hooks";
 import Title from "components/Title";
 import Skeleton from "components/Skeleton";
 import { CustomProdList } from "components/CustomProdList";
-import Container from "styles/Container";
+import Container from "styles/styled-components/Container";
 
 const Category = () => {
   const [isLoading, setIsLoading] = useState(true);

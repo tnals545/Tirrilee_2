@@ -6,7 +6,7 @@ const ProdUpload = () => {
   return (
     <>
       <Title title="Upload" />
-      <NavBar />
+      <NavBar menu="regist" />
       <ProdUploadOrEdit work="upload" />
     </>
   );

@@ -42,7 +42,7 @@ const MyProductsList = () => {
   }, []);
   return (
     <>
-      <NavBar />
+      <NavBar menu="mypage" />
       <FontAwesomeIcon onClick={() => router.back()} icon={faArrowLeftLong} />
       <h1>등록한 상품 목록</h1>
       <h3>

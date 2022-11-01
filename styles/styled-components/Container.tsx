@@ -33,6 +33,7 @@ const Container = ({ page, children }: FuncPropsType) => {
 };
 
 const StyledContainer = styled.div<StyledPropsType>`
+  ${(p) => p.theme.absoluteCenter}
   ${(p) => p.pageStyle}
 `;
 

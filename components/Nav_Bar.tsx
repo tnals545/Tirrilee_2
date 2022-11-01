@@ -1,54 +1,72 @@
 import Image from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
-import { faUser } from "@fortawesome/free-regular-svg-icons";
-import styled from "styled-components";
 import router from "next/router";
 import store from "redux/store";
 import { useAppDispatch } from "redux/hooks";
 import { prodInfoReset } from "redux/prodReducer";
-import Container from "styles/Container";
+import Div from "styles/styled-components/Div";
+import Span from "styles/styled-components/Span";
 
-//styled-components
+interface Props {
+  menu?: string;
+}
 
-export default function NavBar() {
+const NavBar = ({ menu }: Props) => {
   const dispatch = useAppDispatch();
 
   return (
-    <Container page="navbar">
-      <Image
-        onClick={() => {
-          if (store.getState().userInfo.isLogin) {
-            router.push("/prod-list/전체");
-          } else {
-            router.push("/");
-          }
-        }}
-        className="nav-bar__logo"
-        src="/tirrilee-logo.png"
-        alt="logo"
-        width={180}
-        height={50}
-      />
-      <div className="nav-bar--menu">
-        <span
+    <Div purpose="navBar">
+      <div>
+        <Image
+          onClick={() => {
+            if (store.getState().userInfo.isLogin) {
+              router.push("/prod-list/전체");
+            } else {
+              router.push("/");
+            }
+          }}
+          src="/tirrilee-logo.png"
+          alt="logo"
+          width={106}
+          height={30}
+        />
+      </div>
+      <div>
+        <Span
           onClick={() => {
             router.push("/prod-upload");
             dispatch(prodInfoReset());
           }}
-          className="nav-bar--menu__add"
+          purpose="menu"
+          variant={menu === "regist" ? "blue" : "black"}
         >
-          <FontAwesomeIcon icon={faCirclePlus} className="add" />
+          <Image
+            src={
+              menu === "regist"
+                ? "/square-plus-solid.svg"
+                : "/square-plus-regular.svg"
+            }
+            alt="regist"
+            width={25}
+            height={25}
+          />
           <span>추가하기</span>
-        </span>
-        <span
+        </Span>
+        <Span
           onClick={() => router.push("/mypage/main")}
-          className="nav-bar--menu__mypage"
+          purpose="menu"
+          variant={menu === "mypage" ? "blue" : "black"}
         >
-          <FontAwesomeIcon icon={faUser} />
+          <Image
+            src={menu === "mypage" ? "/user-solid.svg" : "/user-regular.svg"}
+            alt="mypage"
+            width={22}
+            height={22}
+          />
           <span>마이페이지</span>
-        </span>
+        </Span>
       </div>
-    </Container>
+    </Div>
   );
-}
+};
+
+export default NavBar;
