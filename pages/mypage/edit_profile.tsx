@@ -5,7 +5,6 @@ import {
   addNickName,
   editProfileImg,
   UserInfoState,
-  editAllUserState,
 } from "redux/userReducer";
 import store from "redux/store";
 import router from "next/router";
@@ -39,11 +38,9 @@ const EditProfile = () => {
   };
 
   const onClickSave = () => {
-    if (newNickName !== store.getState().userInfo.nickname) {
-      dispatch(addNickName(newNickName));
-      dispatch(editProfileImg(profileImg));
-      dispatch(editUser(store.getState().userInfo));
-    }
+    dispatch(addNickName(newNickName));
+    dispatch(editProfileImg(profileImg));
+    dispatch(editUser(store.getState().userInfo));
   };
 
   const encodeFileToBase64 = (fileBlob: any) => {
@@ -62,17 +59,6 @@ const EditProfile = () => {
   useEffect(() => {
     setNewNickName(store.getState().userInfo.nickname);
     setBeforeUserInfo(store.getState().userInfo);
-
-    // next의 routing이 아닌, 사용자가 히스토리를 직접 조작하는 행위 (뒤로가기, 앞으로가기 등)가 일어날 경우 해당 메소드가 호출된다.
-    // 만약 false를 리턴할 경우, Router는 popState를 처리하지 않는다.
-    router.beforePopState(() => {
-      dispatch(editAllUserState(beforeUserInfo));
-      return true;
-    });
-
-    return () => {
-      router.beforePopState(() => true);
-    };
   }, []);
 
   return (

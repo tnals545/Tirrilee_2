@@ -1,15 +1,39 @@
-import styled from "styled-components";
+import styled, { css, FlattenSimpleInterpolation } from "styled-components";
 
-interface Container {
-  className: string;
+interface StyleType {
+  [key: string]: FlattenSimpleInterpolation;
 }
 
-export const Container = styled.div<Container>`
-  ${(p) => p.theme.absoluteCenter}
-  ${(p) => p.className === "delete-alert" && p.theme.divStyle.deleteAlert}
+interface FuncPropsType {
+  page: string;
+  children: any;
+}
 
-  width: ${(p) =>
-    (p.className === "login" || p.className === "mypage") &&
-    p.theme.widthLoginMypage};
-  width: ${(p) => p.className === "width-large-prod" && p.theme.widthLargeProd};
+interface StyledPropsType {
+  pageStyle: FlattenSimpleInterpolation;
+}
+
+const PAGES: StyleType = {
+  navbar: css`
+    width: 100%;
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: solid 1px #eff1f4;
+    background-color: #fff;
+    z-index: 1;
+  `,
+};
+
+const Container = ({ page, children }: FuncPropsType) => {
+  const pageStyle = PAGES[page];
+
+  return <StyledContainer pageStyle={pageStyle}>{children}</StyledContainer>;
+};
+
+const StyledContainer = styled.div<StyledPropsType>`
+  ${(p) => p.pageStyle}
 `;
+
+export default Container;

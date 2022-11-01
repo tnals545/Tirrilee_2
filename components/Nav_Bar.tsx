@@ -7,7 +7,7 @@ import router from "next/router";
 import store from "redux/store";
 import { useAppDispatch } from "redux/hooks";
 import { prodInfoReset } from "redux/prodReducer";
-import { StyledDiv } from "styles/Styled";
+import Container from "styles/Container";
 
 //styled-components
 
@@ -15,7 +15,7 @@ export default function NavBar() {
   const dispatch = useAppDispatch();
 
   return (
-    <StyledDiv className="nav-bar">
+    <Container page="navbar">
       <Image
         onClick={() => {
           if (store.getState().userInfo.isLogin) {
@@ -49,6 +49,6 @@ export default function NavBar() {
           <span>마이페이지</span>
         </span>
       </div>
-    </StyledDiv>
+    </Container>
   );
 }

@@ -24,8 +24,6 @@ interface Password {
   visible: boolean;
 }
 
-//styled-components
-
 const Login = () => {
   const emailRef = useRef<HTMLInputElement>(null);
   const pwRef = useRef<HTMLInputElement>(null);
@@ -122,7 +120,7 @@ const Login = () => {
           </span>
         </div>
         <Link href={"/prod-list/[category]"} as="/prod-list/전체">
-          <Button onClick={onLoginClick} size={"complete"} variant={"bgBlue"}>
+          <Button onClick={onLoginClick} size="complete" variant="bgBlue">
             로그인
           </Button>
         </Link>
