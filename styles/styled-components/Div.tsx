@@ -33,6 +33,21 @@ const PURPOSE: StyleType = {
       margin-right: 62px;
     }
   `,
+  prodCategory: css`
+    position: absolute;
+    display: flex;
+    margin: 170px 190px 20px 62px;
+
+    div {
+      display: flex;
+      align-items: center;
+    }
+
+    span:first-child {
+      font-size: 20px;
+      font-weight: 600;
+    }
+  `,
 };
 
 const Div = ({ purpose, children }: FuncPropsType) => {

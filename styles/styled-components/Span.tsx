@@ -22,8 +22,9 @@ const PURPOSE: StyleType = {
     justify-content: center;
     align-items: center;
     margin-left: 30px;
+    cursor: pointer;
     span {
-      font-weight: 600;
+      font-weight: 700;
       margin-left: 5px;
     }
   `,
@@ -31,7 +32,13 @@ const PURPOSE: StyleType = {
     position: absolute;
     margin: 100px 190px 20px 62px;
     font-size: 28px;
-    font-weight: 700;
+    font-weight: 800;
+  `,
+  bar: css`
+    opacity: 0.4;
+    display: inline-block;
+    font-size: 12px;
+    padding: 10px;
   `,
 };
 
@@ -64,6 +71,7 @@ const Span = ({ purpose, variant, onClick, children }: FuncPropsType) => {
 const StyledSpan = styled.span<StyledPropsType>`
   font-family: "Gothic A1", sans-serif;
   font-weight: 400;
+
   ${(p) => p.purposeStyle}
   ${(p) => p.variantStyle}
 `;

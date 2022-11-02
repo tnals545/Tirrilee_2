@@ -22,6 +22,8 @@ export const theme = {
   weightSemiBold: 600,
   weightRegular: 400,
 
+  cursor: "pointer",
+
   absoluteCenter: css`
     position: absolute;
     top: 50%;

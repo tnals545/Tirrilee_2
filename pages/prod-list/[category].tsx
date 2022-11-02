@@ -9,6 +9,7 @@ import Skeleton from "components/Skeleton";
 import { CustomProdList } from "components/CustomProdList";
 import Container from "styles/styled-components/Container";
 import Span from "styles/styled-components/Span";
+import Div from "styles/styled-components/Div";
 
 const Category = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -55,26 +56,31 @@ const Category = () => {
       <Title title={category} />
       <NavBar />
       <header className="product-header">
-        <Span purpose="headerBold" variant="black">
+        <Span purpose="headerBold" variant="">
           상품 목록
         </Span>
-        <div className="product-list text-bold">
-          {categories.map((cate) => {
+        <Div purpose="prodCategory">
+          {categories.map((cate, index) => {
             return (
               <div key={cate}>
-                <span className="product-list__bar"> </span>
                 <Link href="/prod-list/[category]" as={`/prod-list/${cate}`}>
                   <span
                     className={`${category !== cate ? "opacity" : ""}`}
                     onClick={handleClickCategory}
+                    style={{ cursor: "pointer" }}
                   >
                     {cate}
                   </span>
                 </Link>
+                {categories.length - 1 !== index && (
+                  <Span purpose="bar" variant="">
+                    {"|"}
+                  </Span>
+                )}
               </div>
             );
           })}
-        </div>
+        </Div>
       </header>
 
       <main className="product-list">

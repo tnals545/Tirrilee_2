@@ -1,33 +1,37 @@
-import { StyledLi } from "styles/Styled";
+import { StyledLi } from "styles/styled-components/StyledLi";
 
-const CustomLi = () => {
+const CustomSkeleton = () => {
   return (
-    <StyledLi className="skeleton-li">
-      <div className="skeleton-item">
-        <div>
-          <div className="skeleton-img" />
-        </div>
-        <div className="skeleton-info">
-          <p className="skeleton-category" />
-          <p className="skeleton-name" />
-          <p className="skeleton-price" />
-        </div>
+    <div className="skeleton-item">
+      <div>
+        <p className="skeleton-img" />
       </div>
-    </StyledLi>
+      <div className="skeleton-info">
+        <p className="skeleton-category" />
+        <p className="skeleton-name" />
+        <p className="skeleton-price" />
+      </div>
+    </div>
   );
 };
 
 const Skeleton = () => {
   return (
     <>
-      <CustomLi />
-      <CustomLi />
-      <CustomLi />
-      <CustomLi />
-      <CustomLi />
-      <CustomLi />
-      <CustomLi />
-      <CustomLi />
+      <StyledLi className="skeleton-li">
+        <CustomSkeleton />
+        <CustomSkeleton />
+        <CustomSkeleton />
+        <CustomSkeleton />
+        <CustomSkeleton />
+      </StyledLi>
+      <StyledLi className="skeleton-li">
+        <CustomSkeleton />
+        <CustomSkeleton />
+        <CustomSkeleton />
+        <CustomSkeleton />
+        <CustomSkeleton />
+      </StyledLi>
     </>
   );
 };

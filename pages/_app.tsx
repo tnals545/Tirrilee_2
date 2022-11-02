@@ -1,5 +1,6 @@
 import GlobalStyle from "styles/GlobalStyle";
 import "fonts/fonts.css";
+import "styles/Skeleton.css";
 
 import React from "react";
 import store from "redux/store";

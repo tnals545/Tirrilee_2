@@ -9,15 +9,12 @@
     transform: translate(300px);
   }
 }
-.contentWrapper {
-  display: flex;
+.skeleton-item {
+  margin: 230px 40px -200px 62px;
 }
 
-.skeleton-item {
-  align-items: center;
-  margin: 15px 0;
-  padding: 20px;
-  position: relative;
+.skeleton-item p {
+  margin-bottom: 12px;
 }
 
 .skeleton-img::before {
