@@ -18,10 +18,20 @@ interface StyledPropsType {
 
 const PURPOSE: StyleType = {
   menu: css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 30px;
     span {
-      font-weight: bold;
+      font-weight: 600;
       margin-left: 5px;
     }
+  `,
+  headerBold: css`
+    position: absolute;
+    margin: 100px 190px 20px 62px;
+    font-size: 28px;
+    font-weight: 700;
   `,
 };
 
@@ -52,13 +62,10 @@ const Span = ({ purpose, variant, onClick, children }: FuncPropsType) => {
 };
 
 const StyledSpan = styled.span<StyledPropsType>`
+  font-family: "Gothic A1", sans-serif;
+  font-weight: 400;
   ${(p) => p.purposeStyle}
   ${(p) => p.variantStyle}
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: 30px;
 `;
 
 export default Span;

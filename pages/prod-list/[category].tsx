@@ -8,6 +8,7 @@ import Title from "components/Title";
 import Skeleton from "components/Skeleton";
 import { CustomProdList } from "components/CustomProdList";
 import Container from "styles/styled-components/Container";
+import Span from "styles/styled-components/Span";
 
 const Category = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -53,35 +54,33 @@ const Category = () => {
     <>
       <Title title={category} />
       <NavBar />
-      <Container page="productMain">
-        <header className="product-header">
-          <span className="headerText">상품 목록</span>
-          <div className="product-list text-bold">
-            {categories.map((cate) => {
-              return (
-                <div key={cate}>
-                  <span className="product-list__bar"> </span>
-                  <Link href="/prod-list/[category]" as={`/prod-list/${cate}`}>
-                    <span
-                      className={`${category !== cate ? "opacity" : ""}`}
-                      onClick={handleClickCategory}
-                    >
-                      {cate}
-                    </span>
-                  </Link>
-                </div>
-              );
-            })}
-          </div>
-        </header>
+      <header className="product-header">
+        <Span purpose="headerBold" variant="black">
+          상품 목록
+        </Span>
+        <div className="product-list text-bold">
+          {categories.map((cate) => {
+            return (
+              <div key={cate}>
+                <span className="product-list__bar"> </span>
+                <Link href="/prod-list/[category]" as={`/prod-list/${cate}`}>
+                  <span
+                    className={`${category !== cate ? "opacity" : ""}`}
+                    onClick={handleClickCategory}
+                  >
+                    {cate}
+                  </span>
+                </Link>
+              </div>
+            );
+          })}
+        </div>
+      </header>
 
-        <main className="product-list">
-          <ul className="product-list__skeleton">
-            {isLoading && <Skeleton />}
-          </ul>
-          <CustomProdList ref={ref} category={category} prodData={prodData} />
-        </main>
-      </Container>
+      <main className="product-list">
+        <ul className="product-list__skeleton">{isLoading && <Skeleton />}</ul>
+        <CustomProdList ref={ref} category={category} prodData={prodData} />
+      </main>
     </>
   );
 };
