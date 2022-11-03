@@ -18,11 +18,12 @@ const PURPOSE: StyleType = {
     cursor: pointer;
 
     span {
+      font-size: 16px;
       font-weight: 700;
       margin-left: 5px;
     }
   `,
-  headerBold: css`
+  header: css`
     position: absolute;
     margin: 100px 190px 20px 62px;
     font-size: 28px;
@@ -38,18 +39,41 @@ const PURPOSE: StyleType = {
     margin-bottom: 16px;
     font-weight: 500;
   `,
+  prodInfo: css`
+    margin-bottom: 12px;
+    &.category {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 60px;
+      height: 24px;
+      font-size: 12px;
+      font-weight: 500;
+      margin-top: 12px;
+      border-radius: 8px;
+      background-color: #e8f0fe;
+    }
+    &.name {
+      font-size: 14px;
+    }
+    &.price {
+      font-size: 18px;
+      font-weight: 800;
+    }
+  `,
 };
 
 const COLOR: StyleType = {
   black: "#000000",
   white: "#FFFFFF",
   blue: "#226bef",
+  gray: "#3b3f4a",
 };
 
 export const StyledSpan = styled.span<StyledPropsType>`
   font-family: "Gothic A1", sans-serif;
   font-weight: 400;
-  font-size: 14px;
 
   ${(p) => p.purpose && `${PURPOSE[p.purpose]}`};
   color: ${(p) => p.color && `${COLOR[p.color]}`};

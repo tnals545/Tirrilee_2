@@ -56,19 +56,18 @@ const Category = () => {
       <Title title={category} />
       <NavBar />
       <header className="product-header">
-        <StyledSpan purpose="headerBold">상품 목록</StyledSpan>
+        <StyledSpan purpose="header">상품 목록</StyledSpan>
         <StyledDiv purpose="prodCategory">
           {categories.map((cate, index) => {
             return (
               <div key={cate}>
                 <Link href="/prod-list/[category]" as={`/prod-list/${cate}`}>
-                  <span
-                    className={`${category !== cate ? "opacity" : ""}`}
+                  <StyledSpan
+                    className={`${category !== cate && "opacity"} pointer bold`}
                     onClick={handleClickCategory}
-                    style={{ cursor: "pointer" }}
                   >
                     {cate}
-                  </span>
+                  </StyledSpan>
                 </Link>
                 {categories.length - 1 !== index && (
                   <StyledSpan purpose="bar">{"|"}</StyledSpan>
@@ -79,7 +78,7 @@ const Category = () => {
         </StyledDiv>
       </header>
 
-      <main className="product-list">
+      <main>
         <ul className="product-list__skeleton">{isLoading && <Skeleton />}</ul>
         <CustomProdList ref={ref} category={category} prodData={prodData} />
       </main>

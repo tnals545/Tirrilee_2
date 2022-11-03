@@ -26,13 +26,14 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     cursor: pointer;
   }
+  ul {
+    position: absolute;
+    padding-top: 230px;
+    z-index: -1;
+  }
 
   .hidden{
     display:none;
-  }
-  .text-bold {
-    font-size: 18px;
-    font-weight: 700;
   }
   .active {
     color: blue;
@@ -40,6 +41,9 @@ const GlobalStyle = createGlobalStyle`
   }
   .opacity {
     opacity: 0.3;
+  }
+  .pointer {
+    cursor: pointer;
   }
 `;
 

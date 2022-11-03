@@ -3,6 +3,9 @@ import { forwardRef, ForwardedRef } from "react";
 import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
 import { editAllProdState, ProdState } from "redux/prodReducer";
+import { StyledLi } from "styles/styled-components/StyledLi";
+import { StyledSpan } from "styles/styled-components/Span";
+import { StyledDiv } from "styles/styled-components/Div";
 
 interface Props {
   category: string;
@@ -17,8 +20,8 @@ const CustomUl = (props: Props, ref: ForwardedRef<HTMLUListElement>) => {
       {props.prodData.map((prod) => {
         if (props.category === "전체") {
           return (
-            <li key={prod.key} className="product-list__item">
-              <div>
+            <StyledLi key={prod.key} className="product-list">
+              <StyledDiv purpose="prodList">
                 <Link
                   href="/prod-details/[key]"
                   as={`/prod-details/${prod.key}`}
@@ -31,21 +34,27 @@ const CustomUl = (props: Props, ref: ForwardedRef<HTMLUListElement>) => {
                     height={274}
                   />
                 </Link>
-              </div>
-              <div className="product-list__item--info">
-                <p>{prod.category}</p>
-                <p>{prod.name}</p>
-                <strong>
-                  <p>{prod.price}원</p>
-                </strong>
-              </div>
-            </li>
+                <StyledSpan
+                  purpose="prodInfo"
+                  color="blue"
+                  className="category"
+                >
+                  {prod.category}
+                </StyledSpan>
+                <StyledSpan purpose="prodInfo" color="gray" className="name">
+                  {prod.name}
+                </StyledSpan>
+                <StyledSpan purpose="prodInfo" className="price">
+                  {prod.price}원
+                </StyledSpan>
+              </StyledDiv>
+            </StyledLi>
           );
         } else {
           if (prod.category === props.category) {
             return (
-              <li key={prod.key} className="product-list__item">
-                <div>
+              <StyledLi key={prod.key} className="product-list">
+                <StyledDiv purpose="prodList">
                   <Link
                     href="/prod-details/[key]"
                     as={`/prod-details/${prod.key}`}
@@ -58,15 +67,21 @@ const CustomUl = (props: Props, ref: ForwardedRef<HTMLUListElement>) => {
                       height={274}
                     />
                   </Link>
-                </div>
-                <div className="product-list__item--info">
-                  <p>{prod.category}</p>
-                  <p>{prod.name}</p>
-                  <strong>
-                    <p>{prod.price}원</p>
-                  </strong>
-                </div>
-              </li>
+                  <StyledSpan
+                    purpose="prodInfo"
+                    color="blue"
+                    className="category"
+                  >
+                    {prod.category}
+                  </StyledSpan>
+                  <StyledSpan purpose="prodInfo" className="name">
+                    {prod.name}
+                  </StyledSpan>
+                  <StyledSpan purpose="prodInfo" className="price">
+                    {prod.price}원
+                  </StyledSpan>
+                </StyledDiv>
+              </StyledLi>
             );
           }
         }

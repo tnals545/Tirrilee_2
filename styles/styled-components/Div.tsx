@@ -15,7 +15,7 @@ const PURPOSE: Type = {
 
     border: solid 1px #eff1f4;
     background-color: #fff;
-    z-index: 1;
+    z-index: 99;
 
     div {
       display: flex;
@@ -24,25 +24,34 @@ const PURPOSE: Type = {
       margin-right: 62px;
     }
   `,
+  login: css`
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 56px;
+  `,
   prodCategory: css`
     position: absolute;
     display: flex;
-    margin: 170px 190px 20px 62px;
+    padding: 170px 190px 20px 62px;
 
     div {
       display: flex;
+      justify-content: center;
       align-items: center;
     }
 
     span:first-child {
       font-size: 20px;
-      font-weight: 600;
+      font-weight: 700;
     }
   `,
-  login: css`
+  prodList: css`
     display: flex;
     flex-direction: column;
-    margin-bottom: 56px;
+
+    img {
+      border-radius: 8px;
+    }
   `,
 };
 
