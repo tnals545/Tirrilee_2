@@ -18,6 +18,9 @@ import Title from "components/Title";
 import { addUser, editUser, findIsSameTrue } from "redux/dataReducer";
 import Container from "styles/styled-components/Container";
 import Button from "styles/styled-components/Button";
+import { StyledInput } from "styles/styled-components/Input";
+import { StyledSpan } from "styles/styled-components/Span";
+import { StyledDiv } from "styles/styled-components/Div";
 
 interface Password {
   type: string;
@@ -89,37 +92,40 @@ const Login = () => {
     <>
       <Title title="Login" />
       <Container page="login">
-        <header>
-          <Image src="/tirrilee-logo.png" alt="logo" width={180} height={50} />
-        </header>
+        <StyledDiv className="login__header">
+          <Image src="/tirrilee-logo.png" alt="logo" width={270} height={75} />
+        </StyledDiv>
         <form>
-          <div className="login__email">
-            <span>이메일</span>
-            <input
+          <StyledDiv purpose="login">
+            <StyledSpan purpose="login">아이디</StyledSpan>
+            <StyledInput
               ref={emailRef}
               id="id"
               type="email"
-              placeholder="이메일을 입력하세요."
+              placeholder="이메일 아이디를 입력하세요."
               required
             />
-          </div>
-          <div className="login__password">
-            <span>비밀번호</span>
-            <input
+          </StyledDiv>
+          <StyledDiv purpose="login">
+            <StyledSpan purpose="login">비밀번호</StyledSpan>
+            <StyledInput
               ref={pwRef}
               id="pw"
               type={pwType.type}
               placeholder="비밀번호를 입력하세요."
               required
             />
-            <span onClick={handlePwType} className="login__password-visible">
+            <StyledSpan
+              onClick={handlePwType}
+              className="login__password-visible"
+            >
               {pwType.visible ? (
                 <FontAwesomeIcon icon={faEye} />
               ) : (
                 <FontAwesomeIcon icon={faEyeSlash} />
               )}
-            </span>
-          </div>
+            </StyledSpan>
+          </StyledDiv>
           <Link href={"/prod-list/[category]"} as="/prod-list/전체">
             <Button onClick={onLoginClick} size="complete" variant="bgBlue">
               로그인

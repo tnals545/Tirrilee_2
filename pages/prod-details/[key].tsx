@@ -10,7 +10,6 @@ import Title from "components/Title";
 import { delProd } from "redux/dataReducer";
 import IsDelete from "components/IsDelete";
 import { isDelete } from "redux/etcReducer";
-import { StyledDiv } from "styles/Styled";
 import Container from "styles/styled-components/Container";
 import Button from "styles/styled-components/Button";
 
@@ -48,18 +47,18 @@ const ProdDetails = () => {
           width={763}
           height={763}
         />
-        <StyledDiv className="prod-details__short-info">
+        <div className="prod-details__short-info">
           <span>{prodDetail.category}</span>
           <span>{prodDetail.name}</span>
           <span>{prodDetail.price}원</span>
-        </StyledDiv>
-        <StyledDiv className="prod-details__detail-info">
+        </div>
+        <div className="prod-details__detail-info">
           <h4>상품 설명</h4>
           <span>{prodDetail.description}</span>
-        </StyledDiv>
+        </div>
         {prodDetail.isSame ? (
           <>
-            <StyledDiv key={prodDetail.key} className="prod-details__seller">
+            <div key={prodDetail.key} className="prod-details__seller">
               <Image
                 className="profile-img__preview"
                 src={store.getState().data.users[userIdx].profileImg}
@@ -68,8 +67,8 @@ const ProdDetails = () => {
                 height={100}
               />
               {prodSeller}
-            </StyledDiv>
-            <StyledDiv className="prod-details__button--edit">
+            </div>
+            <div className="prod-details__button--edit">
               <Button
                 onClick={() => dispatch(isDelete(true))}
                 size={"detail"}
@@ -86,11 +85,11 @@ const ProdDetails = () => {
               >
                 수정하기
               </Button>
-            </StyledDiv>
+            </div>
           </>
         ) : (
           <>
-            <StyledDiv key={prodDetail.key} className="prod-details__seller">
+            <div key={prodDetail.key} className="prod-details__seller">
               <Image
                 className="profile-img__preview"
                 src={store.getState().data.users[userIdx].profileImg}
@@ -99,12 +98,10 @@ const ProdDetails = () => {
                 height={100}
               />
               {prodSeller}
-            </StyledDiv>
+            </div>
           </>
         )}
-        <StyledDiv className="prod-details__delete">
-          {isDel && <IsDelete />}
-        </StyledDiv>
+        <div className="prod-details__delete">{isDel && <IsDelete />}</div>
       </Container>
     </>
   );

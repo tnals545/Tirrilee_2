@@ -7,7 +7,6 @@ import { useAppDispatch, useAppSelector } from "redux/hooks";
 import store from "redux/store";
 import Button from "styles/styled-components/Button";
 import Container from "styles/styled-components/Container";
-import { StyledDiv } from "styles/Styled";
 
 const IsDelete = () => {
   const prodDetail = useAppSelector((state) => state.prodInfo);
@@ -28,18 +27,18 @@ const IsDelete = () => {
 
   return (
     <Container page="delete-alert">
-      <StyledDiv className="delete-alert__text">
+      <div className="delete-alert__text">
         <p className="isDelete__text--bold">정말 삭제하시겠습니까?</p>
         <p className="isDelete__text--gray">등록한 상품이 삭제됩니다.</p>
-      </StyledDiv>
-      <StyledDiv className="delete-alert__button">
+      </div>
+      <div className="delete-alert__button">
         <Button onClick={onClick} size={"detail"} variant={"bgWhite"}>
           취소하기
         </Button>
         <Button onClick={onClick} size={"detail"} variant={"bgBlue"}>
           삭제하기
         </Button>
-      </StyledDiv>
+      </div>
     </Container>
   );
 };

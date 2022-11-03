@@ -32,6 +32,8 @@ const SIZES: StyleType = {
     width: 372px;
     height: 56px;
     padding: 0 12px;
+    font-size: 18px;
+    font-weight: bold;
   `,
   mypage: css`
     width: auto;

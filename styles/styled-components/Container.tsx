@@ -24,6 +24,12 @@ const PAGES: StyleType = {
     background-color: #fff;
     z-index: 1;
   `,
+  login: css`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  `,
 };
 
 const Container = ({ page, children }: FuncPropsType) => {

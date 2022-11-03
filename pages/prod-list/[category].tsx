@@ -8,8 +8,8 @@ import Title from "components/Title";
 import Skeleton from "components/Skeleton";
 import { CustomProdList } from "components/CustomProdList";
 import Container from "styles/styled-components/Container";
-import Span from "styles/styled-components/Span";
-import Div from "styles/styled-components/Div";
+import { StyledSpan } from "styles/styled-components/Span";
+import { StyledDiv } from "styles/styled-components/Div";
 
 const Category = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -56,10 +56,8 @@ const Category = () => {
       <Title title={category} />
       <NavBar />
       <header className="product-header">
-        <Span purpose="headerBold" variant="">
-          상품 목록
-        </Span>
-        <Div purpose="prodCategory">
+        <StyledSpan purpose="headerBold">상품 목록</StyledSpan>
+        <StyledDiv purpose="prodCategory">
           {categories.map((cate, index) => {
             return (
               <div key={cate}>
@@ -73,14 +71,12 @@ const Category = () => {
                   </span>
                 </Link>
                 {categories.length - 1 !== index && (
-                  <Span purpose="bar" variant="">
-                    {"|"}
-                  </Span>
+                  <StyledSpan purpose="bar">{"|"}</StyledSpan>
                 )}
               </div>
             );
           })}
-        </Div>
+        </StyledDiv>
       </header>
 
       <main className="product-list">

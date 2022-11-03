@@ -3,8 +3,8 @@ import router from "next/router";
 import store from "redux/store";
 import { useAppDispatch } from "redux/hooks";
 import { prodInfoReset } from "redux/prodReducer";
-import Div from "styles/styled-components/Div";
-import Span from "styles/styled-components/Span";
+import { StyledSpan } from "styles/styled-components/Span";
+import { StyledDiv } from "styles/styled-components/Div";
 
 interface Props {
   menu?: string;
@@ -14,7 +14,7 @@ const NavBar = ({ menu }: Props) => {
   const dispatch = useAppDispatch();
 
   return (
-    <Div purpose="navBar">
+    <StyledDiv purpose="navBar">
       <div>
         <Image
           onClick={() => {
@@ -31,13 +31,12 @@ const NavBar = ({ menu }: Props) => {
         />
       </div>
       <div>
-        <Span
+        <StyledSpan
           onClick={() => {
             router.push("/prod-upload");
             dispatch(prodInfoReset());
           }}
           purpose="menu"
-          variant={menu === "regist" ? "blue" : "black"}
         >
           <Image
             src={
@@ -49,23 +48,23 @@ const NavBar = ({ menu }: Props) => {
             width={25}
             height={25}
           />
-          <span>추가하기</span>
-        </Span>
-        <Span
-          onClick={() => router.push("/mypage/main")}
-          purpose="menu"
-          variant={menu === "mypage" ? "blue" : "black"}
-        >
+          <StyledSpan color={menu === "regist" ? "blue" : "black"}>
+            추가하기
+          </StyledSpan>
+        </StyledSpan>
+        <StyledSpan onClick={() => router.push("/mypage/main")} purpose="menu">
           <Image
             src={menu === "mypage" ? "/user-solid.svg" : "/user-regular.svg"}
             alt="mypage"
             width={22}
             height={22}
           />
-          <span>마이페이지</span>
-        </Span>
+          <StyledSpan color={menu === "mypage" ? "blue" : "black"}>
+            마이페이지
+          </StyledSpan>
+        </StyledSpan>
       </div>
-    </Div>
+    </StyledDiv>
   );
 };
 

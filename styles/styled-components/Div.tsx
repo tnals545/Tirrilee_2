@@ -1,19 +1,10 @@
 import styled, { css, FlattenSimpleInterpolation } from "styled-components";
 
-interface StyleType {
+interface Type {
   [key: string]: FlattenSimpleInterpolation;
 }
 
-interface FuncPropsType {
-  purpose: string;
-  children: any;
-}
-
-interface StyledPropsType {
-  purposeStyle: FlattenSimpleInterpolation;
-}
-
-const PURPOSE: StyleType = {
+const PURPOSE: Type = {
   navBar: css`
     width: 100%;
     height: 56px;
@@ -48,16 +39,18 @@ const PURPOSE: StyleType = {
       font-weight: 600;
     }
   `,
+  login: css`
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 56px;
+  `,
 };
 
-const Div = ({ purpose, children }: FuncPropsType) => {
-  const purposeStyle = PURPOSE[purpose];
+export const StyledDiv = styled.div<{ purpose?: string }>`
+  ${(p) => p.purpose && `${PURPOSE[p.purpose]}`}
 
-  return <StyledDiv purposeStyle={purposeStyle}>{children}</StyledDiv>;
-};
-
-const StyledDiv = styled.div<StyledPropsType>`
-  ${(p) => p.purposeStyle}
+  &.login__header {
+    position: relative;
+    bottom: 90px;
+  }
 `;
-
-export default Div;
