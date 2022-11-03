@@ -28,6 +28,17 @@ const PURPOSE: Type = {
     display: flex;
     flex-direction: column;
     margin-bottom: 56px;
+
+    &.login__header {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      bottom: 50px;
+    }
+
+    span {
+      margin-bottom: 16px;
+    }
   `,
   prodCategory: css`
     position: absolute;
@@ -51,15 +62,72 @@ const PURPOSE: Type = {
 
     img {
       border-radius: 8px;
+      object-fit: cover;
+    }
+  `,
+  prodDetails: css`
+    display: flex;
+
+    &.prod-details__back {
+      margin-bottom: 20px;
+    }
+    &.prod-details__prod-image {
+      justify-content: center;
+
+      img {
+        object-fit: scale-down;
+      }
+    }
+    &.prod-details__short-info {
+      flex-direction: column;
+      padding: 20px 0 8px 0;
+      border-bottom: solid 1px #eff1f4;
+
+      span {
+        margin-bottom: 12px;
+      }
+    }
+    &.prod-details__detail-info {
+      flex-direction: column;
+      margin: 32px 0;
+
+      span {
+        margin-bottom: 16px;
+        line-height: 1.7;
+        text-align: left;
+      }
+    }
+    &.prod-details__button--edit {
+      justify-content: flex-end;
+      margin-bottom: 60px;
+    }
+  `,
+  deleteAlert: css`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 372px;
+    height: 194px;
+    border-radius: 16px;
+    background-color: white;
+
+    &.isDelete__text {
+      margin-top: 28px;
+
+      span:first-child {
+        margin-bottom: 20px;
+      }
+    }
+    &.isDelete__button {
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
     }
   `,
 };
 
-export const StyledDiv = styled.div<{ purpose?: string }>`
+export const Div = styled.div<{ purpose?: string }>`
   ${(p) => p.purpose && `${PURPOSE[p.purpose]}`}
-
-  &.login__header {
-    position: relative;
-    bottom: 90px;
-  }
 `;

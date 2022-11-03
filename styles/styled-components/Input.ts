@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledInput = styled.input`
+export const Input = styled.input`
   width: 372px;
   height: 48px;
   border: none;
@@ -10,6 +10,6 @@ export const StyledInput = styled.input`
 
   ::placeholder {
     color: #9da0a8;
-    font-weight: 400;
+    font-size: 14px;
   }
 `;

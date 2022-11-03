@@ -11,6 +11,9 @@ const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
   }
+  body {
+    overflow: overlay;
+  }
   input, textarea { 
     -moz-user-select: auto;
     -webkit-user-select: auto;
@@ -31,7 +34,7 @@ const GlobalStyle = createGlobalStyle`
     padding-top: 230px;
     z-index: -1;
   }
-
+  
   .hidden{
     display:none;
   }

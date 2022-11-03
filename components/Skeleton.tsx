@@ -1,4 +1,4 @@
-import { StyledLi } from "styles/styled-components/StyledLi";
+import { Li } from "styles/styled-components/Li";
 
 const CustomSkeleton = () => {
   return (
@@ -18,20 +18,20 @@ const CustomSkeleton = () => {
 const Skeleton = () => {
   return (
     <>
-      <StyledLi className="skeleton-li">
+      <Li className="skeleton-li">
         <CustomSkeleton />
         <CustomSkeleton />
         <CustomSkeleton />
         <CustomSkeleton />
         <CustomSkeleton />
-      </StyledLi>
-      <StyledLi className="skeleton-li">
+      </Li>
+      <Li className="skeleton-li">
         <CustomSkeleton />
         <CustomSkeleton />
         <CustomSkeleton />
         <CustomSkeleton />
         <CustomSkeleton />
-      </StyledLi>
+      </Li>
     </>
   );
 };

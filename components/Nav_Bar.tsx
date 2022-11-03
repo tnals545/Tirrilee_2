@@ -3,8 +3,8 @@ import router from "next/router";
 import store from "redux/store";
 import { useAppDispatch } from "redux/hooks";
 import { prodInfoReset } from "redux/prodReducer";
-import { StyledSpan } from "styles/styled-components/Span";
-import { StyledDiv } from "styles/styled-components/Div";
+import { Span } from "styles/styled-components/Span";
+import { Div } from "styles/styled-components/Div";
 
 interface Props {
   menu?: string;
@@ -14,7 +14,7 @@ const NavBar = ({ menu }: Props) => {
   const dispatch = useAppDispatch();
 
   return (
-    <StyledDiv purpose="navBar">
+    <Div purpose="navBar">
       <div>
         <Image
           onClick={() => {
@@ -31,7 +31,7 @@ const NavBar = ({ menu }: Props) => {
         />
       </div>
       <div>
-        <StyledSpan
+        <Span
           onClick={() => {
             router.push("/prod-upload");
             dispatch(prodInfoReset());
@@ -48,23 +48,31 @@ const NavBar = ({ menu }: Props) => {
             width={25}
             height={25}
           />
-          <StyledSpan color={menu === "regist" ? "blue" : "black"}>
+          <Span
+            bold="500"
+            size="fontRegular"
+            color={menu === "regist" ? "blue" : "lightGray"}
+          >
             추가하기
-          </StyledSpan>
-        </StyledSpan>
-        <StyledSpan onClick={() => router.push("/mypage/main")} purpose="menu">
+          </Span>
+        </Span>
+        <Span onClick={() => router.push("/mypage/main")} purpose="menu">
           <Image
             src={menu === "mypage" ? "/user-solid.svg" : "/user-regular.svg"}
             alt="mypage"
             width={22}
             height={22}
           />
-          <StyledSpan color={menu === "mypage" ? "blue" : "black"}>
+          <Span
+            bold="500"
+            size="fontRegular"
+            color={menu === "mypage" ? "blue" : "lightGray"}
+          >
             마이페이지
-          </StyledSpan>
-        </StyledSpan>
+          </Span>
+        </Span>
       </div>
-    </StyledDiv>
+    </Div>
   );
 };
 

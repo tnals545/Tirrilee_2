@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledLi = styled.li`
+export const Li = styled.li`
   &.skeleton-li {
     display: flex;
   }

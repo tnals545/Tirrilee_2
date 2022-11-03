@@ -16,11 +16,11 @@ import store from "redux/store";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
 import Title from "components/Title";
 import { addUser, editUser, findIsSameTrue } from "redux/dataReducer";
-import Container from "styles/styled-components/Container";
-import Button from "styles/styled-components/Button";
-import { StyledInput } from "styles/styled-components/Input";
-import { StyledSpan } from "styles/styled-components/Span";
-import { StyledDiv } from "styles/styled-components/Div";
+import { Container } from "styles/styled-components/Container";
+import { Button } from "styles/styled-components/Button";
+import { Input } from "styles/styled-components/Input";
+import { Span } from "styles/styled-components/Span";
+import { Div } from "styles/styled-components/Div";
 
 interface Password {
   type: string;
@@ -92,42 +92,43 @@ const Login = () => {
     <>
       <Title title="Login" />
       <Container page="login">
-        <StyledDiv className="login__header">
+        <Div purpose="login" className="login__header">
           <Image src="/tirrilee-logo.png" alt="logo" width={270} height={75} />
-        </StyledDiv>
+        </Div>
         <form>
-          <StyledDiv purpose="login">
-            <StyledSpan purpose="login">아이디</StyledSpan>
-            <StyledInput
+          <Div purpose="login">
+            <Span color="lightGray" size="fontSemiRegular" bold="500">
+              아이디
+            </Span>
+            <Input
               ref={emailRef}
               id="id"
               type="email"
               placeholder="이메일 아이디를 입력하세요."
               required
             />
-          </StyledDiv>
-          <StyledDiv purpose="login">
-            <StyledSpan purpose="login">비밀번호</StyledSpan>
-            <StyledInput
+          </Div>
+          <Div purpose="login">
+            <Span color="lightGray" size="fontSemiRegular" bold="500">
+              비밀번호
+            </Span>
+            <Input
               ref={pwRef}
               id="pw"
               type={pwType.type}
               placeholder="비밀번호를 입력하세요."
               required
             />
-            <StyledSpan
-              onClick={handlePwType}
-              className="login__password-visible"
-            >
+            <Span onClick={handlePwType} className="login__password-visible">
               {pwType.visible ? (
                 <FontAwesomeIcon icon={faEye} />
               ) : (
                 <FontAwesomeIcon icon={faEyeSlash} />
               )}
-            </StyledSpan>
-          </StyledDiv>
+            </Span>
+          </Div>
           <Link href={"/prod-list/[category]"} as="/prod-list/전체">
-            <Button onClick={onLoginClick} size="complete" variant="bgBlue">
+            <Button onClick={onLoginClick} purpose="complete" color="bgBlue">
               로그인
             </Button>
           </Link>

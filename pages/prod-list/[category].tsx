@@ -7,9 +7,8 @@ import { useAppSelector } from "redux/hooks";
 import Title from "components/Title";
 import Skeleton from "components/Skeleton";
 import { CustomProdList } from "components/CustomProdList";
-import Container from "styles/styled-components/Container";
-import { StyledSpan } from "styles/styled-components/Span";
-import { StyledDiv } from "styles/styled-components/Div";
+import { Span } from "styles/styled-components/Span";
+import { Div } from "styles/styled-components/Div";
 
 const Category = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -56,26 +55,30 @@ const Category = () => {
       <Title title={category} />
       <NavBar />
       <header className="product-header">
-        <StyledSpan purpose="header">상품 목록</StyledSpan>
-        <StyledDiv purpose="prodCategory">
+        <Span bold="800" size="fontSemiLarge" purpose="header">
+          상품 목록
+        </Span>
+        <Div purpose="prodCategory">
           {categories.map((cate, index) => {
             return (
               <div key={cate}>
                 <Link href="/prod-list/[category]" as={`/prod-list/${cate}`}>
-                  <StyledSpan
+                  <Span
                     className={`${category !== cate && "opacity"} pointer bold`}
                     onClick={handleClickCategory}
                   >
                     {cate}
-                  </StyledSpan>
+                  </Span>
                 </Link>
                 {categories.length - 1 !== index && (
-                  <StyledSpan purpose="bar">{"|"}</StyledSpan>
+                  <Span size="fontSmall" purpose="bar">
+                    {"|"}
+                  </Span>
                 )}
               </div>
             );
           })}
-        </StyledDiv>
+        </Div>
       </header>
 
       <main>

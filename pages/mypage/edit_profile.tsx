@@ -15,7 +15,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
-import Button from "styles/styled-components/Button";
+import { Button } from "styles/styled-components/Button";
 
 const EditProfile = () => {
   const nickInputRef = useRef<HTMLInputElement>(null);
@@ -78,7 +78,7 @@ const EditProfile = () => {
           width={100}
           height={100}
         />
-        <Button size="mypage" variant="bgBlue">
+        <Button purpose="mypage" color="bgBlue">
           <label htmlFor="file">사진 변경</label>
         </Button>
         <Button
@@ -86,8 +86,8 @@ const EditProfile = () => {
             dispatch(editProfileImg("/profile.png"));
             setProfileImg("/profile.png");
           }}
-          size="mypage"
-          variant="bgBlue"
+          purpose="mypage"
+          color="bgBlue"
         >
           사진 삭제
         </Button>
@@ -114,7 +114,7 @@ const EditProfile = () => {
         <input type="text" value={userInfo.email} disabled />
       </form>
       <Link href="/mypage/main">
-        <Button onClick={onClickSave} size="complete" variant="bgBlue">
+        <Button onClick={onClickSave} purpose="complete" color="bgBlue">
           저장
         </Button>
       </Link>
