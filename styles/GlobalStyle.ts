@@ -38,10 +38,6 @@ const GlobalStyle = createGlobalStyle`
   .hidden{
     display:none;
   }
-  .active {
-    color: blue;
-    background-color: blue;
-  }
   .opacity {
     opacity: 0.3;
   }

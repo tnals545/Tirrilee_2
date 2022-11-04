@@ -32,6 +32,7 @@ export const theme = {
 export const SIZE: StyleType = {
   fontLarge: "48px",
   fontSemiLarge: "30px",
+  fontMoreMedium: "28px",
   fontMedium: "24px",
   fontSemiMedium: "20px",
   fontMiddle: "18px",

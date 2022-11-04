@@ -16,9 +16,9 @@ const PAGES: StyleType = {
     align-items: center;
   `,
   prodDetails: css`
+    height: 80vh;
     display: flex;
     flex-direction: column;
-    margin-top: 250px;
   `,
   deleteAlert: css`
     position: fixed;
@@ -32,6 +32,9 @@ const PAGES: StyleType = {
 
     background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(1px);
+  `,
+  prodUpload: css`
+    padding-top: 150px;
   `,
 };
 

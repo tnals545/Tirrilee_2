@@ -23,6 +23,9 @@ const PURPOSE: Type = {
       margin-left: 62px;
       margin-right: 62px;
     }
+    img {
+      cursor: pointer;
+    }
   `,
   login: css`
     display: flex;
@@ -63,6 +66,7 @@ const PURPOSE: Type = {
     img {
       border-radius: 8px;
       object-fit: cover;
+      cursor: pointer;
     }
   `,
   prodDetails: css`
@@ -70,6 +74,10 @@ const PURPOSE: Type = {
 
     &.prod-details__back {
       margin-bottom: 20px;
+
+      img {
+        cursor: pointer;
+      }
     }
     &.prod-details__prod-image {
       justify-content: center;
@@ -99,7 +107,20 @@ const PURPOSE: Type = {
     }
     &.prod-details__button--edit {
       justify-content: flex-end;
-      margin-bottom: 60px;
+      padding-bottom: 60px;
+    }
+    &.prod-details__seller {
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 70px;
+    }
+    &.prod-details__seller-info {
+      display: flex;
+      align-items: center;
+
+      span {
+        margin-left: 12px;
+      }
     }
   `,
   deleteAlert: css`
@@ -124,6 +145,54 @@ const PURPOSE: Type = {
       flex-direction: row;
       justify-content: center;
       align-items: center;
+    }
+  `,
+  prodUpload: css`
+    display: flex;
+
+    img {
+      object-fit: cover;
+      cursor: pointer;
+    }
+
+    &.prod-upload__header {
+      flex-direction: column;
+      margin-bottom: 20px;
+    }
+
+    &.prod-upload__main {
+      margin-bottom: 120px;
+      div {
+        &.prod-upload__preview {
+          margin-right: 30px;
+          width: 500px;
+          height: 500px;
+          background-color: #eff1f4;
+
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        &.prod-upload__info {
+        }
+        &.prod-upload__info-text {
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 28px;
+        }
+        &.prod-upload__info-category--button {
+          display: flex;
+          margin-bottom: 36px;
+
+          button {
+            margin: 12px 12px 12px 5px;
+          }
+        }
+      }
+    }
+
+    span {
+      margin-bottom: 8px;
     }
   `,
 };

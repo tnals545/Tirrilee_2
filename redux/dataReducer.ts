@@ -27,11 +27,7 @@ const dataSlice = createSlice({
       state.products.push(action.payload);
     },
     delProd(state, action: PayloadAction<number>) {
-      state.products.forEach((prod, index) => {
-        if (prod.key === action.payload) {
-          state.products.splice(index);
-        }
-      });
+      state.products = state.products.filter((e) => e.key !== action.payload);
     },
     editUser(state, action: PayloadAction<UserInfoState>) {
       state.users.forEach((user, index) => {

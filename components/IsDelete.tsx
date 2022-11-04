@@ -11,7 +11,7 @@ import { Div } from "styles/styled-components/Div";
 import { Span } from "styles/styled-components/Span";
 
 const IsDelete = () => {
-  const prodDetail = useAppSelector((state) => state.prodInfo);
+  const prodDetail = useAppSelector((state) => state.etc.recentProd);
   const dispatch = useAppDispatch();
 
   const onClick = (e: any) => {

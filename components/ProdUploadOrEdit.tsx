@@ -25,6 +25,11 @@ import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
 import { addProd, editProduct } from "redux/dataReducer";
 import { Container } from "styles/styled-components/Container";
+import { Input, Textarea } from "styles/styled-components/Input";
+import { Div } from "styles/styled-components/Div";
+import { Button } from "styles/styled-components/Button";
+import { Span } from "styles/styled-components/Span";
+import { updateRecentProd } from "redux/etcReducer";
 
 interface propsType {
   work: string;
@@ -33,14 +38,11 @@ interface propsType {
 const ProdUploadOrEdit = ({ work }: propsType) => {
   const [btnActive, setBtnActive] = useState<string>();
   const [render, setRender] = useState(false);
-  const [keyList, setKeyList] = useState<number[]>([]);
-  const [beforeProdInfo, seBeforeProdInfo] = useState<ProdState>(
-    store.getState().prodInfo
-  );
+  const keyList: number[] = [];
 
   const nameInput = useRef<HTMLInputElement>(null);
   const priceInput = useRef<HTMLInputElement>(null);
-  const detailInput = useRef<HTMLInputElement>(null);
+  const detailInput = useRef<HTMLTextAreaElement>(null);
 
   const categories = useAppSelector((state) => state.etc.categories.slice(1));
   const dispatch = useAppDispatch();
@@ -110,6 +112,7 @@ const ProdUploadOrEdit = ({ work }: propsType) => {
       }
       if (work === "edit") {
         dispatch(editProduct(store.getState().prodInfo));
+        dispatch(updateRecentProd(store.getState().prodInfo));
       } else if (work === "upload") {
         dispatch(addProd(store.getState().prodInfo));
       }
@@ -117,12 +120,13 @@ const ProdUploadOrEdit = ({ work }: propsType) => {
     }
   };
 
-  useEffect(() => {
-    store.getState().data.products.forEach((prod) => {
-      setKeyList([...keyList, prod.key]);
-    });
+  store.getState().data.products.forEach((prod) => {
+    keyList.push(prod.key);
+  });
 
+  useEffect(() => {
     if (work === "edit") {
+      dispatch(editAllProdState(store.getState().etc.recentProd));
       if (nameInput.current) {
         nameInput.current.value = store.getState().prodInfo.name;
       }
@@ -135,94 +139,144 @@ const ProdUploadOrEdit = ({ work }: propsType) => {
         detailInput.current.value = store.getState().prodInfo.description;
       }
       setBtnActive(store.getState().prodInfo.category);
-      seBeforeProdInfo(store.getState().prodInfo);
+      dispatch(addSrc(store.getState().prodInfo.src));
       dispatch(addBeforeKey(store.getState().prodInfo.key));
     }
-
-    router.beforePopState(() => {
-      dispatch(editAllProdState(beforeProdInfo));
-      return true;
-    });
-
-    return () => {
-      router.beforePopState(() => true);
-    };
   }, []);
 
   return (
-    <Container>
-      <FontAwesomeIcon onClick={() => router.back()} icon={faArrowLeftLong} />
-      {work === "edit" ? <h1>수정하기</h1> : null}
-      <input
-        type="file"
-        onChange={(e: any) => {
-          encodeFileToBase64(e.target.files[0]);
-        }}
-        accept="image/*"
-        required
-      />
-      <div className="preview">
-        {store.getState().prodInfo.src && (
+    <Container page="prodUpload">
+      <Div purpose="prodUpload" className="prod-upload__header">
+        <Div purpose="prodDetails" className="prod-details__back">
           <Image
-            src={store.getState().prodInfo.src}
-            alt="preview-img"
-            width={500}
-            height={500}
+            onClick={() => router.back()}
+            src="/left.png"
+            alt="back"
+            width={45}
+            height={45}
           />
-        )}
-      </div>
-      <div className="prod-upload__info">
-        <div className="prod-upload__info--text">
-          <h4>제품명</h4>
+        </Div>
+        {work === "edit" ? (
+          <Span size="fontMoreMedium" bold="700">
+            수정하기
+          </Span>
+        ) : null}
+      </Div>
+      <Div purpose="prodUpload" className="prod-upload__main">
+        <Div className="prod-upload__preview">
+          <label htmlFor="file">
+            {store.getState().prodInfo.src ? (
+              <Image
+                src={store.getState().prodInfo.src}
+                alt="preview-img"
+                width={500}
+                height={500}
+              />
+            ) : (
+              <Div className="preview-space">
+                <Image
+                  src="/camera.png"
+                  alt="preview-img"
+                  width={72}
+                  height={72}
+                />
+              </Div>
+            )}
+          </label>
           <input
-            ref={nameInput}
-            onChange={handleInputChange}
-            className="name"
-            type="text"
-            placeholder="제품명을 입력해주세요."
+            id="file"
+            className="hidden"
+            type="file"
+            onChange={(e: any) => {
+              encodeFileToBase64(e.target.files[0]);
+            }}
+            accept="image/*"
             required
           />
-          <h4>가격</h4>
-          <input
-            ref={priceInput}
-            onChange={handleInputChange}
-            className="price"
-            type="number"
-            placeholder="숫자만 입력해주세요."
-            required
-          />
-          <h4>상세 설명</h4>
-          <input
-            ref={detailInput}
-            onChange={handleInputChange}
-            className="detail"
-            type="text"
-            placeholder="상세한 상품 설명을 입력해주세요."
-            required
-          />
-        </div>
-        <div className="prod-upload__info--category">
-          {categories.map((category) => {
-            return (
-              <button
-                key={category}
-                value={category}
-                className={`btn ${category === btnActive ? "active" : ""}`}
-                onClick={onClickCategory}
-              >
-                {category}
-              </button>
-            );
-          })}
-        </div>
-        <Link href="/prod-list/전체">
-          {work === "edit" ? (
-            <button onClick={onClickComplete}>수정하기</button>
-          ) : (
-            <button onClick={onClickComplete}>완료</button>
-          )}
-        </Link>
-      </div>
+        </Div>
+        <Div className="prod-upload__info">
+          <Div>
+            <Div className="prod-upload__info-text">
+              <Span size="fontSemiRegular" color="lightGray">
+                제품명
+              </Span>
+              <Input
+                ref={nameInput}
+                onChange={handleInputChange}
+                className="prod-info name"
+                type="text"
+                placeholder="제품명을 입력해주세요."
+                required
+              />
+            </Div>
+            <Div className="prod-upload__info-text">
+              <Span size="fontSemiRegular" color="lightGray">
+                가격
+              </Span>
+              <Input
+                ref={priceInput}
+                onChange={handleInputChange}
+                className="prod-info price"
+                type="number"
+                placeholder="숫자만 입력해주세요."
+                required
+              />
+            </Div>
+            <Div className="prod-upload__info-text">
+              <Span size="fontSemiRegular" color="lightGray">
+                상세 설명
+              </Span>
+              <Textarea
+                ref={detailInput}
+                onChange={handleInputChange}
+                name="prodDetail"
+                className="prod-info detail"
+                placeholder="상세한 상품 설명을 입력해주세요."
+                required
+              ></Textarea>
+            </Div>
+          </Div>
+          <Div className="prod-upload__info-category">
+            <Span size="fontSemiRegular">카테고리</Span>
+            <Div className="prod-upload__info-category--button">
+              {categories.map((category) => {
+                return (
+                  <Button
+                    key={category}
+                    value={category}
+                    purpose="category"
+                    color={`${category === btnActive ? "bgBlue" : "bgWhite"}`}
+                    onClick={onClickCategory}
+                  >
+                    {category}
+                  </Button>
+                );
+              })}
+            </Div>
+          </Div>
+          <Div className="prod-upload__info-button">
+            <Link href="/prod-list/전체">
+              {work === "edit" ? (
+                <Button
+                  purpose="complete"
+                  color="bgBlue"
+                  onClick={onClickComplete}
+                >
+                  수정하기
+                </Button>
+              ) : (
+                <Button
+                  purpose="complete"
+                  color="bgBlue"
+                  onClick={onClickComplete}
+                >
+                  완료
+                </Button>
+              )}
+            </Link>
+          </Div>
+        </Div>
+      </Div>
     </Container>
   );
 };

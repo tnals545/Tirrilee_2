@@ -35,7 +35,7 @@ const PURPOSE: StyleType = {
     height: 56px;
     padding: 0 12px;
     font-size: 18px;
-    font-weight: 700;
+    font-weight: 600;
   `,
   mypage: css`
     width: auto;
@@ -52,6 +52,7 @@ const COLOR: StyleType = {
   bgBlue: css`
     color: white;
     background-color: #226bef;
+    border: solid 1px #226bef;
   `,
   bgWhite: css`
     color: #3b3f4a;

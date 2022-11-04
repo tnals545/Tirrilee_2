@@ -6,6 +6,7 @@ import { editAllProdState, ProdState } from "redux/prodReducer";
 import { Li } from "styles/styled-components/Li";
 import { Span } from "styles/styled-components/Span";
 import { Div } from "styles/styled-components/Div";
+import { updateRecentProd } from "redux/etcReducer";
 
 interface Props {
   category: string;
@@ -29,7 +30,7 @@ const CustomUl = (props: Props, ref: ForwardedRef<HTMLUListElement>) => {
                   <Image
                     src={prod.src}
                     alt={prod.name}
-                    onClick={() => dispatch(editAllProdState(prod))}
+                    onClick={() => dispatch(updateRecentProd(prod))}
                     width={274}
                     height={274}
                   />

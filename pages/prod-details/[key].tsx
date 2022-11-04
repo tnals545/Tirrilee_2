@@ -5,16 +5,15 @@ import { useAppDispatch, useAppSelector } from "redux/hooks";
 import store from "redux/store";
 import router from "next/router";
 import Title from "components/Title";
-import { delProd } from "redux/dataReducer";
 import IsDelete from "components/IsDelete";
-import { isDelete } from "redux/etcReducer";
+import { isDelete, updateRecentProd } from "redux/etcReducer";
 import { Container } from "styles/styled-components/Container";
 import { Button } from "styles/styled-components/Button";
 import { Div } from "styles/styled-components/Div";
 import { Span } from "styles/styled-components/Span";
 
 const ProdDetails = () => {
-  const prodDetail = useAppSelector((state) => state.prodInfo);
+  const prodDetail = useAppSelector((state) => state.etc.recentProd);
   const dispatch = useAppDispatch();
 
   const [userIdx, setUserIdx] = useState<number>(0);
@@ -32,7 +31,8 @@ const ProdDetails = () => {
         setUserIdx(index);
       }
     });
-  }, [prodDetail.seller]);
+  }, []);
+
   return (
     <>
       <Title title="Product Detail" />
@@ -105,14 +105,21 @@ const ProdDetails = () => {
               key={prodDetail.key}
               className="prod-details__seller"
             >
-              <Image
-                className="profile-img__preview"
-                src={store.getState().data.users[userIdx].profileImg}
-                alt="preview-img"
-                width={100}
-                height={100}
-              />
-              {prodSeller}
+              <Span size="fontMiddle" bold="700">
+                판매자
+              </Span>
+              <Div purpose="prodDetails" className="prod-details__seller-info">
+                <Image
+                  className="profile-img__preview"
+                  src={store.getState().data.users[userIdx].profileImg}
+                  alt="preview-img"
+                  width={50}
+                  height={50}
+                />
+                <Span size="fontSemiRegular" color="lightGray">
+                  {prodSeller}
+                </Span>
+              </Div>
             </Div>
           </>
         )}
