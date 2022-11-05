@@ -10,6 +10,7 @@ interface StyledPropsType {
   color?: string;
   size?: string;
   bold?: string;
+  opacity?: string;
 }
 
 const PURPOSE: StyleType = {
@@ -59,6 +60,7 @@ export const Span = styled.span<StyledPropsType>`
   color: ${(p) => p.color && `${COLOR[p.color]}`};
   font-size: ${(p) => p.size && `${SIZE[p.size]}`};
   font-weight: ${(p) => (p.bold ? p.bold : 400)};
+  opacity: ${(p) => p.opacity && p.opacity};
 
   &.login__password-visible {
     width: 18px;

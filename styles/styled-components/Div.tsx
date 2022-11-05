@@ -100,6 +100,7 @@ const PURPOSE: Type = {
       margin: 32px 0;
 
       span {
+        white-space: pre-line;
         margin-bottom: 16px;
         line-height: 1.7;
         text-align: left;
@@ -173,8 +174,6 @@ const PURPOSE: Type = {
           justify-content: center;
           align-items: center;
         }
-        &.prod-upload__info {
-        }
         &.prod-upload__info-text {
           display: flex;
           flex-direction: column;
@@ -193,6 +192,64 @@ const PURPOSE: Type = {
 
     span {
       margin-bottom: 8px;
+    }
+  `,
+  mypage: css`
+    &.main-profile {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 40px 0;
+      border-bottom: solid 1px #eff1f4;
+
+      div {
+        width: 195px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        span:first-child {
+          margin-bottom: 8px;
+        }
+      }
+    }
+    &.main-my_prod_list {
+      padding: 20px 0;
+      border-bottom: solid 1px #eff1f4;
+
+      div {
+        display: flex;
+        justify-content: space-between;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+
+        span {
+          margin-left: 16px;
+        }
+      }
+    }
+    &.main-logout,
+    &.main-signout {
+      display: flex;
+      justify-content: flex-start;
+      padding: 20px 0;
+      border-bottom: solid 1px #eff1f4;
+
+      div {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+
+        span {
+          margin-left: 16px;
+        }
+      }
+    }
+    &.main-signout {
+      div {
+        cursor: default;
+      }
     }
   `,
 };

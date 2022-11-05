@@ -39,6 +39,7 @@ export const Textarea = styled.textarea`
   color: black;
 
   resize: none;
+  text-align: left;
 
   ::placeholder {
     color: #9da0a8;

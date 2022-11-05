@@ -255,8 +255,11 @@ const ProdUploadOrEdit = ({ work }: propsType) => {
             </Div>
           </Div>
           <Div className="prod-upload__info-button">
-            <Link href="/prod-list/전체">
-              {work === "edit" ? (
+            {work === "edit" ? (
+              <Link
+                href="/prod-details/[key]"
+                as={`/prod-details/${store.getState().prodInfo.key}`}
+              >
                 <Button
                   purpose="complete"
                   color="bgBlue"
@@ -264,7 +267,9 @@ const ProdUploadOrEdit = ({ work }: propsType) => {
                 >
                   수정하기
                 </Button>
-              ) : (
+              </Link>
+            ) : (
+              <Link href="/prod-list/전체">
                 <Button
                   purpose="complete"
                   color="bgBlue"
@@ -272,8 +277,8 @@ const ProdUploadOrEdit = ({ work }: propsType) => {
                 >
                   완료
                 </Button>
-              )}
-            </Link>
+              </Link>
+            )}
           </Div>
         </Div>
       </Div>

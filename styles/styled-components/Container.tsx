@@ -36,6 +36,10 @@ const PAGES: StyleType = {
   prodUpload: css`
     padding-top: 150px;
   `,
+  mypage: css`
+    width: 372px;
+    height: 80vh;
+  `,
 };
 
 export const Container = styled.div<StyledPropsType>`

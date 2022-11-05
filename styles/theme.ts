@@ -48,6 +48,7 @@ export const COLOR: StyleType = {
   blue: "#226bef",
   gray: "#3b3f4a",
   lightGray: "#5a5e6a",
+  darkWhite: "#bec1c7",
 };
 
 export type Theme = typeof theme;

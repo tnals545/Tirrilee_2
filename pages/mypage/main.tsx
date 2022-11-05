@@ -14,6 +14,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "styles/styled-components/Button";
 import { Container } from "styles/styled-components/Container";
+import { Div } from "styles/styled-components/Div";
+import { Span } from "styles/styled-components/Span";
 
 const Mypage = () => {
   const dispatch = useAppDispatch();
@@ -30,16 +32,22 @@ const Mypage = () => {
     <>
       <NavBar menu="mypage" />
       <Container page="mypage">
-        <div className="profile">
+        <Div purpose="mypage" className="main-profile">
           <Image
             className="profile__img"
             src={store.getState().userInfo.profileImg}
             alt="profile__img"
-            width={100}
-            height={100}
+            width={72}
+            height={72}
           />
-          <span>{store.getState().userInfo.nickname}</span>
-          <span>{store.getState().userInfo.email}</span>
+          <Div className="main-profile__text">
+            <Span size="fontRegular" bold="700">
+              {store.getState().userInfo.nickname}
+            </Span>
+            <Span size="fontSemiRegular" color="lightGray">
+              {store.getState().userInfo.email}
+            </Span>
+          </Div>
           <Button
             onClick={() => router.push("/mypage/edit_profile")}
             purpose="mypage"
@@ -47,22 +55,58 @@ const Mypage = () => {
           >
             수정하기
           </Button>
-        </div>
-        <div className="my-prod-list">
-          <div>
-            {/* 선물상자 icon */}
-            <p onClick={() => router.push("/mypage/my_products_list")}>
-              등록한 상품 목록
-            </p>
-          </div>
-          <div>{/* 오른쪽 화살표 icon */}</div>
-        </div>
-        <div>
+        </Div>
+        <Div
+          purpose="mypage"
+          className="main-my_prod_list"
+          onClick={() => router.push("/mypage/my_products_list")}
+        >
+          <Div>
+            <Div>
+              <Image
+                className="gift-icon"
+                src="/gift.png"
+                alt="gift"
+                width={20}
+                height={20}
+              />
+              <Span bold="500">등록한 상품 목록</Span>
+            </Div>
+            <Image
+              className="right-icon"
+              src="/angle-right.png"
+              alt="right"
+              width={20}
+              height={20}
+            />
+          </Div>
+        </Div>
+        <Div purpose="mypage" className="main-logout" onClick={onClickLogOut}>
           <Link href="/">
-            {/* 왼쪽 화살표 icon */}
-            <p onClick={onClickLogOut}>로그아웃</p>
+            <Div>
+              <Image
+                className="left-icon"
+                src="/left.png"
+                alt="left"
+                width={20}
+                height={20}
+              />
+              <Span bold="500">로그아웃</Span>
+            </Div>
           </Link>
-        </div>
+        </Div>
+        <Div purpose="mypage" className="main-signout">
+          <Div>
+            <Image
+              className="signout-icon"
+              src="/sign-out.png"
+              alt="signout"
+              width={20}
+              height={20}
+            />
+            <Span color="darkWhite">탈퇴하기</Span>
+          </Div>
+        </Div>
       </Container>
     </>
   );
