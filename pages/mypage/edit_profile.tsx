@@ -13,9 +13,12 @@ import { useAppDispatch, useAppSelector } from "redux/hooks";
 import { allIsSameFalse, editUser } from "redux/dataReducer";
 import Image from "next/image";
 import Link from "next/link";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "styles/styled-components/Button";
+import Title from "components/Title";
+import { Container } from "styles/styled-components/Container";
+import { Span } from "styles/styled-components/Span";
+import { Div } from "styles/styled-components/Div";
+import { Input } from "styles/styled-components/Input";
 
 const EditProfile = () => {
   const nickInputRef = useRef<HTMLInputElement>(null);
@@ -63,61 +66,72 @@ const EditProfile = () => {
 
   return (
     <>
+      <Title title="Edit Profile" />
       <NavBar menu="mypage" />
-      <FontAwesomeIcon
-        onClick={() => {
-          router.back();
-        }}
-        icon={faArrowLeftLong}
-      />
-      <div className="profile-img">
-        <Image
-          className="profile-img__preview"
-          src={profileImg}
-          alt="preview-img"
-          width={100}
-          height={100}
-        />
-        <Button purpose="mypage" color="bgBlue">
-          <label htmlFor="file">사진 변경</label>
-        </Button>
-        <Button
-          onClick={() => {
-            dispatch(editProfileImg("/profile.png"));
-            setProfileImg("/profile.png");
-          }}
-          purpose="mypage"
-          color="bgBlue"
-        >
-          사진 삭제
-        </Button>
-        <input
-          id="file"
-          className="hidden"
-          type="file"
-          name="file"
-          onChange={(e: any) => {
-            encodeFileToBase64(e.target.files[0]);
-          }}
-        />
-      </div>
-      <form>
-        <p>닉네임</p>
-        <input
-          ref={nickInputRef}
-          onChange={onChangeNickname}
-          type="text"
-          placeholder="NickName"
-          value={newNickName}
-        />
-        <p>아이디</p>
-        <input type="text" value={userInfo.email} disabled />
-      </form>
-      <Link href="/mypage/main">
-        <Button onClick={onClickSave} purpose="complete" color="bgBlue">
-          저장
-        </Button>
-      </Link>
+      <Container page="profileEdit">
+        <Div purpose="prodDetails" className="prod-details__back">
+          <Image
+            onClick={() => router.back()}
+            src="/left.png"
+            alt="back"
+            width={32}
+            height={32}
+          />
+        </Div>
+        <Span size="fontMoreMedium" bold="700">
+          프로필 수정
+        </Span>
+        <Div purpose="profileEdit" className="profile-img">
+          <Image
+            className="profile-img__preview"
+            src={profileImg}
+            alt="preview-img"
+            width={200}
+            height={200}
+          />
+          <Div purpose="profileEdit">
+            <Button purpose="mypage" color="bgBlue">
+              <label htmlFor="file">사진 변경</label>
+            </Button>
+            <Button
+              onClick={() => {
+                dispatch(editProfileImg("/profile.png"));
+                setProfileImg("/profile.png");
+              }}
+              purpose="mypage"
+              color="bgBlue"
+            >
+              사진 삭제
+            </Button>
+          </Div>
+          <input
+            id="file"
+            className="hidden"
+            type="file"
+            name="file"
+            onChange={(e: any) => {
+              encodeFileToBase64(e.target.files[0]);
+            }}
+          />
+        </Div>
+        <Div purpose="profileEdit" className="profile-info">
+          <Span color="lightGray">닉네임</Span>
+          <Input
+            ref={nickInputRef}
+            onChange={onChangeNickname}
+            type="text"
+            placeholder="NickName"
+            value={newNickName}
+          />
+          <Span color="lightGray">아이디</Span>
+          <Input type="text" value={userInfo.email} disabled />
+        </Div>
+        <Link href="/mypage/main">
+          <Button onClick={onClickSave} purpose="complete" color="bgBlue">
+            저장
+          </Button>
+        </Link>
+      </Container>
     </>
   );
 };

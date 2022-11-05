@@ -16,6 +16,7 @@ import { Button } from "styles/styled-components/Button";
 import { Container } from "styles/styled-components/Container";
 import { Div } from "styles/styled-components/Div";
 import { Span } from "styles/styled-components/Span";
+import Title from "components/Title";
 
 const Mypage = () => {
   const dispatch = useAppDispatch();
@@ -30,6 +31,7 @@ const Mypage = () => {
 
   return (
     <>
+      <Title title="MyPage" />
       <NavBar menu="mypage" />
       <Container page="mypage">
         <Div purpose="mypage" className="main-profile">

@@ -202,6 +202,10 @@ const PURPOSE: Type = {
       padding: 40px 0;
       border-bottom: solid 1px #eff1f4;
 
+      img {
+        border-radius: 50%;
+      }
+
       div {
         width: 195px;
         display: flex;
@@ -249,6 +253,45 @@ const PURPOSE: Type = {
     &.main-signout {
       div {
         cursor: default;
+      }
+    }
+  `,
+  profileEdit: css`
+    &.profile-img {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      margin-top: 50px;
+      margin-bottom: 50px;
+      border-bottom: solid 1px #eff1f4;
+
+      img {
+        object-fit: cover;
+        border-radius: 50%;
+      }
+
+      div {
+        display: flex;
+        margin: 40px 0 40px 0;
+
+        button {
+          margin: 0 10px;
+        }
+
+        label {
+          cursor: pointer;
+        }
+      }
+    }
+    &.profile-info {
+      input {
+        margin: 8px 0 32px 0;
+
+        :disabled {
+          opacity: 0.6;
+        }
       }
     }
   `,

@@ -40,6 +40,10 @@ const PAGES: StyleType = {
     width: 372px;
     height: 80vh;
   `,
+  profileEdit: css`
+    width: 372px;
+    height: 80vh;
+  `,
 };
 
 export const Container = styled.div<StyledPropsType>`
