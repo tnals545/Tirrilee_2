@@ -114,10 +114,18 @@ const PURPOSE: Type = {
       display: flex;
       flex-direction: column;
       padding-bottom: 70px;
+
+      span:first-child {
+        margin-bottom: 8px;
+      }
     }
     &.prod-details__seller-info {
       display: flex;
       align-items: center;
+
+      img {
+        border-radius: 50%;
+      }
 
       span {
         margin-left: 12px;
@@ -203,6 +211,7 @@ const PURPOSE: Type = {
       border-bottom: solid 1px #eff1f4;
 
       img {
+        object-fit: cover;
         border-radius: 50%;
       }
 
@@ -241,9 +250,10 @@ const PURPOSE: Type = {
       border-bottom: solid 1px #eff1f4;
 
       div {
-        cursor: pointer;
+        width: auto;
         display: flex;
         align-items: center;
+        cursor: pointer;
 
         span {
           margin-left: 16px;
@@ -292,6 +302,23 @@ const PURPOSE: Type = {
         :disabled {
           opacity: 0.6;
         }
+      }
+    }
+  `,
+  myProdList: css`
+    &.my-products__header {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      padding: 100px 190px 20px 62px;
+
+      span {
+        margin-bottom: 42px;
+      }
+    }
+    &.my-products__list {
+      ul {
+        padding-top: 300px;
       }
     }
   `,

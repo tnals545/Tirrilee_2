@@ -71,5 +71,7 @@ export const Span = styled.span<StyledPropsType>`
     align-items: center;
     top: 310px;
     left: 330px;
+
+    cursor: pointer;
   }
 `;

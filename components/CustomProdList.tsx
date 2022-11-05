@@ -59,7 +59,7 @@ const CustomUl = (props: Props, ref: ForwardedRef<HTMLUListElement>) => {
                     <Image
                       src={prod.src}
                       alt={prod.name}
-                      onClick={() => dispatch(editAllProdState(prod))}
+                      onClick={() => dispatch(updateRecentProd(prod))}
                       width={274}
                       height={274}
                     />

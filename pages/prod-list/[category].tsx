@@ -30,8 +30,8 @@ const Category = () => {
 
   useEffect(() => {
     const handleRouteChange = () => {
-      if (router.router?.query.category === "전체") {
-        setCategory("전체");
+      if (router.router?.query.category) {
+        setCategory(String(router.router?.query.category));
       }
     };
     router.events.on("routeChangeComplete", handleRouteChange);

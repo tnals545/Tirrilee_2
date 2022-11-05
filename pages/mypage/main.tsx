@@ -83,9 +83,9 @@ const Mypage = () => {
             />
           </Div>
         </Div>
-        <Div purpose="mypage" className="main-logout" onClick={onClickLogOut}>
+        <Div purpose="mypage" className="main-logout">
           <Link href="/">
-            <Div>
+            <Div onClick={onClickLogOut}>
               <Image
                 className="left-icon"
                 src="/left.png"
