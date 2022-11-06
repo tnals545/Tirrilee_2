@@ -1,12 +1,14 @@
-import NavBar from "components/Nav_Bar";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import React, { useState, useRef, useEffect } from "react";
-import store from "redux/store";
 import router from "next/router";
-import { useAppSelector } from "redux/hooks";
+
+import NavBar from "components/Nav_Bar";
 import Title from "components/Title";
 import Skeleton from "components/Skeleton";
 import { CustomProdList } from "components/CustomProdList";
+
+import { useAppSelector } from "redux/hooks";
+
 import { Span } from "styles/styled-components/Span";
 import { Div } from "styles/styled-components/Div";
 
@@ -14,8 +16,6 @@ const Category = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [category, setCategory] = useState<string>("");
 
-  // Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?
-  // 해결못함
   const ref = useRef<HTMLUListElement>(null);
 
   const prodData = useAppSelector((state) => state.data.products);

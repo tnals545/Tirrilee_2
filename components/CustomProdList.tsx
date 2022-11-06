@@ -1,12 +1,14 @@
-import Image from "next/image";
 import { forwardRef, ForwardedRef } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { useAppDispatch, useAppSelector } from "redux/hooks";
-import { editAllProdState, ProdState } from "redux/prodReducer";
+
+import { useAppDispatch } from "redux/hooks";
+import { ProdState } from "redux/prodReducer";
+import { updateRecentProd } from "redux/etcReducer";
+
 import { Li } from "styles/styled-components/Li";
 import { Span } from "styles/styled-components/Span";
 import { Div } from "styles/styled-components/Div";
-import { updateRecentProd } from "redux/etcReducer";
 
 interface Props {
   category: string;

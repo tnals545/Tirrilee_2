@@ -1,20 +1,17 @@
 import React, { useRef, useState, useEffect } from "react";
-import {
-  userInfoReset,
-  isLogin,
-  addNickName,
-  editProfileImg,
-  UserInfoState,
-} from "redux/userReducer";
-import store from "redux/store";
 import router from "next/router";
-import NavBar from "components/Nav_Bar";
-import { useAppDispatch, useAppSelector } from "redux/hooks";
-import { allIsSameFalse, editUser } from "redux/dataReducer";
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "styles/styled-components/Button";
+
+import NavBar from "components/Nav_Bar";
 import Title from "components/Title";
+
+import { addNickName, editProfileImg, UserInfoState } from "redux/userReducer";
+import store from "redux/store";
+import { useAppDispatch, useAppSelector } from "redux/hooks";
+import { editUser } from "redux/dataReducer";
+
+import { Button } from "styles/styled-components/Button";
 import { Container } from "styles/styled-components/Container";
 import { Span } from "styles/styled-components/Span";
 import { Div } from "styles/styled-components/Div";
@@ -28,9 +25,6 @@ const EditProfile = () => {
   const [newNickName, setNewNickName] = useState(userInfo.nickname);
   const [profileImg, setProfileImg] = useState<any>(
     store.getState().userInfo.profileImg
-  );
-  const [beforeUserInfo, setBeforeUserInfo] = useState<UserInfoState>(
-    store.getState().userInfo
   );
 
   const onChangeNickname = (e: any) => {
@@ -61,7 +55,6 @@ const EditProfile = () => {
 
   useEffect(() => {
     setNewNickName(store.getState().userInfo.nickname);
-    setBeforeUserInfo(store.getState().userInfo);
   }, []);
 
   return (

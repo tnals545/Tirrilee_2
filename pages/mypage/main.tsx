@@ -1,22 +1,19 @@
-import React, { useRef, useState, useEffect } from "react";
-import {
-  userInfoReset,
-  isLogin,
-  addNickName,
-  editProfileImg,
-} from "redux/userReducer";
-import store from "redux/store";
 import router from "next/router";
-import NavBar from "components/Nav_Bar";
-import { useAppDispatch, useAppSelector } from "redux/hooks";
-import { allIsSameFalse, editUser } from "redux/dataReducer";
 import Image from "next/image";
 import Link from "next/link";
+
+import NavBar from "components/Nav_Bar";
+import Title from "components/Title";
+
+import { userInfoReset, isLogin } from "redux/userReducer";
+import store from "redux/store";
+import { useAppDispatch } from "redux/hooks";
+import { allIsSameFalse, editUser } from "redux/dataReducer";
+
 import { Button } from "styles/styled-components/Button";
 import { Container } from "styles/styled-components/Container";
 import { Div } from "styles/styled-components/Div";
 import { Span } from "styles/styled-components/Span";
-import Title from "components/Title";
 
 const Mypage = () => {
   const dispatch = useAppDispatch();

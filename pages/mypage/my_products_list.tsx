@@ -1,26 +1,23 @@
 import React, { useRef, useState, useEffect } from "react";
 import router from "next/router";
-import NavBar from "components/Nav_Bar";
-import { useAppDispatch, useAppSelector } from "redux/hooks";
 import Image from "next/image";
 import Link from "next/link";
+
+import NavBar from "components/Nav_Bar";
 import Skeleton from "components/Skeleton";
-import { editAllProdState } from "redux/prodReducer";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import Title from "components/Title";
+
+import { updateRecentProd } from "redux/etcReducer";
+import { useAppDispatch, useAppSelector } from "redux/hooks";
+
 import { Div } from "styles/styled-components/Div";
 import { Span } from "styles/styled-components/Span";
-import { Container } from "styles/styled-components/Container";
 import { Li } from "styles/styled-components/Li";
-import { updateRecentProd } from "redux/etcReducer";
 
 const MyProductsList = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [countProd, setCountProd] = useState<number>(0);
 
-  // Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?
-  // 해결못함
   const ref = useRef<HTMLUListElement>(null);
 
   const userData = useAppSelector((state) => state.userInfo);

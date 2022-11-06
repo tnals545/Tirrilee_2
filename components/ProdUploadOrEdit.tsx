@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import router from "next/router";
 import Image from "next/image";
+import Link from "next/link";
 
-import NavBar from "components/Nav_Bar";
 import store from "redux/store";
 import {
   addSeller,
@@ -12,24 +12,19 @@ import {
   addName,
   addPrice,
   addDescription,
-  isSameSeller,
   prodInfoReset,
   editAllProdState,
-  ProdState,
   addBeforeKey,
 } from "redux/prodReducer";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
-import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
 import { addProd, editProduct } from "redux/dataReducer";
+import { updateRecentProd } from "redux/etcReducer";
+
 import { Container } from "styles/styled-components/Container";
 import { Input, Textarea } from "styles/styled-components/Input";
 import { Div } from "styles/styled-components/Div";
 import { Button } from "styles/styled-components/Button";
 import { Span } from "styles/styled-components/Span";
-import { updateRecentProd } from "redux/etcReducer";
 
 interface propsType {
   work: string;

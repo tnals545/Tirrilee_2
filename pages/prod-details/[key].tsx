@@ -1,12 +1,15 @@
-import NavBar from "components/Nav_Bar";
-import Image from "next/image";
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "redux/hooks";
-import store from "redux/store";
+import Image from "next/image";
 import router from "next/router";
+
+import NavBar from "components/Nav_Bar";
 import Title from "components/Title";
 import IsDelete from "components/IsDelete";
-import { isDelete, updateRecentProd } from "redux/etcReducer";
+
+import { useAppDispatch, useAppSelector } from "redux/hooks";
+import store from "redux/store";
+import { isDelete } from "redux/etcReducer";
+
 import { Container } from "styles/styled-components/Container";
 import { Button } from "styles/styled-components/Button";
 import { Div } from "styles/styled-components/Div";

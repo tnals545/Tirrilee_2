@@ -1,10 +1,9 @@
-import Image from "next/image";
 import router from "next/router";
-import { useState, useEffect } from "react";
+
 import { delProd } from "redux/dataReducer";
 import { isDelete } from "redux/etcReducer";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
-import store from "redux/store";
+
 import { Button } from "styles/styled-components/Button";
 import { Container } from "styles/styled-components/Container";
 import { Div } from "styles/styled-components/Div";
