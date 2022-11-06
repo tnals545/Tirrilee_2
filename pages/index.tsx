@@ -70,8 +70,6 @@ const Login = () => {
       alert("아이디 또는 비밀번호를 입력해주세요 :)");
       e.preventDefault();
     }
-    console.log(emailList);
-    console.log(store.getState());
   };
 
   // 비밀번호 보기/숨기기
