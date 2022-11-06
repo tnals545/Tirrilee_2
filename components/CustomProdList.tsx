@@ -70,11 +70,7 @@ const CustomUl = (props: Props, ref: ForwardedRef<HTMLUListElement>) => {
                   <Span purpose="prodInfo" size="fontRegular" color="gray">
                     {prod.name}
                   </Span>
-                  <Span
-                    purpose="prodInfo"
-                    size="fontSemiMedium"
-                    className="price"
-                  >
+                  <Span purpose="prodInfo" size="fontSemiMedium" bold="800">
                     {prod.price}원
                   </Span>
                 </Div>

@@ -93,7 +93,13 @@ const Login = () => {
       <Title title="Login" />
       <Container page="login">
         <Div purpose="login" className="login__header">
-          <Image src="/tirrilee-logo.png" alt="logo" width={270} height={75} />
+          {/* <Image src="/tirrilee-logo.png" alt="logo" width={270} height={75} /> */}
+          <Span purpose="logo">
+            오늘의{" "}
+            <Span purpose="logo" color="blue">
+              숨
+            </Span>
+          </Span>
         </Div>
         <form>
           <Div purpose="login">

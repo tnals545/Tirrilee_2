@@ -14,6 +14,15 @@ interface StyledPropsType {
 }
 
 const PURPOSE: StyleType = {
+  logo: css`
+    font-family: "Gowun Batang", serif;
+    font-size: 70px;
+  `,
+  logoNavbar: css`
+    font-family: "Gowun Batang", serif;
+    font-size: 30px;
+    cursor: pointer;
+  `,
   menu: css`
     display: flex;
     justify-content: center;
@@ -69,7 +78,7 @@ export const Span = styled.span<StyledPropsType>`
     display: flex;
     justify-content: center;
     align-items: center;
-    top: 310px;
+    top: 320px;
     left: 330px;
 
     cursor: pointer;

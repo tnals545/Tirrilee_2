@@ -16,7 +16,7 @@ const NavBar = ({ menu }: Props) => {
   return (
     <Div purpose="navBar">
       <div>
-        <Image
+        {/* <Image
           onClick={() => {
             if (store.getState().userInfo.isLogin) {
               router.push("/prod-list/전체");
@@ -28,7 +28,22 @@ const NavBar = ({ menu }: Props) => {
           alt="logo"
           width={106}
           height={30}
-        />
+        /> */}
+        <Span
+          onClick={() => {
+            if (store.getState().userInfo.isLogin) {
+              router.push("/prod-list/전체");
+            } else {
+              router.push("/");
+            }
+          }}
+          purpose="logoNavbar"
+        >
+          오늘의{" "}
+          <Span purpose="logoNavbar" color="blue">
+            숨
+          </Span>
+        </Span>
       </div>
       <div>
         <Span
