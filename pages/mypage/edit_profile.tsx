@@ -6,7 +6,7 @@ import Link from "next/link";
 import NavBar from "components/Nav_Bar";
 import Title from "components/Title";
 
-import { addNickName, editProfileImg, UserInfoState } from "redux/userReducer";
+import { addNickName, editProfileImg } from "redux/userReducer";
 import store from "redux/store";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
 import { editUser } from "redux/dataReducer";
